@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+p.carousel-status {
+  display: none !important
+  ;
+}
+
+@media (max-width: 320px) {
+  /* Styles for small phones */
+  .image1 {
+    color: transparent;
+    position: absolute;
+    top: -37px;
+    right: 35px;
+    z-index: 1;
+    width: 23%;
+  }
+  .image2 {
+    color: transparent;
+    position: absolute;
+    top: -29px;
+    left: 42px;
+    z-index: 1;
+    width: 23%;
+  }
+
+  .image3 {
+    position: absolute;
+    top: 179px;
+    right: 137px;
+    z-index: 1;
+    width: 23%;
+  }
+  .image4 {
+    position: absolute;
+    top: 180px;
+    right: 36px;
+    z-index: 1;
+    transform: rotate(256deg);
+    width: 23%;
+}
+}
+
+@media (max-width: 360px) {
+  /* Styles for standard phones */
+  .carousal-image {
+    height: auto;
+  }
+
+  .image1 {
+    color: transparent;
+    position: absolute;
+    top: -37px;
+    right: 35px;
+    z-index: 1;
+    width: 23%;
+  }
+  .image2 {
+    color: transparent;
+    position: absolute;
+    top: -29px;
+    left: 42px;
+    z-index: 1;
+    width: 23%;
+  }
+
+  .image3 {
+    position: absolute;
+    top: 179px;
+    right: 137px;
+    z-index: 1;
+    width: 23%;
+  }
+  .image4 {
+    position: absolute;
+    top: 180px;
+    right: 36px;
+    z-index: 1;
+    transform: rotate(256deg);
+    width: 23%;
+}
+}
+
+@media (min-width: 361px) and (max-width: 480px)  {
+  /* Styles for larger phones */
+  .image1 {
+    color: transparent;
+    position: absolute;
+    top: -37px;
+    right: 35px;
+    z-index: 1;
+    width: 23%;
+  }
+  .image2 {
+    color: transparent;
+    position: absolute;
+    top: -29px;
+    left: 42px;
+    z-index: 1;
+    width: 23%;
+  }
+
+  .image3 {
+    position: absolute;
+    top: 199px;
+    right: 172px;
+    z-index: 1;
+    width: 23%;
+  }
+  .image4 {
+    position: absolute;
+    top: 201px;
+    right: 36px;
+    z-index: 1;
+    transform: rotate(256deg);
+    width: 23%;
+}
+}
+
+@media (max-width: 576px) {
+  /* Styles for small devices */
+}
+
+@media (min-width: 768px) {
+  /* Styles for tablets */
+  .carousal-image {
+    height: auto;
+  }
+  .image1 {
+    position: absolute;
+    top: -55px;
+    right: 61px;
+    z-index: 1;
+  }
+  .image2 {
+    position: absolute;
+    top: -59px;
+    right: 380px;
+    z-index: 1;
+  }
+
+  .image3 {
+    position: absolute;
+    top: 457px;
+    right: 385px;
+    z-index: 1;
+  }
+
+  .image4 {
+    top: 448px;
+    right: 58px;
+    position: absolute;
+    z-index: 1;
+    transform: rotate(256deg);
+  }
+}
+
+@media (min-width: 992px) {
+  /* Styles for small laptops */
+  .carousal-image {
+    height: 99vh;
+  }
+
+  .image1 {
+    position: absolute;
+    top: -56px;
+    right: 45px;
+    z-index: 1;
+    width: 15%;
+  }
+  .image2 {
+    position: absolute;
+    top: -49px;
+    left: 83px;
+    z-index: 1;
+    width: 17%;
+  }
+
+  .image3 {
+    position: absolute;
+    top: 293px;
+    right: 378px;
+    z-index: 1;
+    width: 17%;
+  }
+  .image4 {
+    position: absolute;
+    top: 296px;
+    right: 36px;
+    z-index: 1;
+    transform: rotate(256deg);
+    width: 17%;
+  }
+}
+
+button.control-arrow.control-next {
+  display: none;
+}
+
+button.control-arrow.control-prev {
+  display: none;
+}
+
+.carousel-title {
+  font-size: 3.5rem;
+}
+
+@media (max-width: 600px) {
+  .carousel-title {
+    font-size: 1.5rem;
+  }
+  /* .image1 {
+    color: transparent;
+    position: absolute;
+    top: -37px;
+    right: 35px;
+    z-index: 1;
+    width: 23%;
+  }
+  .image2 {
+    color: transparent;
+    position: absolute;
+    top: -29px;
+    left: 42px;
+    z-index: 1;
+    width: 23%;
+  }
+
+  .image3 {
+    position: absolute;
+    top: 179px;
+    right: 137px;
+    z-index: 1;
+    width: 23%;
+  }
+  .image4 {
+    position: absolute;
+    top: 180px;
+    right: 36px;
+    z-index: 1;
+    transform: rotate(256deg);
+    width: 23%;
+} */
+}
