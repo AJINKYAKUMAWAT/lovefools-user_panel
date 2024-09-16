@@ -91,7 +91,7 @@ const Testimonial = () => {
             sx={{ border: "1px solid black", width: "15%", marginLeft: "10px" }}
           />
         </Typography>{" "}
-        <Typography textAlign="center">
+        <Typography textAlign="center" sx={{fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}>
           What they&apos;re saying about us
         </Typography>
       </Box>

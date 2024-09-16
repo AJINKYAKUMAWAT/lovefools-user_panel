@@ -117,7 +117,7 @@ const Events = () => {
             sx={{ border: "1px solid black", width: "15%", marginLeft: "10px" }}
           />
         </Typography>{" "}
-        <Typography textAlign="center">
+        <Typography textAlign="center" sx={{fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum unde
           sunt et earum. Explicabo doloribus quibusdam accusamus unde sed nulla
           nisi nihil, illum quis, commodi sequi sit. Totam, adipisci reiciendis.
@@ -148,6 +148,7 @@ const Events = () => {
       <Button
         variant="contained"
         style={{
+          fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
           marginTop: 50,
           textTransform: "capitalize",
           borderRadius: 50,

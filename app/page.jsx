@@ -12,8 +12,8 @@ import AboutUs from "@/components/about/AboutUs";
 import Events from "@/components/events/Events";
 import Gallery from "@/components/gallery/Gallery";
 import Testimonial from "@/components/testimonial/Testimonial";
-import Footer from "@/components/footer/Footer";
-import Footer2 from "@/components/footer/Footer2";
+import Contact from "@/components/contact/Contact";
+import Footer from "@/components/footer/Footer2";
 
 const page = () => {
   var items = [
@@ -69,8 +69,8 @@ const page = () => {
       <Events />
       <Gallery />
       <Testimonial />
+      <Contact />
       <Footer />
-      <Footer2 />
     </Box>
   );
 };

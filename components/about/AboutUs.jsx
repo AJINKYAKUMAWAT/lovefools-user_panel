@@ -41,7 +41,7 @@ const AboutUs = () => {
           >
             About Us
           </Typography>
-          <Typography>
+          <Typography sx={{fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum
             ad quas quasi quam porro excepturi necessitatibus cumque, saepe
             nulla veritatis dolorum velit optio impedit consequatur obcaecati ut
@@ -62,6 +62,7 @@ const AboutUs = () => {
               textTransform: "capitalize",
               borderRadius: 50,
               background: "#ED1C24",
+              fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
             }}
           >
             Read More

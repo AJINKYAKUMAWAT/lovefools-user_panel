@@ -22,7 +22,7 @@ const Footer2 = () => {
         <Grid container spacing={2}>
           <Grid item xs={12} md={6} padding={2} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
             <Image src={logo} width={150} height={50} alt="Company Logo" />
-            <Typography sx={{ color:'#494646c7', marginTop: '10px' }}>
+            <Typography sx={{ color:'#494646c7', marginTop: '10px',fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif"  }}>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, asperiores!
             </Typography>
           </Grid>
@@ -47,7 +47,8 @@ const Footer2 = () => {
                   sx={{ 
                     color: index === 0 ? '#ED1C24' : '#000', 
                     fontSize: { xs: '1rem', md: '1.1rem' }, // Responsive font size
-                    cursor: 'pointer' // Optional: Makes the nav items clickable
+                    cursor: 'pointer', // Optional: Makes the nav items clickable
+                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
                   }}
                 >
                   {i}
@@ -59,7 +60,7 @@ const Footer2 = () => {
         <Divider sx={{ marginY: '16px' }} />
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={7} sx={{ textAlign: { xs: 'center', md: 'right' } }}>
-            <Typography className='py-4 text-sm' sx={{ fontSize: { xs: '0.8rem', md: '1rem' } }}>
+            <Typography className='py-4 text-sm' sx={{ fontSize: { xs: '0.8rem', md: '1rem' },fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif"  }}>
               © 2024 Lovefools. All Rights Reserved.
             </Typography>
           </Grid>

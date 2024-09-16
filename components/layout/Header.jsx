@@ -79,7 +79,7 @@ export default function Header(props) {
         {navItems.map((item, index) => (
           <ListItem key={index} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+              <ListItemText primary={item} sx={{fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -146,6 +146,7 @@ export default function Header(props) {
                   <Typography
                     variant="body1"
                     sx={{
+                      fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
                       textTransform: "capitalize",
                       color: index === 0 ? "#ED1C24" : "#fff",
                       fontWeight:index===0 ? '700':'500'
@@ -157,7 +158,7 @@ export default function Header(props) {
               ))}
               <Button
                 variant="contained"
-                sx={{ background: "#ED1C24", borderRadius: "20px" }}
+                sx={{ background: "#ED1C24", borderRadius: "20px",fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif"  }}
               >
                 Book Table
               </Button>

@@ -4,12 +4,10 @@ import { Box, Button, Grid } from "@mui/material";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
 import Textarea from "@mui/joy/Textarea";
 import { Email, Person, PhoneAndroid } from "@mui/icons-material";
-import Footer2 from "./Footer2";
 
-const Footer = () => {
+const Contact = () => {
   return (
     <Box
       sx={{
@@ -99,6 +97,7 @@ const Footer = () => {
                   fontWeight: "700",
                   paddingBottom: "7px",
                   fontSize: { xs: "1.4rem", md: "1.6rem" }, // Responsive font size
+                  fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
                 }}
               >
                 Contact Us
@@ -118,6 +117,7 @@ const Footer = () => {
                     width: { xs: "90%", md: "100%" }, // Responsive width
                     background: "#fff",
                     borderRadius: "15px",
+                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
                   }}
                   placeholder="Name"
                   startAdornment={
@@ -135,6 +135,7 @@ const Footer = () => {
                     width: { xs: "90%", md: "100%" }, // Responsive width
                     background: "#fff",
                     borderRadius: "15px",
+                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
                   }}
                   placeholder="Mobile No"
                   startAdornment={
@@ -152,6 +153,7 @@ const Footer = () => {
                     width: { xs: "90%", md: "100%" }, // Responsive width
                     background: "#fff",
                     borderRadius: "15px",
+                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
                   }}
                   placeholder="Email ID"
                   startAdornment={
@@ -170,6 +172,7 @@ const Footer = () => {
                     width: { xs: "90%", md: "100%" }, // Responsive width
                     background: "#fff",
                     borderRadius: "15px",
+                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
                   }}
                 />
               </Box>
@@ -180,6 +183,7 @@ const Footer = () => {
                   width: { xs: "90%", md: "auto" }, // Full width on mobile
                   borderRadius: "20px",
                   background: "#ED1C24",
+                  fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
                 }}
               >
                 Submit
@@ -192,4 +196,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Contact;

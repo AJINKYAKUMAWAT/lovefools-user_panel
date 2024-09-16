@@ -112,12 +112,12 @@ const Gallery = () => {
               marginRight: "10px",
             }}
           />
-          <Box sx={{ padding: "0 10px" }}>Gallery</Box>
+          <Box sx={{ padding: "0 10px" ,fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}>Gallery</Box>
           <Box
             sx={{ border: "1px solid black", width: "15%", marginLeft: "10px" }}
           />
         </Typography>{" "}
-        <Typography textAlign="center">
+        <Typography textAlign="center" sx={{fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}>
           Some photos from Our Restaurant
         </Typography>
         <Box sx={{ display: "flex" }} gap={2}>
@@ -129,6 +129,7 @@ const Gallery = () => {
               borderRadius: 50,
               background: "#ED1C24",
               height: "36px",
+              fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
             }}
           >
             Photo
@@ -141,6 +142,7 @@ const Gallery = () => {
               borderRadius: 50,
               background: "#ED1C24",
               height: "36px",
+              fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
             }}
           >
             Video
@@ -176,6 +178,7 @@ const Gallery = () => {
           textTransform: "capitalize",
           borderRadius: 50,
           background: "#ED1C24",
+          fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
         }}
       >
         View More
