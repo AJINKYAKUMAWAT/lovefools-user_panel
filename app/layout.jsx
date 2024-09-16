@@ -1,4 +1,11 @@
 import Header from "@/components/layout/index";
+import { Inter } from 'next/font/google'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter', // Optional, custom CSS variable
+});
+
 
 export default function RootLayout({ children }) {
   return (
@@ -23,7 +30,7 @@ export default function RootLayout({ children }) {
           content='https://lovefools.com/'
         />
       </head>
-      <body>
+      <body className={inter.className}>
         <Header />
         {children}
       </body>

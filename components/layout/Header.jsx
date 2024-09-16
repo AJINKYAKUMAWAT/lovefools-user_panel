@@ -28,8 +28,6 @@ const navItems = [
   "Gallery",
   "Testimonial",
   "Contact us",
-  "Login",
-  "Registration",
 ];
 
 export default function Header(props) {
@@ -74,7 +72,7 @@ export default function Header(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2, display:'flex',alignItems:'center',justifyContent:'center'  }}>
-      <Image src={logo1} alt="" style={{width:'72%'}} />
+      <Image src={logo1} alt="" style={{width:'55%'}} />
       </Typography>
       <Divider />
       <List>
@@ -121,29 +119,9 @@ export default function Header(props) {
                 width: "100%",
               }}
             >
-              <Image src={logo} alt="" style={{width:'72%'}} />
+              <Image src={logo} alt="" style={{width:'55%'}} />
             </Typography>
-            <Typography
-              sx={{
-                display: { xs: "flex", md: "none", sm: "none", lg: "none" },
-                alignItems: "center",
-                justifyContent: "right",
-                width: "100%",
-              }}
-            >
-              <Button
-                sx={{ fontSize: "12px", color: "#fff" }}
-                className="header-font"
-              >
-                Login
-              </Button>
-              <Button
-                sx={{ fontSize: "12px", color: "#fff" }}
-                className="header-font"
-              >
-                Register
-              </Button>
-            </Typography>
+          
             <Typography
               variant="h6"
               component="div"
