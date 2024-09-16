@@ -37,7 +37,7 @@ const AboutUs = () => {
         >
           <Typography
             variant="h4"
-            style={{ fontWeight: "700", marginBottom: "10px",fontFamily: "Inter, sans-serif" }}
+            style={{ fontWeight: "700", marginBottom: "10px",fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}
           >
             About Us
           </Typography>
