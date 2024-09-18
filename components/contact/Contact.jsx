@@ -97,7 +97,8 @@ const Contact = () => {
                   fontWeight: "700",
                   paddingBottom: "7px",
                   fontSize: { xs: "1.4rem", md: "1.6rem" }, // Responsive font size
-                  fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
+                  fontFamily:
+                    "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
                 }}
               >
                 Contact Us
@@ -117,7 +118,8 @@ const Contact = () => {
                     width: { xs: "90%", md: "100%" }, // Responsive width
                     background: "#fff",
                     borderRadius: "15px",
-                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
+                    fontFamily:
+                      "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
                   }}
                   placeholder="Name"
                   startAdornment={
@@ -135,7 +137,8 @@ const Contact = () => {
                     width: { xs: "90%", md: "100%" }, // Responsive width
                     background: "#fff",
                     borderRadius: "15px",
-                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
+                    fontFamily:
+                      "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
                   }}
                   placeholder="Mobile No"
                   startAdornment={
@@ -153,7 +156,8 @@ const Contact = () => {
                     width: { xs: "90%", md: "100%" }, // Responsive width
                     background: "#fff",
                     borderRadius: "15px",
-                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
+                    fontFamily:
+                      "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
                   }}
                   placeholder="Email ID"
                   startAdornment={
@@ -172,7 +176,8 @@ const Contact = () => {
                     width: { xs: "90%", md: "100%" }, // Responsive width
                     background: "#fff",
                     borderRadius: "15px",
-                    fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
+                    fontFamily:
+                      "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
                   }}
                 />
               </Box>
@@ -183,7 +188,10 @@ const Contact = () => {
                   width: { xs: "90%", md: "auto" }, // Full width on mobile
                   borderRadius: "20px",
                   background: "#ED1C24",
-                  fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
+                  fontFamily:
+                    "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
+                  letterSpacing: "0.2rem",
+                  marginLeft:{xs:"1.2rem",md:"1.2rem",lg:"0"}
                 }}
               >
                 Submit

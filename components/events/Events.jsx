@@ -153,6 +153,7 @@ const Events = () => {
           textTransform: "capitalize",
           borderRadius: 50,
           background: "#ED1C24",
+          letterSpacing:'0.2rem'
         }}
       >
         View More

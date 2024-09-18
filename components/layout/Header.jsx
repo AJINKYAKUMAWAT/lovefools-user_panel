@@ -72,7 +72,7 @@ export default function Header(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2, display:'flex',alignItems:'center',justifyContent:'center'  }}>
-      <Image src={logo1} alt="" style={{width:'55%'}} />
+      <Image src={logo1} alt="" style={{width:'40%'}} />
       </Typography>
       <Divider />
       <List>
@@ -107,35 +107,35 @@ export default function Header(props) {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
+              sx={{ mr: 2, display: { md: "none" } }}
             >
               <MenuIcon />
             </IconButton>
             <Typography
               sx={{
-                display: { xs: "flex", md: "none", sm: "none", lg: "none" },
+                display: { xs: "flex", md: "none", sm: "flex", lg: "none" },
                 alignItems: "center",
                 justifyContent: "center",
                 width: "100%",
               }}
             >
-              <Image src={logo} alt="" style={{width:'55%'}} />
+              <Image src={logo} alt="" style={{width:'35%'}} />
             </Typography>
           
             <Typography
               variant="h6"
               component="div"
-              sx={{ display: { xs: "none", sm: "block" } }}
+              sx={{ display: { xs: "none", sm: "none" ,md:'block'} }}
             >
               <Image src={logo} alt="" width="150" />
             </Typography>
             <Box
               sx={{
-                display: { xs: "none", sm: "flex" },
+                display: { xs: "none",sm:'none', md: "flex" },
                 alignItems: "center",
                 justifyContent: "center",
                 width: "100%",
-                gap: 2,
+                gap: {sm:0,md:0,lg:2},
               }}
             >
               {navItems.map((item, index) => (
@@ -175,7 +175,7 @@ export default function Header(props) {
               keepMounted: true, // Better open performance on mobile.
             }}
             sx={{
-              display: { xs: "block", sm: "none" },
+              display: { xs: "block", sm: "block",md:'none' },
               "& .MuiDrawer-paper": {
                 boxSizing: "border-box",
                 width: drawerWidth,

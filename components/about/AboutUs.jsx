@@ -62,7 +62,8 @@ const AboutUs = () => {
               textTransform: "capitalize",
               borderRadius: 50,
               background: "#ED1C24",
-              fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" 
+              fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" ,
+              letterSpacing:"0.2rem"
             }}
           >
             Read More

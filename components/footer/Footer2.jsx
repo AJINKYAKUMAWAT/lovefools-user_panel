@@ -30,7 +30,8 @@ const Footer2 = () => {
           <Grid
             item
             xs={12} 
-            md={6} 
+            md={12}
+            lg={6} 
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' }, // Stack items vertically on mobile, row on desktop
@@ -40,6 +41,7 @@ const Footer2 = () => {
               marginTop: { xs: '20px', md: '0px' } // Add margin on top for mobile
             }}
           >
+            
             {navItems.map((i, index) => {
               return (
                 <Typography 
