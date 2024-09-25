@@ -33,6 +33,9 @@ const page = () => {
       image: Image1,
     },
   ];
+
+  console.log(items);
+  
   return (
     <Box>
       <Carousel
