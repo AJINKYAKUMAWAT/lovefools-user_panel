@@ -1,20 +1,20 @@
+"use client";
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Button, Container, Grid, Modal } from "@mui/material";
 import Image1 from "../../assets/images/testimonial.png";
 import Image from "next/image";
 import Slider from "react-slick";
-
+import quoteIcon from "../../assets/images/quotation.svg";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import axiosInstance from "@/utils/axios";
+import { API_ENDPOINT } from "@/utils/constant";
+import { AuthContextProvider } from "@/authcontext/AuthContext";
+import avatar from "../../assets/images/avatar.svg";
+import doubleQuate  from "../../assets/images/double-quate.svg";
 const Item = [
-  { image: Image1 },
-  { image: Image1 },
-  { image: Image1 },
-  { image: Image1 },
-  { image: Image1 },
-  { image: Image1 },
-  { image: Image1 },
   { image: Image1 },
   { image: Image1 },
   { image: Image1 },
@@ -40,88 +40,195 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
 }));
 
 const Testimonial = () => {
+  const [testimonialList, setTestimonialList] = React.useState([]);
+  const { id } = React.useContext(AuthContextProvider);
+
+  const getTestimonials = async () => {
+    try {
+      const response = await axiosInstance.post(
+        API_ENDPOINT.GET_TESTIMONIAL_LIST
+      );
+      return setTestimonialList(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    getTestimonials();
+  }, []);
   var settings = {
+    dots: testimonialList.length > 3 ? true : true,
+    infinite: true,
+    arrows:false,
+    speed: 500,
+    slidesToShow: 3, // Show 3 slides by default
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024, // For medium devices like tablets
+        settings: {
+          slidesToShow: 3, // Show 3 slides
+        },
+      },
+      {
+        breakpoint: 768, // For smaller devices like smartphones
+        settings: {
+          slidesToShow: 2, // Show 2 slides
+        },
+      },
+      {
+        breakpoint: 480, // For very small devices
+        settings: {
+          slidesToShow: 1, // Show 1 slide
+        },
+      },
+    ],
+  };
+  var settings2 = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 2, // Show 3 slides by default
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024, // For medium devices like tablets
+        settings: {
+          slidesToShow: 3, // Show 3 slides
+        },
+      },
+      {
+        breakpoint: 768, // For smaller devices like smartphones
+        settings: {
+          slidesToShow: 2, // Show 2 slides
+        },
+      },
+      {
+        breakpoint: 480, // For very small devices
+        settings: {
+          slidesToShow: 1, // Show 1 slide
+        },
+      },
+    ],
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        paddingBottom: "50px",
-        background: "#D4BA97",
-      }}
-    >
-      <Box
-        sx={{
-          width: "70%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          padding: "15px",
-        }}
-      >
-        <Typography
-          variant="h4"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "20px 0",
-            width: "100%",
-          }}
-        >
-          <Box
-            sx={{
-              border: "1px solid black",
-              width: "15%",
-              marginRight: "10px",
-            }}
-          />
-          <Box sx={{ padding: "0 10px" }}>Testimonial</Box>
-          <Box
-            sx={{ border: "1px solid black", width: "15%", marginLeft: "10px" }}
-          />
-        </Typography>{" "}
-        <Typography textAlign="center" sx={{fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}>
-          What they&apos;re saying about us
-        </Typography>
-      </Box>
-
-      <Box sx={{ width: { xs: "90%", md: "80%", lg: "70%" } }}>
-        <StyledSlider {...settings}>
-          {Item.map((i, index) => (
-            <Box key={index} sx={{ px: 2 }}>
-              {" "}
-              {/* Adding padding for each slide */}
-              <Card
-                sx={{
-                  maxWidth: 250,
-                  maxHeight: 320,
-                  margin: "auto",
-                  boxShadow: "none",
-                  background: "transparent",
-                }}
+    <section className="testimonial-section common-section" id="Testimonial">
+      <Container>
+        <Grid container>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+            <div className="info-wrap text-center">
+              <Typography
+                variant="h2"
+                className="common-heading-h2 center-line"
               >
+                <span> Testimonial</span>
+              </Typography>
+              <Typography variant="h3" className="common-heading-h3">
+                What they are saying about us
+              </Typography>
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={12} md={12} lg={12}>
+          <StyledSlider {...settings}>
+          {
+            Array.from({length:3}).map((i) =>{
+              return(
+                <div className="testimonial-card">
+                <div className="testimonial-img">
                 <Image
-                  src={i.image}
-                  alt={`Testimonial ${index + 1}`}
-                  style={{ width: "100%", height: "auto" }}
-                />
-              </Card>
-            </Box>
-          ))}
-        </StyledSlider>
-      </Box>
-    </Box>
+                            src={avatar} alt="avatar" />
+                  </div>
+                  <div className="testimonial-body">
+                  <Image
+                            src={doubleQuate} alt="double-quate" />
+                    <p className="p16">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, eum fugit consequuntur accusamus doloribus praesentium.
+                    </p>
+                  </div>
+                </div>
+              )
+            })
+          }
+</StyledSlider>
+        
+        
+          </Grid>
+        </Grid>
+      </Container>
+     
+     
+      {/* <Box
+        className="common-section" 
+      >
+        <Container className="about-container info-wrap content-center">
+          <Box 
+          >
+            <Box 
+            >
+              <Box 
+              />
+              <Typography
+                variant="h4"
+                className="common-heading-h2" >
+                Testimonial
+              </Typography>
+
+              <Box 
+              />
+            </Box>{" "}
+            <Typography>What they&apos;re saying about us</Typography>
+          </Box>
+
+          <Box 
+          >
+            <StyledSlider {...settings}>
+              {testimonialList.map((i, index) => (
+                <Box key={index}  >
+                  {" "}
+                  <PermIdentityIcon 
+                  />
+                  <Card 
+                  >
+                    <Box 
+                    >
+                      <Image src={quoteIcon} alt={`Testimonial ${index + 1}`} />
+                      <Typography>
+                        {i.description.slice(0, 55)}
+                        {i.description.length > 55 ? "..." : ""}
+                      </Typography>
+                    </Box>
+                  </Card>
+                </Box>
+              ))}
+            </StyledSlider>
+          </Box>
+          <Box 
+          >
+            <StyledSlider {...settings2}>
+              {testimonialList.map((i, index) => (
+                <Box key={index}  >
+                  {" "}
+                  <PermIdentityIcon 
+                  />
+                  <Card 
+                  >
+                    <Box 
+                    >
+                      <Image src={quoteIcon} alt={`Testimonial ${index + 1}`} />
+                      <Typography>
+                        {i.description.slice(0, 55)}
+                        {i.description.length > 55 ? "..." : ""}
+                      </Typography>
+                    </Box>
+                  </Card>
+                </Box>
+              ))}
+            </StyledSlider>
+          </Box>
+        </Container>
+      </Box> */}
+    </section>
   );
 };
 

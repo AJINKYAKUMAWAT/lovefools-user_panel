@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import React from "react";
 import "./globals.css";
 import Image from "next/image";
-import Image1 from "../assets/images/restaurant-private-room-with-table-14-persons-wooden-ceiling-brick-walls-fireplace.png";
+import Image1 from "../assets/images/banner.png";
 import { Carousel } from "react-responsive-carousel";
 import { Box } from "@mui/material";
 import AboutUs from "@/components/about/AboutUs";
@@ -33,11 +33,8 @@ const page = () => {
       image: Image1,
     },
   ];
-
-  console.log(items);
-  
   return (
-    <Box>
+    <Box className="home-banner-section">
       <Carousel
         showArrows={false}
         autoPlay={true}
@@ -49,19 +46,10 @@ const page = () => {
         {items.map((item,index) => {
           return (
             <div key={index}>
-              <p
-                style={{
-                  color: "#fff",
-                  position: "absolute",
-                  top: "42%",
-                  left: "42%",
-                }}
-              >
-                <span className="carousel-title">
+                <h2 className="carousel-title common-heading-h1">
                   <span style={{ fontWeight: "600" }}>{item.title1}</span>
                   <br /> {item.title2}
-                </span>
-              </p>
+                </h2>
 
               <Image src={item.image} className="carousal-image" />
             </div>

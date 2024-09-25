@@ -3,104 +3,82 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Container } from "@mui/material";
 import Image from "next/image";
 import Image2 from "../../assets/images/shef.png";
 import Image3 from "../../assets/images/image-1.png";
 import Image4 from "../../assets/images/image-2.png";
 import Image5 from "../../assets/images/image-3.png";
 import Image6 from "../../assets/images/image-4.png";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-  ...theme.applyStyles("dark", {
-    backgroundColor: "#1A2027",
-  }),
-}));
+import { AuthContextProvider } from "@/authcontext/AuthContext";
+import axios from "axios";
+import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 
 const AboutUs = () => {
-  return (
-    <Box sx={{ flexGrow: 1, marginBottom: "30px", padding: "20px" }}>
-      <Grid container spacing={2}>
-        {/* Text Section */}
-        <Grid
-          item
-          xs={12} // Full width on mobile
-          sm={12} // Full width on small devices
-          md={6} // Half width on medium devices
-          lg={6} // Half width on large devices
-          style={{ padding: "5%" }}
-        >
-          <Typography
-            variant="h4"
-            style={{ fontWeight: "700", marginBottom: "10px",fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}
-          >
-            About Us
-          </Typography>
-          <Typography sx={{fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum
-            ad quas quasi quam porro excepturi necessitatibus cumque, saepe
-            nulla veritatis dolorum velit optio impedit consequatur obcaecati ut
-            repellat eius delectus placeat maiores reprehenderit! Quaerat
-            accusantium debitis, eius praesentium dicta id, minus labore impedit
-            sunt nihil culpa blanditiis fugit quasi, voluptatibus numquam
-            molestias voluptatem? Velit doloribus magni totam ratione veritatis
-            doloremque hic, earum, recusandae laboriosam iusto odio eius minima
-            architecto dolores est illum ab officiis excepturi dignissimos
-            voluptates eos, placeat maxime ducimus! Possimus consectetur nostrum
-            odit quis velit impedit ducimus eum, illo fuga quasi sed
-            exercitationem eligendi quam totam iste! Eveniet.
-          </Typography>
-          <Button
-            variant="contained"
-            style={{
-              marginTop: 50,
-              textTransform: "capitalize",
-              borderRadius: 50,
-              background: "#ED1C24",
-              fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" ,
-              letterSpacing:"0.2rem"
-            }}
-          >
-            Read More
-          </Button>
-        </Grid>
+  const { id } = React.useContext(AuthContextProvider);
+  const [aboutUs, setAboutUs] = React.useState([]);
 
-        {/* Image Section */}
-        <Grid
-          item
-          xs={12} // Full width on mobile
-          sm={12} // Full width on small devices
-          md={6} // Half width on medium devices
-          lg={6} // Half width on large devices
-        >
-          <Box
-            sx={{
-              height: "100%",
-              position: "relative",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              top: "8%",
-              transform: { xs: "rotate(90deg)", lg: "rotate(90deg)" }, // Rotates both the background and image
-            }}
-          >
-            <Box
-              sx={{
-                height: { xs: "auto", md: "50vh" }, // Adjust height for different screen sizes
-                background: "#D4BA97",
-                width: "75%",
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                left: { md: "-44px" },
-              }}
+  const getAboutUs = async () => {
+    try {
+      const data = await axios.post(
+        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_CMS}`
+      );
+      console.log(data.data.data);
+      return setAboutUs(data.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    getAboutUs();
+  }, []);
+
+  return (
+    <section className="about-section common-section" id="About%20us">
+      <Container className="about-container">
+          <Grid container>
+            {/* Text Section */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+             
             >
+              <div className="info-wrap">
+                <Typography variant="h2" className="common-heading-h2">
+                  About Us
+                </Typography>
+                <p className="p16">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate eligendi odit, tempora minima exercitationem consequatur veniam pariatur distinctio velit et nisi maiores nulla soluta tenetur. Eos nam perferendis animi eligendi.</p>
+                <p className="p16">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate eligendi odit, tempora minima exercitationem consequatur veniam pariatur distinctio velit et nisi maiores nulla soluta tenetur. Eos nam perferendis animi eligendi.</p>
+               
+                {/* {aboutUs.map((i) => {
+                  return (
+                    <Typography variant="h4" className="p16">
+                      {i.section_Name === "About us" && i.description}
+                    </Typography>
+                  );
+                })} */}
+
+                <Button variant="contained" className="btn-primary mt40">
+                  Read More
+                </Button>
+              </div>
+            </Grid>
+
+            {/* Image Section */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              className="mobile-first-col"
+            >
+              {/* <Box >
+            <Box >
               <Image src={Image3} className="image1" />
               <Image src={Image4} className="image3" />
               <Image src={Image5} className="image4" />
@@ -108,19 +86,40 @@ const AboutUs = () => {
               <Image
                 src={Image2}
                 alt="About Us"
-                style={{
-                  maxWidth: "100%", // Ensures the image is responsive
-                  height: "auto",
-                  transform: "rotate(-90deg)", // Un-rotates the image inside the rotated container
-                  position: "relative",
-                  left: "5%",
-                }}
               />
             </Box>
-          </Box>
-        </Grid>
-      </Grid>
-    </Box>
+          </Box> */}
+              <div className="about-img-wrap">
+                <Image
+                  src={Image2}
+                  alt="about-img-base"
+                  className="about-img-base"
+                />
+                <Image
+                  src={Image4}
+                  alt="about-img1"
+                  className="about-abs about-img1"
+                />
+                <Image
+                  src={Image6}
+                  alt="about-img2"
+                  className="about-abs about-img2"
+                />
+                <Image
+                  src={Image5}
+                  alt="about-img3"
+                  className="about-abs about-img3"
+                />
+                <Image
+                  src={Image3}
+                  alt="about-img4"
+                  className="about-abs about-img4"
+                />
+              </div>
+            </Grid>
+          </Grid>
+      </Container>
+    </section>
   );
 };
 

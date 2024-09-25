@@ -17,13 +17,15 @@ import Button from "@mui/material/Button";
 import logo from "../../assets/images/logo.png";
 import logo1 from "../../assets/images/logo1.png";
 import Image from "next/image";
+import AboutUs from "../about/AboutUs";
+import { AuthContextProvider } from "@/authcontext/AuthContext";
 
 const drawerWidth = 240;
 const navItems = [
-  "Home",
+  // "Home",
   "About us",
-  "Receipt",
-  "History",
+  // "Receipt",
+  // "History",
   "Event",
   "Gallery",
   "Testimonial",
@@ -32,6 +34,7 @@ const navItems = [
 
 export default function Header(props) {
   const [scrolling, setScrolling] = React.useState(false);
+  const { id, setId } = React.useContext(AuthContextProvider);
 
   // const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -69,123 +72,101 @@ export default function Header(props) {
     };
   }, []);
 
+  console.log(id);
+  
+
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2, display:'flex',alignItems:'center',justifyContent:'center'  }}>
-      <Image src={logo1} alt="" style={{width:'40%'}} />
+    <Box onClick={handleDrawerToggle}>
+      <Typography
+        variant="h6" >
+        <Image src={logo1} alt="" />
       </Typography>
       <Divider />
       <List>
         {navItems.map((item, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} sx={{fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif" }} />
+            <ListItemButton 
+              onClick={() => setId(item)}
+            >
+              <a href={`#${id}`}>
+                <ListItemText
+                  primary={item}
+                />
+              </a>
             </ListItemButton>
           </ListItem>
         ))}
       </List>
     </Box>
   );
-
   const container =
     typeof window !== "undefined" ? () => window.document.body : undefined;
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar
-          component="nav"
-          sx={{
-            backgroundColor: scrolling ? "#122c29" : "transparent",
-            boxShadow: "none",
-          }}
-        >
-          <Toolbar sx={{ background: { xs: "#122c29", md: "transparent" } }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { md: "none" } }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              sx={{
-                display: { xs: "flex", md: "none", sm: "flex", lg: "none" },
-                alignItems: "center",
-                justifyContent: "center",
-                width: "100%",
-              }}
-            >
-              <Image src={logo} alt="" style={{width:'35%'}} />
-            </Typography>
-          
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ display: { xs: "none", sm: "none" ,md:'block'} }}
-            >
-              <Image src={logo} alt="" width="150" />
-            </Typography>
-            <Box
-              sx={{
-                display: { xs: "none",sm:'none', md: "flex" },
-                alignItems: "center",
-                justifyContent: "center",
-                width: "100%",
-                gap: {sm:0,md:0,lg:2},
-              }}
-            >
-              {navItems.map((item, index) => (
-                <Button
-                  key={index}
-                  sx={{ color: "#000", fontWeight: "600", marginLeft: "10px" }}
-                >
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif",
-                      textTransform: "capitalize",
-                      color: index === 0 ? "#ED1C24" : "#fff",
-                      fontWeight:index===0 ? '700':'500'
-                    }}
+      <header className="common-header">
+      <Box className="header-container">
+          <CssBaseline />
+          <AppBar
+            component="nav" className="common-nav">
+            <Toolbar>
+             
+              <Typography >
+                <Image src={logo} alt=""/>
+              </Typography>
+
+              <Box className="common-nav-inner">
+                {navItems.map((item, index) => (
+                  <Button
+                    key={index} 
+                    onClick={() => setId(item)}
                   >
-                    {item}
-                  </Typography>
+                    <a href={`#${id}`}>
+                      <Typography
+                        variant="body1"
+                      >
+                        {item}
+                      </Typography>
+                    </a>
+                  </Button>
+                ))}
+                <Button
+                  variant="contained" className="btn-primary btn-sm"
+                >
+                  Book Table
                 </Button>
-              ))}
-              <Button
-                variant="contained"
-                sx={{ background: "#ED1C24", borderRadius: "20px",fontFamily: "__Inter_36bd41,__Inter_Fallback_36bd41, sans-serif"  }}
+              </Box>
+
+              <IconButton
+              className="mobile-menu-btn"
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
               >
-                Book Table
-              </Button>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <nav>
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: "block", sm: "block",md:'none' },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth,
-              },
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </nav>
-      </Box>
+                <MenuIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <nav>
+            <Drawer
+              container={container}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              className="common-header-drawer"
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }} 
+            >
+              <div className="common-header-inner">
+              {drawer}
+
+              </div>
+            </Drawer>
+          </nav>
+        </Box>
+      </header>
     </>
   );
 }
