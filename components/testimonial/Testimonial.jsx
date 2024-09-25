@@ -133,9 +133,9 @@ const Testimonial = () => {
           <Grid item xs={12} sm={12} md={12} lg={12}>
           <StyledSlider {...settings}>
           {
-            Array.from({length:3}).map((i) =>{
+            Array.from({length:3}).map((i,index) =>{
               return(
-                <div className="testimonial-card">
+                <div className="testimonial-card" key={index}>
                 <div className="testimonial-img">
                 <Image
                             src={avatar} alt="avatar" />
