@@ -78,6 +78,9 @@
       margin-left: 10px;
       p, a{
         color: $white;
+        margin-bottom: 0;
+        font-size: 14px;
+        line-height: normal;
       }
     }
   }
@@ -471,5 +474,9 @@
 .common-footer {
   background-color: $bg-page;
   padding: 47px 0;
+}
+
+.testimonial-section {
+  background: #d4ba97;
 }
 }

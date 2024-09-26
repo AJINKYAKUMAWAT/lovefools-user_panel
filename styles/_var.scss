@@ -59,7 +59,6 @@
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 $black: #000000;
 $red: #ed1c24;
@@ -71,11 +70,11 @@ $bg-page: #D4BA97;
 :root {
   --background: $white;
   --foreground: #171717;
-  --font-inter: "Inter", sans-serif;
+  --font-inter: "Inter", sans-serif !important;
 }
 
 body,
-html,
+html,button,a,h1,h2,h3,h4,h5,h6,div
 *,
 p {
   font-family: "Inter", sans-serif !important;
