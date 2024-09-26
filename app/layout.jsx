@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useEffect } from "react";
-import "./styles/globals.css";
+import "../styles/globals.css";
 
 
 const inter = Inter({
