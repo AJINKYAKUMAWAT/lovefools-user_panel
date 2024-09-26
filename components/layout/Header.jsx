@@ -112,7 +112,7 @@ export default function Header(props) {
             <Toolbar>
              
               <Typography >
-                <Image src={logo} alt=""/>
+                <Image src={logo} alt="lovefools" className="logo-img"/>
               </Typography>
 
               <Box className="common-nav-inner">
