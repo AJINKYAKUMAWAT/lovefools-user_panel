@@ -36,11 +36,11 @@ export default function RootLayout({ children }) {
         <meta property="og:url" content="https://lovefools-user-panel.vercel.app/" />
         <meta
           property="og:image"
-          content={`https://lovefools-user-panel.vercel.app/${ogImage}`}
+          content={`https://lovefools-user-panel.vercel.app/assets/images/og-tag.jpg`}
         />
         <meta
           property="og:image:secure_url"
-          content={`https://lovefools-user-panel.vercel.app/${ogImage}`}
+          content={`https://lovefools-user-panel.vercel.app/assets/images/og-tag.jpg`}
         />
         <meta property="og:image:alt" content="LoveFools" />
         <meta property="og:image:type" content="image/svg" />
@@ -52,14 +52,14 @@ export default function RootLayout({ children }) {
         />
         <meta
           name="twitter:image"
-          content={`https://lovefools-user-panel.vercel.app/${ogImage}`}
+          content={`https://lovefools-user-panel.vercel.app/assets/images/og-tag.jpg`}
         />
         <meta
           name="twitter:image:secure_url"
-          content={`https://lovefools-user-panel.vercel.app/${ogImage}`}
+          content={`https://lovefools-user-panel.vercel.app/assets/images/og-tag.jpg`}
         />
       </head>
-      <body className={inter.className}>
+      <body className="lovefools-body">
         <AuthContext>
           <Header />
         </AuthContext>

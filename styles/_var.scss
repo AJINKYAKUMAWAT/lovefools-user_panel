@@ -86,7 +86,7 @@ body,
 html {
   background: $bg-page;
 }
-
+.lovefools-body{
 .st {
   transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
@@ -354,4 +354,5 @@ p {
   @include xs {
     order: -1;
   }
+}
 }
