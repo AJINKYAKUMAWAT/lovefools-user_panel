@@ -134,7 +134,9 @@ html {
 .error {
   color: red;
   font-weight: 700;
-  padding: 2px
+  padding: 2px;
+    margin-top: -20px;
+    margin-bottom: 10px;
 }
 
 /* new section */
@@ -245,6 +247,7 @@ p {
   height: 50px;
   min-width: 223px;
   font-size: 16px;
+  color: $white;
 }
 
 .btn-secondary {

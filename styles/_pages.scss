@@ -317,6 +317,7 @@
 
 
 .testimonial-section {
+  background: #d4ba97;
   .center-line span {
     background-color: $bg-page;
   }
@@ -421,6 +422,9 @@
       min-height: 583px;
       border: 3px solid $bg-page;
       border-radius: 25px;
+      @include xs{
+        height: 350px;
+      }
     }
 
   }
@@ -476,7 +480,4 @@
   padding: 47px 0;
 }
 
-.testimonial-section {
-  background: #d4ba97;
-}
 }
