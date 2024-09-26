@@ -3,7 +3,7 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import {
   API_ENDPOINT,
   ERROR_MESSAGES,
-  MAX_RETRIES,
+  
   NEXT_PUBLIC_API_URL,
 } from './constant';
 
@@ -47,7 +47,6 @@ axiosInstance.interceptors.response.use(
 
     if (
       error.response?.status === 401 &&
-      retryCount < MAX_RETRIES &&
       error.response.config.url &&
       !error.response.config.url.includes('login')
     ) {
