@@ -74,7 +74,7 @@ $bg-page: #D4BA97;
 }
 
 body,
-html,button,a,h1,h2,h3,h4,h5,h6,div
+html,
 *,
 p {
   font-family: "Inter", sans-serif !important;
@@ -86,6 +86,12 @@ html {
   background: $bg-page;
 }
 .lovefools-body{
+  button,a,h1,h2,h3,h4,h5,h6,div,p,*
+{
+  font-family: "Inter", sans-serif !important;
+  color: $black;
+}
+
 .st {
   transition: all 0.2s linear;
   -webkit-transition: all 0.2s linear;
