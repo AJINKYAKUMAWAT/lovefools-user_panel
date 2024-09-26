@@ -269,6 +269,9 @@ p {
 .btn-sm {
   min-width: 150px;
   height: 40px;
+  @include xs{
+    min-width: 120px;
+  }
 }
 
 
