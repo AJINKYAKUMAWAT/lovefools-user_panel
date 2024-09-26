@@ -3,7 +3,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "../styles/main.css";
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import React from "react";
 import Image from "next/image";
 import Image1 from "../assets/images/banner.png";
