@@ -1,24 +1,14 @@
+"use client";
 import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
-import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Box, Button, Divider, Grid, Container } from "@mui/material";
+import { Box, Button, Grid, Container, Modal } from "@mui/material";
 import Image7 from "../../assets/images/burger.jpg";
 import gallayIcon from "../../assets/images/gallay-icon.svg";
 import Image from "next/image";
 import axios from "axios";
 import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import { AuthContextProvider } from "@/authcontext/AuthContext";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Item = [
   {
@@ -134,8 +124,11 @@ const Item = [
 const Events = () => {
   const [view, setView] = React.useState(6);
   const [fileData, setFileData] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(null);
   const { id } = React.useContext(AuthContextProvider);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const handleView = () => {
     setView((view) => view + 3);
@@ -242,11 +235,17 @@ const Events = () => {
             </div>
           </Grid>
 
-          <Grid container item rowSpacing={3} spacing={3} className="event-grid">
+          <Grid
+            container
+            item
+            rowSpacing={3}
+            spacing={3}
+            className="event-grid"
+          >
             {Item?.slice(0, view).map((i, index) => {
               return (
                 <Grid key={index} item xs={12} sm={12} md={4} lg={4}>
-                  <Box className="event-card hover-img">
+                  <Box className="event-card hover-img" >
                     <Image
                       alt="Lovefools"
                       src={i.image}
@@ -267,7 +266,7 @@ const Events = () => {
                         <Typography className="p14">
                           {i.date}-{i.time}
                         </Typography>
-                        <Button className="read-more-btn">Read More</Button>
+                        <Button className="read-more-btn" onClick={handleOpen}>Read More</Button>
                       </div>
                     </div>
                   </Box>
@@ -293,6 +292,45 @@ const Events = () => {
           </Grid>
         </Grid>
       </Container>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        BackdropProps={{ style: { pointerEvents: 'none' } }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box className="event-modal"> 
+          <Grid container>
+          <Grid item xs={12}  sx={{display:{md:'none'}}}>
+            <CloseIcon className="close-icon" onClick={handleClose}/>
+
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <Box className="event-img-box" onClick={handleClose}>
+                <Image alt="Lovefools" src={Item[0].image} />
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box className="event-img-box">
+                <div className="event-body">
+                  <Typography variant="h3" className="common-heading-h3">
+                    {Item[0].name}
+                  </Typography>
+                  <div className="d-flex-time">
+                    <Typography className="p14">
+                      {Item[0].date}-{Item[0].time}
+                    </Typography>
+                  </div>
+                </div>
+              </Box>
+            </Grid>
+            <Grid item md={1} sx={{display:{xs:'none',md:'block'},cursor:'pointer'}}>
+            <CloseIcon className="close-icon" onClick={handleClose}/>
+
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
     </section>
   );
 };

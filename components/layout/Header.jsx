@@ -79,7 +79,7 @@ export default function Header(props) {
     <Box onClick={handleDrawerToggle}>
       <Typography
         variant="h6" >
-        <Image src={logo1} alt="" />
+        <Image src={logo1} alt="Lovefools" />
       </Typography>
       <Divider />
       <List>
@@ -100,7 +100,7 @@ export default function Header(props) {
     </Box>
   );
   const container =
-    typeof window !== "undefined" ? () => window.document.body : undefined;
+    typeof window !== "undefined" ? () => window.document.body : undefined;    
 
   return (
     <>
@@ -124,6 +124,7 @@ export default function Header(props) {
                     <a href={`#${id}`}>
                       <Typography
                         variant="body1"
+                        className={id===item ? "color-red": ""}
                       >
                         {item}
                       </Typography>

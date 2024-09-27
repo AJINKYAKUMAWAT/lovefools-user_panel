@@ -8,7 +8,7 @@ import React from "react";
 import Image from "next/image";
 import Image1 from "../assets/images/banner.png";
 import { Carousel } from "react-responsive-carousel";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import AboutUs from "@/components/about/AboutUs";
 import Events from "@/components/events/Events";
 import Gallery from "@/components/gallery/Gallery";
@@ -49,10 +49,12 @@ const page = () => {
             <div key={index}>
                 <h2 className="carousel-title common-heading-h1">
                   <span style={{ fontWeight: "600" }}>{item.title1}</span>
-                  <br /> {item.title2}
+                  <br /> {item.title2}<br/>
+                <Button variant="contained" className="btn-primary btn-sm">
+                  View More
+                </Button>
                 </h2>
-
-              <Image src={item.image} className="carousal-image" />
+              <Image src={item.image} className="carousal-image" alt="Lovefools" />
             </div>
           );
         })}

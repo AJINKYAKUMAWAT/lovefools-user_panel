@@ -1,114 +1,14 @@
+"use client";
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { Box, Button, Container, Grid, Modal } from "@mui/material";
-import Image1 from "../../assets/images/Post1.png";
-import Image2 from "../../assets/images/Post2.png";
-import Image3 from "../../assets/images/Post3.png";
-import Image4 from "../../assets/images/Post4.png";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import ReactPlayer from "react-player";
 import Image from "next/image";
-import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
+import { API_ENDPOINT, GalleryImage, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import axios from "axios";
 import { AuthContextProvider } from "@/authcontext/AuthContext";
-
-const Item = [
-  {
-    id: 1,
-    image: Image1,
-  },
-  {
-    id: 2,
-    image: Image2,
-  },
-  {
-    id: 3,
-    image: Image3,
-  },
-  {
-    id: 4,
-    image: Image4,
-  },
-  {
-    id: 5,
-    image: Image1,
-  },
-  {
-    id: 6,
-    image: Image2,
-  },
-  {
-    id: 7,
-    image: Image3,
-  },
-  {
-    id: 8,
-    image: Image4,
-  },
-  {
-    id: 9,
-    image: Image1,
-  },
-  {
-    id: 10,
-    image: Image2,
-  },
-  {
-    id: 11,
-    image: Image3,
-  },
-  {
-    id: 12,
-    image: Image4,
-  },
-  {
-    id: 13,
-    image: Image2,
-  },
-  {
-    id: 14,
-    image: Image3,
-  },
-  {
-    id: 15,
-    image: Image4,
-  },
-  {
-    id: 16,
-    image: Image1,
-  },
-  {
-    id: 17,
-    image: Image2,
-  },
-  {
-    id: 18,
-    image: Image3,
-  },
-  {
-    id: 19,
-    image: Image4,
-  },
-  {
-    id: 20,
-    image: Image1,
-  },
-  {
-    id: 21,
-    image: Image2,
-  },
-  {
-    id: 22,
-    image: Image3,
-  },
-  {
-    id: 23,
-    image: Image4,
-  },
-];
 
 const Gallery = () => {
   const [video, setVideo] = React.useState(false);
@@ -121,10 +21,14 @@ const Gallery = () => {
   const [fileData, setFileData] = React.useState(null);
   const [url, setUrl] = React.useState("");
   const { id } = React.useContext(AuthContextProvider);
+  const [error, setError] = React.useState("");
 
   const handleView = () => {
     setView((view) => view + 4);
   };
+
+const Styles = video ? "gallery-video" : "gallery-img"
+
 
   const getGallery = () => {
     try {
@@ -195,7 +99,7 @@ const Gallery = () => {
 
   return (
     <section className="gallery-section common-section hover-img" id="Gallery">
-        <Container>
+      <Container>
         <Grid container>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <div className="info-wrap text-center">
@@ -206,101 +110,91 @@ const Gallery = () => {
                 <span> Gallery Events</span>
               </Typography>
               <Typography variant="h3" className="common-heading-h3">
-              Some photos from Our Restaurant
+                Some photos from Our Restaurant
               </Typography>
 
               <div className="filter-btn-wrap">
-              <Button
-                onClick={() => {
-                  setPhoto(true);
-                  setVideo(false);
-                }}
-                variant="contained"
-                className="btn-primary btn-sm"
-              >
-                Photo
-              </Button>
-              <Button
-                onClick={() => {
-                  setPhoto(false);
-                  setVideo(true);
-                }}
-                variant="contained"
-                className="btn-secondary btn-sm"
-              >
-                Video
-              </Button>
+                <Button
+                  onClick={() => {
+                    setPhoto(true);
+                    setVideo(false);
+                  }}
+                  variant="contained"
+                  className={`${photo ? 'btn-primary':'btn-secondary'} btn-sm`}
+                >
+                  Photo
+                </Button>
+                <Button
+                  onClick={() => {
+                    setPhoto(false);
+                    setVideo(true);
+                  }}
+                  variant="contained"
+                  className={`${video ? 'btn-primary':'btn-secondary'} btn-sm`}
+                >
+                  Video
+                </Button>
+              </div>
             </div>
-            </div>
-            
           </Grid>
-         
 
           <Grid container item rowSpacing={3} spacing={3}>
-              {Item?.slice(0, view).map((i, index) => {
-                return (
-                  <Grid
-                    key={index}
-                    item
-                    xs={6}
-                    sm={6}
-                    md={3}
-                    lg={3}
-                  >
-                    <Card className="gallary-card-w">  
-                      {video ? (
-                        <>
-                            <div
-                              onClick={() => {
-                                // Correcting the way setUrl is called
-                                handleOpen();
-                                setUrl(i.image);
-                              }}
-                            >
-                              <Button className="play-icon-btn">
-                              <PlayCircleOutlineIcon className="play-icon" />
-                              </Button>
-                              {/* <Image
+            {GalleryImage?.slice(0, view).map((i, index) => {
+              return (
+                <Grid key={index} item xs={6} sm={6} md={3} lg={3}>
+                  <Card className="gallary-card-w">
+                    {video ? (
+                      <>
+                        <div
+                          onClick={() => {
+                            handleOpen();
+                            // setUrl(i.image);
+                          }}
+                        >
+                          <Button className="play-icon-btn">
+                            <PlayCircleOutlineIcon className="play-icon" />
+                          </Button>
+                          <Image
+                            alt="Lovefools"
                             src={i.image}
-                            alt="Video Thumbnail"
-                           className="thumbnail"
-                          /> */}
-
-                              <Image
-                                alt="Lovefools"
-                                src={i.image}
-                                className="gallary-thumbnail"
-                              />
-                            </div>
-                        </>
-                      ) : (
-                        //   <Image
-                        //   alt="thumbnail"
-                        //     src={i.image}
-                        // className="thumbnail"
-                        //   />
-                        <>
-                            <Image
+                            className="gallary-thumbnail"
                            
-                              alt="Lovefools"
-                              src={i.image}
-                               className="gallary-thumbnail"
-                            />
-                        </>
-                      )}
-                    </Card>
-                  </Grid>
-                );
-              })}
+                          />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <Image
+                          alt="Lovefools"
+                          src={i.image}
+                          className="gallary-thumbnail"
+                          onClick={()=>{
+                            handleOpen()
+                            setImage(i.image)
+                          }}
+                        />
+                      </>
+                    )}
+                  </Card>
+                </Grid>
+              );
+            })}
           </Grid>
-          <Grid className="text-center view-more-btn-outer" item xs={12} sm={12} md={12} lg={12}>
-          <Button
-            onClick={handleView}
-            variant="contained"
-            className="btn-primary mt40"
+          <Grid
+            className="text-center view-more-btn-outer"
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
           >
-            View More
-          </Button>
+            <Button
+              onClick={handleView}
+              variant="contained"
+              className="btn-primary mt40"
+            >
+              View More
+            </Button>
           </Grid>
           <Modal
             open={open}
@@ -308,20 +202,18 @@ const Gallery = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box>
+             <Box className={Styles}>
               {video ? (
                 <ReactPlayer
-                  url={url}
+                style={{borderRadius:"8px",position:'relative'}}
+                  url="https://www.youtube.com/watch?v=o1Gzham0RW8"
                   // playing
                   controls={true}
                   width="100%"
                   height="100%"
                 />
               ) : (
-                <Image
-                  src={image}
-                 alt="Gallery"
-                />
+                <Image src={image} alt="Gallery" style={{borderRadius:"8px",width:"100%"}} />
               )}
             </Box>
           </Modal>

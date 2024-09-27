@@ -1,3 +1,4 @@
+'use client'
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Button, Grid, Container } from "@mui/material";
@@ -25,8 +26,6 @@ const Contact = () => {
   const [errorMessage, setErrorMessage] = React.useState(false);
   const { id } = React.useContext(AuthContextProvider);
 
-  console.log(id);
-
   const handleSubmit = async () => {
     const payload = {
       mobile_number: contact.mobile_no,
@@ -34,7 +33,6 @@ const Contact = () => {
       email: contact.email_id,
       message: contact.message,
     };
-    console.log(payload);
 
     if (
       contact.name === "" ||
@@ -42,17 +40,16 @@ const Contact = () => {
       contact.email_id === "" ||
       contact.message === ""
     ) {
-      console.log(payload);
 
       setErrorMessage(true);
     } else {
-      console.log(payload);
 
       await axios.post(
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_CONTACT}`,
         payload
       );
       setContact({ name: "", mobile_no: "", email_id: "", message: "" });
+      setErrorMessage(false)
       toast.success("Contact form submitted successfully");
     }
   };
