@@ -248,6 +248,12 @@ p {
   min-width: 223px;
   font-size: 16px;
   color: $white;
+
+  span{
+    position: relative !important;
+    left: -5px !important;
+    color: $white;
+  }
 }
 
 .btn-secondary {

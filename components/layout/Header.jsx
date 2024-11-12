@@ -19,6 +19,7 @@ import logo1 from "../../assets/images/logo1.png";
 import Image from "next/image";
 import AboutUs from "../about/AboutUs";
 import { AuthContextProvider } from "@/authcontext/AuthContext";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 240;
 const navItems = [
@@ -35,6 +36,7 @@ const navItems = [
 export default function Header(props) {
   const [scrolling, setScrolling] = React.useState(false);
   const { id, setId } = React.useContext(AuthContextProvider);
+  const router = useRouter();
 
   // const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -72,26 +74,32 @@ export default function Header(props) {
     };
   }, []);
 
-  console.log(id);
-  
 
   const drawer = (
     <Box onClick={handleDrawerToggle}>
-      <Typography
-        variant="h6" >
-        <Image src={logo1} alt="Lovefools" />
+      <Typography variant="h6">
+        <Image
+          src={logo1}
+          alt="Lovefools"
+          onClick={() => router.push("/")}
+          style={{ cursor: "pointer" }}
+        />
       </Typography>
       <Divider />
       <List>
         {navItems.map((item, index) => (
           <ListItem key={index} disablePadding>
-            <ListItemButton 
-              onClick={() => setId(item)}
+            <ListItemButton
+              onClick={() => {
+                if (window.location.pathname === "/booking") {
+                  return router.push("/");
+                } else {
+                  return setId(item);
+                }
+              }}
             >
               <a href={`#${id}`}>
-                <ListItemText
-                  primary={item}
-                />
+                <ListItemText primary={item} />
               </a>
             </ListItemButton>
           </ListItem>
@@ -100,31 +108,43 @@ export default function Header(props) {
     </Box>
   );
   const container =
-    typeof window !== "undefined" ? () => window.document.body : undefined;    
+    typeof window !== "undefined" ? () => window.document.body : undefined;
+
 
   return (
     <>
       <header className="common-header">
-      <Box className="header-container">
+        <Box className="header-container">
           <CssBaseline />
-          <AppBar
-            component="nav" className="common-nav">
+          <AppBar component="nav" className="common-nav">
             <Toolbar>
-             
-              <Typography >
-                <Image src={logo} alt="lovefools" className="logo-img"/>
+              <Typography>
+                <Image
+                  src={logo}
+                  alt="lovefools"
+                  className="logo-img"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => router.push("/")}
+                />
               </Typography>
 
               <Box className="common-nav-inner">
                 {navItems.map((item, index) => (
                   <Button
-                    key={index} 
-                    onClick={() => setId(item)}
+                    key={index}
+                    onClick={() => {
+                      if (window.location.pathname=== "/booking") {
+                        
+                        return router.push("/");
+                      } else {
+                        return setId(item);
+                      }
+                    }}
                   >
                     <a href={`#${id}`}>
                       <Typography
                         variant="body1"
-                        className={id===item ? "color-red": ""}
+                        className={id === item ? "color-red" : ""}
                       >
                         {item}
                       </Typography>
@@ -132,14 +152,16 @@ export default function Header(props) {
                   </Button>
                 ))}
                 <Button
-                  variant="contained" className="btn-primary btn-sm"
+                  variant="contained"
+                  className="btn-primary btn-sm"
+                  onClick={() => router.push("/booking")}
                 >
                   Book Table
                 </Button>
               </Box>
 
               <IconButton
-              className="mobile-menu-btn"
+                className="mobile-menu-btn"
                 color="inherit"
                 aria-label="open drawer"
                 edge="start"
@@ -158,12 +180,9 @@ export default function Header(props) {
               className="common-header-drawer"
               ModalProps={{
                 keepMounted: true, // Better open performance on mobile.
-              }} 
+              }}
             >
-              <div className="common-header-inner">
-              {drawer}
-
-              </div>
+              <div className="common-header-inner">{drawer}</div>
             </Drawer>
           </nav>
         </Box>

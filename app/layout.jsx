@@ -1,11 +1,15 @@
 "use client";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import "../styles/main.css";
+import "../styles/globals.scss";
 import AuthContext from "@/authcontext/AuthContext";
 import Header from "@/components/layout/index";
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
-import ogImage from '../assets/images/og-tag.jpg';
 
 const inter = Inter({
   subsets: ["latin"],

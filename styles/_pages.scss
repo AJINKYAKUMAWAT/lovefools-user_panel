@@ -35,7 +35,7 @@
     }
   }
 
-  .color-red{
+  .color-red {
     color: $red !important;
   }
 
@@ -247,9 +247,6 @@
       width: 87%; // Adjust for smaller screens
       padding: 8px; // Optional: allow height to adjust on small screens
       height: 40%;
-
-      
- 
     }
 
     .close-icon {
@@ -260,7 +257,6 @@
       padding: 1px;
       background: #f3eeee;
     }
-
 
     .event-img-box {
       padding: 5px;
@@ -584,5 +580,45 @@
   .common-footer {
     background-color: $bg-page;
     padding: 47px 0;
+  }
+}
+
+.booking-banner-section {
+  background-image: url("../assets/images/booking-bg.png"); // Path to the image file
+  background-size: cover;
+  background-position: center;
+  height: 100vh; // Adjust this as per your requirement
+  width: 100%; // Full width
+}
+
+.btn-booking {
+  color: #fff !important;
+  border-radius: 20px;
+}
+
+.relative.px-3.gap-3.inline-flex.flex-row.items-center.cursor-text.tap-highlight-transparent.shadow-sm.border-medium.border-default-200.hover\:border-default-400.focus-within\:border-default-foreground.focus-within\:hover\:border-default-foreground.group-data-\[invalid\=true\]\:border-danger.group-data-\[invalid\=true\]\:hover\:border-danger.group-data-\[invalid\=true\]\:focus-within\:hover\:border-danger.h-10.min-h-10.rounded-medium.w-full {
+  height: 45px !important;
+  background-color: $white !important;
+}
+
+.relative.w-full.inline-flex.tap-highlight-transparent.flex-row.items-center.shadow-sm.px-3.gap-3.border-medium.border-default-200.data-\[hover\=true\]\:border-default-400.group-data-\[focus\=true\]\:border-default-foreground.h-10.min-h-10.rounded-small.transition-background.\!duration-150.transition-colors.motion-reduce\:transition-none {
+height: 45px !important;
+background-color: $white !important;
+}
+
+.absolute.z-50.block.pt-2.top-10.bg-white-800 {
+  background: $white !important;
+}
+
+.text-danger{
+  color: red !important;
+  background: #000;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.booking-form{
+  @include md {
+    margin-top: 10px;
   }
 }
