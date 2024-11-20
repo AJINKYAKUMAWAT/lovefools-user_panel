@@ -56,7 +56,7 @@ const page = () => {
           );
         })}
       </Carousel>
-      {/* <AboutUs /> */}
+      <AboutUs />
       <Events />
       <Gallery />
       <Testimonial />

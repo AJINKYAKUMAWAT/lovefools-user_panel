@@ -11,11 +11,14 @@ const DateTimePicker = ({
   ...rest
 }) => {
   return (
-    <div className='flex w-full flex-row gap-4 mb-3'  style={{borderRadius:'13px'}}>
+    <div className='flex w-80 flex-row gap-4 mb-3'  style={{borderRadius:'13px'}}>
       <TimeInput
+      labelProps={{
+        style:{color:'#fff !important'}
+      }}
         label={label}
         variant='bordered'
-        className='bg-white-800 '
+        className='bg-white-800'
         hideTimeZone
         showMonthAndYearPickers
         value={value}

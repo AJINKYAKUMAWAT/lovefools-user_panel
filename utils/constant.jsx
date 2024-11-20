@@ -124,5 +124,13 @@ export const AboutUsSection =
     { value: 4, label: "Table-4" },
     { value: 5, label: "Table-5" },
   ];
+
+  export const options2 = [
+    { value: 1, label: "Table-1", image:"" },
+    { value: 2, label: "Table-2", image:"" },
+    { value: 3, label: "Table-3", image:"" },
+    { value: 4, label: "Table-4", image:"" },
+    { value: 5, label: "Table-5", image:"" },
+  ];
   
   

@@ -36,6 +36,7 @@ const navItems = [
 export default function Header(props) {
   const [scrolling, setScrolling] = React.useState(false);
   const { id, setId } = React.useContext(AuthContextProvider);
+  const [bgColor, setBgColor] = React.useState('transparent')
   const router = useRouter();
 
   // const { window } = props;
@@ -110,13 +111,22 @@ export default function Header(props) {
   const container =
     typeof window !== "undefined" ? () => window.document.body : undefined;
 
-
+    
+    React.useEffect(() => {
+      if (typeof window !== "undefined") {
+        if (window.location.pathname === "/booking" || scrolling) {
+          setBgColor("#000000");
+        } else {
+          setBgColor("transparent");
+        }
+      }
+    }, [scrolling]);
   return (
     <>
-      <header className="common-header">
+      <header className="common-header" >
         <Box className="header-container">
           <CssBaseline />
-          <AppBar component="nav" className="common-nav">
+          <AppBar component="nav" className="common-nav" style={{background:bgColor}}>
             <Toolbar>
               <Typography>
                 <Image

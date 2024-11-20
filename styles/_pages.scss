@@ -120,6 +120,9 @@
     width: 660px;
     position: relative;
     height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @include xs {
       scale: 0.5;
@@ -130,30 +133,7 @@
       top: -10px;
     }
 
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 444px;
-      background: $bg-page;
-      z-index: 2;
-      height: 100%;
-      -webkit-transform: translateX(-50%);
-      -moz-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-      -o-transform: translateX(-50%);
-      top: -20px;
-
-      height: 670px;
-      // @include sm{
-      //   display: none;
-      // }
-      // @include xs{
-      //   display: none;
-      // }
-    }
+   
 
     .about-img-base {
       position: relative;
@@ -584,10 +564,11 @@
 }
 
 .booking-banner-section {
-  background-image: url("../assets/images/booking-bg.png"); // Path to the image file
+  // background-image: url("../assets/images/booking-bg.png"); // Path to the image file
+  background-color: #000000e5 !important;
   background-size: cover;
   background-position: center;
-  height: 100vh; // Adjust this as per your requirement
+  height: auto; // Adjust this as per your requirement
   width: 100%; // Full width
 }
 
@@ -621,4 +602,29 @@ background-color: $white !important;
   @include md {
     margin-top: 10px;
   }
+}
+
+.menuBox{
+  margin-top: -7px;
+    margin-right: 10px;
+    padding: 7px;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 5px grey;
+}
+
+.paymentDetails{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+}
+
+.group[data-filled-within="true"] .group-data-\[filled-within\=true\]\:text-foreground {
+  --tw-text-opacity: 1;
+  color: #fff !important;
+}
+
+label.text-small {
+  color: #fff !important;
+
 }

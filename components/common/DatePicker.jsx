@@ -31,7 +31,7 @@ const DatePicker = ({
     <div
       className={`${isDisabled && 'opacity-disabled'}`}
       onBlur={handleOnBlur}>
-      {label && <label className='text-small'>{label}</label>}
+      {label && <label className='text-small' style={{color:'#fff !important'}}>{label}</label>}
       <div
         className={`${label && 'mt-1.5'}`}
         ref={menuRef}>

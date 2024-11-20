@@ -13,10 +13,12 @@ const Select = ({
   return (
     <div>
       {label && (
-        <label
-          className={`text-small ${rest.isDisabled && 'opacity-disabled'}`}>
-          {label}
-        </label>
+       <label
+       style={{ color: '#fff' }}
+       className={`text-small ${rest.isDisabled && 'opacity-disabled'}`}
+     >
+       {label}
+     </label>
       )}
       <div className={`${label && 'mt-1.5'}`}>
         <ReactSelect

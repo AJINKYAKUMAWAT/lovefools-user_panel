@@ -2,7 +2,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ControllerTextField from "@/components/common/ControllerTextField";
-import Button from "@/components/common/Button";
 import FormProvider from "@/components/common/FormProvider";
 import { bookingSchema } from "@/schema/BookingSchema";
 import ControllerSelect from "../common/ControllerSelect";
@@ -17,11 +16,7 @@ const BookingForm = ({defaultValues }) => {
     mode: "onBlur",
   });
 
-  const { handleSubmit,formState:{errors} ,watch} = methods;
-  console.log(errors);
-  console.log("watch",watch('type'));
-  
-  
+  const { handleSubmit,formState:{errors} ,watch} = methods;  
 
   const onSubmit = async (data) => {
     console.log("data",data);
@@ -62,9 +57,6 @@ const BookingForm = ({defaultValues }) => {
             placeholder="Enter payment "
             name="payment"
           />
-        </div>
-        <div className="flex justify-end space-x-4">
-          <Button type="submit">Booking Table</Button>
         </div>
     </FormProvider>
   );

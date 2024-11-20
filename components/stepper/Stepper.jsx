@@ -94,6 +94,8 @@ function ColorlibStepIcon(props) {
     1: <SettingsIcon />,
     2: <GroupAddIcon />,
     3: <VideoLabelIcon />,
+    4: <GroupAddIcon />,
+    5: <VideoLabelIcon />,
   };
 
   return (
@@ -106,17 +108,19 @@ function ColorlibStepIcon(props) {
   );
 }
 
-export default function CustomizedSteppers() {
+export default function CustomizedSteppers({activeTab}) {
+  console.log("activeTab",activeTab);
+  
   return (
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper
         alternativeLabel
-        activeStep={1}
+        activeStep={activeTab}
         connector={<ColorlibConnector />}
       >
-        {Array.from({length:4}).map((_,index) => (
+        {Array.from({length:5}).map((_,index) => (
           <Step key={index}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}></StepLabel>
+            <StepLabel StepIconComponent={ColorlibStepIcon} />
           </Step>
         ))}
       </Stepper>
