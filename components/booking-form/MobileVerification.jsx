@@ -45,7 +45,7 @@ const TableForm = ({ defaultValues }) => {
         <div className="grid grid-cols-1 gap-4 mb-2">
           <ControllerTextField
             type="text"
-            placeholder="Enter payment"
+            placeholder="Enter otp"
             name="otp"
             label="OTP"
           />

@@ -25,7 +25,7 @@ const Select = ({
           placeholder={placeholder}
           onInputChange={handleInputChange}
           options={options}
-          menuPlacement='auto'
+          // menuPlacement='auto'
           styles={{
             menu: (provided) => ({
               ...provided,

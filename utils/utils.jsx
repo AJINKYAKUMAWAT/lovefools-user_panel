@@ -22,3 +22,80 @@ export function formatInput(input) {
   
     return result;
   }
+
+
+  export const generateOptions = (
+    options,
+    valueKey,
+    labelKey,
+    idkey,
+    groupKey = null,
+    groupTitleKey = null,
+    isDirectValues = false,
+  ) => {
+    if (options && options.length > 0 && options[0]?.data) {
+      return options.map((group) => {
+        const groupTitle = groupTitleKey ? group[groupTitleKey] : group.title;
+  
+        const unique = group.data.filter((obj, index) => {
+          return index === group.data.findIndex((o) => obj.id === o.id);
+        });
+  
+        return {
+          label: groupTitle
+            ?.toLowerCase()
+            .replace(/_/g, ' ')
+            .replace(/\b\w/g, (match) => match.toUpperCase()),
+          options: unique.map((item) => ({
+            value: isDirectValues ? item : item[valueKey],
+            label: `${item?.employeeId} - ${item[labelKey]
+              ?.toLowerCase()
+              .replace(/_/g, ' ')
+              .replace(/\b\w/g, (match) => match.toUpperCase())}`,
+          })),
+        };
+      });
+    } else {
+      return options?.length > 0
+        ? options.map((item) => {
+            if (groupKey && item[groupKey]) {
+              return {
+                label: item[groupKey]
+                  ?.toLowerCase()
+                  .replace(/_/g, ' ')
+                  .replace(/\b\w/g, (match) => match.toUpperCase()),
+                options: item[groupKey].map((status) => ({
+                  value: isDirectValues ? status : status[valueKey],
+                  label: status[labelKey]
+                    ?.toLowerCase()
+                    .replace(/_/g, ' ')
+                    .replace(/\b\w/g, (match) => match.toUpperCase()),
+                })),
+              };
+            } else {
+              const label = isDirectValues ? item : item[labelKey];
+              return {
+                value: isDirectValues ? item : item[valueKey],
+                label: `${idkey ? `${item[idkey]} - ` : ''}${label
+                  ?.toLowerCase()
+                  .replace(/_/g, ' ')
+                  .replace(/\b\w/g, (match) => match.toUpperCase())}`,
+              };
+            }
+          })
+        : [];
+    }
+  };
+
+  export function convertTimeObjectToString(timeObj) {
+    const hour = timeObj?.hour ? timeObj?.hour.toString().padStart(2, '0') : '00'; // Ensure 2 digits
+    const minute = timeObj?.minute
+      ? timeObj?.minute.toString().padStart(2, '0')
+      : '00';
+    const second = timeObj?.second
+      ? timeObj?.second.toString().padStart(2, '0')
+      : '00';
+  
+    return `${hour}:${minute}:${second}`;
+  }
+  

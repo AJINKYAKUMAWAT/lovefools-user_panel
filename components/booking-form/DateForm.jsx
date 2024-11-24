@@ -5,26 +5,35 @@ import FormProvider from "@/components/common/FormProvider";
 import { bookingSchema } from "@/schema/BookingSchema";
 import ControllerDateTimePicker from "../common/ControllerDateTimePicker";
 import ControllerDatePicker from "../common/ControllerDatePicker";
+import { useEffect } from "react";
 
-const DateForm = ({ defaultValues }) => {
+const DateForm = ({ defaultValues,setDefaultValues }) => {
   const methods = useForm({
     resolver: yupResolver(bookingSchema),
     defaultValues,
     mode: "onBlur",
   });
 
-  const { handleSubmit, formState: { errors }, watch } = methods;
+  const {formState: { errors }, watch,reset } = methods;
 
-  const onSubmit = async (data) => {
-    console.log("data", data);
-    // handleEventListSubmit(data);
-  };
+
+  console.log(watch('time'));
+  useEffect(() => {
+    reset(defaultValues); // Reset the form whenever defaultValues changes
+  }, [defaultValues, reset]);
+
+  useEffect(()=>{
+    if(watch('time') && watch('date')){
+      setDefaultValues({...defaultValues,date:watch('date'),time:watch('time')})
+    }
+  
+  },[watch('time'),watch('date')])
+  
 
   return (
     <div className="flex items-center justify-center">
       <FormProvider
         methods={methods}
-        onSubmit={handleSubmit(onSubmit)}
         className="booking-form bg-white p-6 rounded-lg shadow-md w-full max-w-[600px]"
       >
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
@@ -40,6 +49,7 @@ const DateForm = ({ defaultValues }) => {
               placeholder="Enter time"
               name="time"
               label='Time'
+              
             />
           </div>
         </div>

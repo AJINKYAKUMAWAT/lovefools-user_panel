@@ -3,8 +3,8 @@ import Image2 from "../assets/images/Post2.png";
 import Image3 from "../assets/images/Post3.png";
 import Image4 from "../assets/images/Post4.png";
 
-// export const NEXT_PUBLIC_API_URL = "http://localhost:5000/api/user/";
-export const NEXT_PUBLIC_API_URL = "https://lovefools-backend-76pv.vercel.app/api/user/";
+export const NEXT_PUBLIC_API_URL = "http://localhost:5000/api/user/";
+// export const NEXT_PUBLIC_API_URL = "https://lovefools-backend-76pv.vercel.app/api/user/";
 
 
 export const API_ENDPOINT = {
@@ -14,6 +14,9 @@ export const API_ENDPOINT = {
   GET_CMS: "getCMSList",
   GET_GALLERY: "getGalleryList",
   GET_FILE: (id) => `${NEXT_PUBLIC_API_URL}file/${id}`,
+  GET_MENU_LIST:'getMenuList',
+  GET_ROOM_LIST:'getRoomList',
+  GET_BOOK_LIST:'getBookList'
 };
 
 export const ERROR_MESSAGES = "This field is required";
@@ -133,4 +136,7 @@ export const AboutUsSection =
     { value: 5, label: "Table-5", image:"" },
   ];
   
+  export const MenuType = [
+    "All","Veg","NonVeg","Drink"
+  ]
   
