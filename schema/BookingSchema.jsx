@@ -1,23 +1,44 @@
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
-export const bookingSchema = Yup.object().shape({
-  email: Yup.string().required('Email is required'),
-  mobile: Yup.string().required('Mobile No. is required'),
-  receiptName: Yup.string().required('Receipt menu is required'),
-  date: Yup.string().required('Date is required'),
-  time: Yup.object().required('Time is required'),
-  price: Yup.string().required('Price is required'),
-  floor: Yup.object({
-    label: Yup.string(),
-    value: Yup.string(),
-  }).required('Floor is required'),
+// Date Schema - Changed to Yup.date()
+export const dateSchema = Yup.object().shape({
+  date: Yup.date()
+    .required("Date is required")
+    .typeError("Invalid date format"),
+  time: Yup.object().required("Time is required"),
+});
+
+// Table Schema
+export const tableSchema = Yup.object().shape({
   room: Yup.object({
-    label: Yup.string(),
-    value: Yup.string(),
-  }).required('Room is required'),
+    label: Yup.string().required(),
+    value: Yup.string().required(),
+  }).required("Room is required"),
   table_number: Yup.object({
-    label: Yup.string(),
-    value: Yup.string(),
-  }).required('Table Number is required'),
+    label: Yup.string().required(),
+    value: Yup.string().required(),
+  }).required("Table Number is required"),
+});
 
+// Menu Schema - Adjusted price to be a number, fixed validation message for receiptName
+export const menuSchema = Yup.object().shape({
+  price: Yup.number()
+    .required("Price is required")
+    .positive("Price must be a positive number"),
+  menu_Name: Yup.string().required("Receipt name is required"),
+  menuType: Yup.string().required("Menu type is required"),
+  subMenuType: Yup.string().required("Sub Menu Type is required"),
+});
+
+// Verification Schema - Fixed mobile validation message
+export const verificationSchema = Yup.object().shape({
+  mobile: Yup.string()
+    .required("Mobile number is required")
+    .matches(/^\d{10}$/, "Mobile number must be 10 digits"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("Email is required"),
+  otp: Yup.string()
+    .required("OTP is required")
+    .length(6, "OTP must be 6 digits"),
 });

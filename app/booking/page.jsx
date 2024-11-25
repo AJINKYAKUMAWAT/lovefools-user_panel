@@ -1,7 +1,6 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { Box, Container, Grid } from "@mui/material";
-import BookingForm from "@/components/booking-form/BookingForm";
 import CustomizedSteppers from "@/components/stepper/Stepper";
 import { BookingsIcons } from "@/utils/constant";
 import Button from "@/components/common/Button";
@@ -18,18 +17,20 @@ const Page = () => {
   const { error, isLoading, Razorpay } = useRazorpay();
   const [defaultValues, setDefaultValues] = useState({
     email: "",
-    receiptName: "",
-    floor: null,
+    menu_Name: "",
     room: null,
     table_number: null,
     mobile: "",
     date: null,
     time: null,
     price: "",
-    menuType: null,
-    subMenuType: null,
+    menuType: '',
+    subMenuType: '',
+    quantity:'',
     otp: "",
   });
+
+  
   console.log("defaultValues", defaultValues);
 
   const sendWhatsAppMessages = async () => {
@@ -80,6 +81,10 @@ const Page = () => {
     razorpayInstance.open();
   };
 
+  const handleSubmit = (data) => {
+   setDefaultValues(data)
+  }
+
   return (
     <section
       className="about-section common-section overflow-auto"
@@ -94,76 +99,41 @@ const Page = () => {
             {activeTab === 0 && (
               <DateForm
                 defaultValues={defaultValues}
-                setDefaultValues={setDefaultValues}
+                setActiveTab={setActiveTab}
+                handleOnsubmit={handleSubmit}
               />
             )}
             {activeTab === 1 && (
               <TableForm
                 defaultValues={defaultValues}
+                setActiveTab={setActiveTab}
                 setDefaultValues={setDefaultValues}
+                handleOnsubmit={handleSubmit}
               />
             )}
             {activeTab === 2 && (
               <SelectMenuForm
                 defaultValues={defaultValues}
                 setDefaultValues={setDefaultValues}
+                setActiveTab={setActiveTab}
+                handleOnsubmit={handleSubmit}
               />
             )}
             {activeTab === 3 && (
               <MobileVerificationForm
                 defaultValues={defaultValues}
                 setDefaultValues={setDefaultValues}
+                setActiveTab={setActiveTab}
+                handleOnsubmit={handleSubmit}
               />
             )}
             {activeTab === 4 && (
               <PaymentDetails
                 defaultValues={defaultValues}
                 setDefaultValues={setDefaultValues}
+                setActiveTab={setActiveTab}
               />
-            )}
-            {/* <BookingForm defaultValues={defaultValues.current} /> */}
-            <br />
-            <br />
-            <div className="flex justify-center space-x-4">
-              <Button
-                className="btn-secondary"
-                onClick={() => {
-                  if (activeTab === 0) {
-                    setActiveTab(0);
-                  } else {
-                    setActiveTab(activeTab - 1);
-                  }
-                }}
-                type="submit"
-              >
-                Prev
-              </Button>
-              {activeTab === 4 ? (
-                <Button
-                  type="submit"
-                  className="btn-primary"
-                  onClick={handlePayment}
-                >
-                  Payment Confirm
-                </Button>
-              ) : (
-                <Button
-                  className="btn-primary"
-                  onClick={() => {
-                    if (activeTab === 4) {
-                      setActiveTab(4);
-                    } else {
-                      setActiveTab(activeTab + 1);
-                    }
-                  }}
-                  type="submit"
-                >
-                  Next
-                </Button>
-              )}
-            </div>
-            <br />
-            <br />
+            )}         
           </Container>
         </Box>
       </Box>

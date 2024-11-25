@@ -3,8 +3,8 @@ import Image2 from "../assets/images/Post2.png";
 import Image3 from "../assets/images/Post3.png";
 import Image4 from "../assets/images/Post4.png";
 
-export const NEXT_PUBLIC_API_URL = "http://localhost:5000/api/user/";
-// export const NEXT_PUBLIC_API_URL = "https://lovefools-backend-76pv.vercel.app/api/user/";
+// export const NEXT_PUBLIC_API_URL = "http://localhost:5000/api/user/";
+export const NEXT_PUBLIC_API_URL = "https://lovefools-backend-76pv.vercel.app/api/user/";
 
 
 export const API_ENDPOINT = {

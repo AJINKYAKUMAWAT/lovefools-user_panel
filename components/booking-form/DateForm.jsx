@@ -1,56 +1,57 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import ControllerTextField from "@/components/common/ControllerTextField";
+import Button from "@/components/common/Button";
 import FormProvider from "@/components/common/FormProvider";
-import { bookingSchema } from "@/schema/BookingSchema";
+import { dateSchema } from "@/schema/BookingSchema";
 import ControllerDateTimePicker from "../common/ControllerDateTimePicker";
 import ControllerDatePicker from "../common/ControllerDatePicker";
-import { useEffect } from "react";
 
-const DateForm = ({ defaultValues,setDefaultValues }) => {
+const DateForm = ({ setActiveTab, handleClose, defaultValues,handleOnsubmit }) => {
   const methods = useForm({
-    resolver: yupResolver(bookingSchema),
+    resolver: yupResolver(dateSchema),
     defaultValues,
     mode: "onBlur",
   });
 
-  const {formState: { errors }, watch,reset } = methods;
+  const { handleSubmit } = methods;
 
-
-  console.log(watch('time'));
-  useEffect(() => {
-    reset(defaultValues); // Reset the form whenever defaultValues changes
-  }, [defaultValues, reset]);
-
-  useEffect(()=>{
-    if(watch('time') && watch('date')){
-      setDefaultValues({...defaultValues,date:watch('date'),time:watch('time')})
-    }
-  
-  },[watch('time'),watch('date')])
-  
+  const onSubmit = async (data) => {
+    const prevData = {...defaultValues,...data}
+    handleOnsubmit(prevData)
+    setActiveTab(1);
+  };
 
   return (
     <div className="flex items-center justify-center">
-      <FormProvider
-        methods={methods}
-        className="booking-form bg-white p-6 rounded-lg shadow-md w-full max-w-[600px]"
-      >
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-          <div className="max-w-[250px] w-full mx-auto">
-            <ControllerDatePicker
-              placeholder="Enter date"
-              name="date"
-              label='Date'
-            />
-          </div>
-          <div className="max-w-[250px] w-full mx-auto">
-            <ControllerDateTimePicker
-              placeholder="Enter time"
-              name="time"
-              label='Time'
-              
-            />
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <div className="container mx-auto">
+          <div className="grid gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
+              <div className="max-w-[250px] w-full mx-auto">
+                <ControllerDatePicker
+                  placeholder="Enter date"
+                  name="date"
+                  label="Date"
+                />
+              </div>
+              <div className="max-w-[250px] w-full mx-auto">
+                <ControllerDateTimePicker
+                  placeholder="Enter time"
+                  name="time"
+                  label="Time"
+                />
+              </div>
+            </div>
+
+            <div className="flex justify-center space-x-4">
+              <Button type="submit">
+              Next
+              </Button>
+              <br />
+              <br />
+            </div>
           </div>
         </div>
       </FormProvider>

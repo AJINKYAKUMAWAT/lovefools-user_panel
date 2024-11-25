@@ -630,7 +630,11 @@ label.text-small {
 }
 
 .menuStyle{
-  background: #808080a3;   
+  background: #808080a3 !important;   
+}
+
+.menuStyleBg{
+  background: #efe8e81f;   
 }
 
 .grid-menustyle{
@@ -638,6 +642,6 @@ label.text-small {
   border-radius: 5px;
 }
 
-.menuStyle:hover{
+.menuStyleBg:hover{
   background: #808080a3;
 }
