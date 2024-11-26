@@ -16,7 +16,9 @@ export const API_ENDPOINT = {
   GET_FILE: (id) => `${NEXT_PUBLIC_API_URL}file/${id}`,
   GET_MENU_LIST:'getMenuList',
   GET_ROOM_LIST:'getRoomList',
-  GET_BOOK_LIST:'getBookList'
+  GET_BOOK_LIST:'getBookList',
+  ADD_RECEIPT: 'addReceipt',
+  GET_UPCOMING_EVENT: 'getUpComingEventList'
 };
 
 export const ERROR_MESSAGES = "This field is required";
@@ -139,4 +141,14 @@ export const AboutUsSection =
   export const MenuType = [
     "All","Veg","NonVeg","Drink"
   ]
+
+ export const items = [
+    {
+      title1: "Welcome",
+      title2: "to Lovefools",
+      image: Image1,
+      viveBtn:'View More'
+    },
+  ];
+
   

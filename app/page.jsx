@@ -1,10 +1,12 @@
 "use client";
-import React, { lazy } from "react";
+import React, { lazy, useEffect, useState } from "react";
 import Image from "next/image";
 import Image1 from "../assets/images/banner.png";
 import { Carousel } from "react-responsive-carousel";
 import { Box, Button } from "@mui/material";
+import axios from "axios";
 import Loadable from "@/components/common/loader/Loadable";
+import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 const Footer = Loadable(lazy(()=>import("@/components/footer/Footer2")))
 const Contact = Loadable(lazy(()=>import("@/components/contact/Contact")))
 const Testimonial = Loadable(lazy(()=>import("@/components/testimonial/Testimonial")))
@@ -14,23 +16,34 @@ const AboutUs = Loadable(lazy(()=>import("@/components/about/AboutUs")))
 
 
 const page = () => {
-  var items = [
-    {
-      title1: "Welcome",
-      title2: "to Lovefools",
-      image: Image1,
-    },
-    {
-      title1: "Welcome",
-      title2: "to Lovefools",
-      image: Image1,
-    },
-    {
-      title1: "Welcome",
-      title2: "to Lovefools",
-      image: Image1,
-    },
-  ];
+  const [upcomimgEvent, setUpcomimgEvent] = useState([])
+  const [mergeEvent, setMergeEvent] = useState(items)
+
+  const getUpcomingEvent = async() => {
+    try {
+      const data = await axios.post(`${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_UPCOMING_EVENT}`)
+      setUpcomimgEvent(data.data.data)
+    } catch (error) {
+      console.log();
+      
+    }
+  }
+
+  useEffect(() => {
+    getUpcomingEvent()
+  },[])
+
+
+  const mergeArrays = () => {
+    setMergeEvent((prevItems1) => [...prevItems1, ...upcomimgEvent]);
+  };
+
+  useEffect(() => {
+    mergeArrays()
+  },[upcomimgEvent])
+
+
+
   return (
     <Box className="home-banner-section">
       <Carousel
@@ -41,14 +54,14 @@ const page = () => {
         showStatus={false}
         showThumbs={false}
       >
-        {items.map((item,index) => {
+        {mergeEvent.map((item,index) => {
           return (
             <div key={index}>
                 <h2 className="carousel-title common-heading-h1">
                   <span style={{ fontWeight: "600" }}>{item.title1}</span>
                   <br /> {item.title2}<br/>
                 <Button variant="contained" className="btn-primary btn-sm">
-                  View More
+                  {item.viveBtn}
                 </Button>
                 </h2>
               <Image src={item.image} className="carousal-image" alt="Lovefools" />

@@ -289,6 +289,13 @@ const Events = () => {
             >
               View More
             </Button>
+            <Button
+              onClick={handleView}
+              variant="contained"
+              className="btn-primary mt40"
+            >
+              New Enquiry
+            </Button>
           </Grid>
         </Grid>
       </Container>
