@@ -18,6 +18,7 @@ export const tableSchema = Yup.object().shape({
     label: Yup.string().required(),
     value: Yup.string().required(),
   }).required("Table Number is required"),
+  quantity:Yup.string()
 });
 
 // Menu Schema - Adjusted price to be a number, fixed validation message for receiptName

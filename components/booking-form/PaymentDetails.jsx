@@ -2,36 +2,41 @@ import {Box, Grid, Typography} from '@mui/material';
 import React from 'react';
 import Button from '../common/Button';
 import {API_ENDPOINT, NEXT_PUBLIC_API_URL} from '@/utils/constant';
+import { convertTimeObjectToString, formatDate, formatDateForApi } from '@/utils/utils';
+import axios from 'axios';
 
 const PaymentDetails = ({setActiveTab, defaultValues}) => {
 	const PrevBtn = () => {
 		setActiveTab(3);
 	};
 
+	console.log("defaultValues",defaultValues);
+	
+
 	const BookingConfirm = async () => {
 		const payload = {
 			emailId: defaultValues.email,
 			mobileNo: defaultValues.mobile,
 			receiptName: defaultValues.menu_Name,
-			price: defaultValues.price,
-			date: defaultValues.date,
-			time: defaultValues.time,
+			price: Number(defaultValues.quantity) * 250,
+			date: formatDateForApi(defaultValues.date),
+			time: convertTimeObjectToString(defaultValues.time),
 			type: defaultValues.menuType,
 			sub_type: defaultValues.subMenuType,
-			room: defaultValues.room,
-			table_number: defaultValues.table_number,
+			room: defaultValues.room.value,
+			table_number: defaultValues.table_number.value,
 		};
 
 		try {
 			const options = {
 				key: 'rzp_test_BGKRq8Cw1V2ph4',
-				amount: 50000, // Amount in paise
+				amount: (defaultValues.quantity * 100 ) * 250, // Amount in paise
 				currency: 'INR',
 				name: 'Lovefools',
 				description: 'Test Transaction',
 				// order_id: "order_9A33XWu170gUtm", // Generate order_id on server
 				handler: async (response) => {
-					await dispatch(
+					await axios.post(
 						`${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_RECEIPT}`,
 						payload
 					);
@@ -57,9 +62,9 @@ const PaymentDetails = ({setActiveTab, defaultValues}) => {
 			<Grid container>
 				<Grid item md={4} className="paymentDetails">
 					<Box>
-						<Typography sx={{color: '#fff !important'}}>Email ID</Typography>
+						<Typography sx={{color: '#fff !important'}}>Email</Typography>
 						<Typography sx={{color: '#a39f9f !important'}}>
-							ajink3994@gmail.com
+							{defaultValues.email}
 						</Typography>
 					</Box>
 				</Grid>
@@ -67,7 +72,7 @@ const PaymentDetails = ({setActiveTab, defaultValues}) => {
 					<Box>
 						<Typography sx={{color: '#fff !important'}}>Mobile No.</Typography>
 						<Typography sx={{color: '#a39f9f !important'}}>
-							+91 7263994600
+							{defaultValues.mobile}
 						</Typography>
 					</Box>
 				</Grid>
@@ -75,7 +80,7 @@ const PaymentDetails = ({setActiveTab, defaultValues}) => {
 					<Box>
 						<Typography sx={{color: '#fff !important'}}>Date</Typography>
 						<Typography sx={{color: '#a39f9f !important'}}>
-							20 Dec 2024
+							{formatDate(defaultValues.date)} {convertTimeObjectToString(defaultValues.time)}
 						</Typography>
 					</Box>
 				</Grid>
@@ -83,21 +88,21 @@ const PaymentDetails = ({setActiveTab, defaultValues}) => {
 					<Box>
 						<Typography sx={{color: '#fff !important'}}>Table</Typography>
 						<Typography sx={{color: '#a39f9f !important'}}>
-							+91 7263994600
+							{defaultValues.table_number.label}
 						</Typography>
 					</Box>
 				</Grid>
 				<Grid item md={4} className="paymentDetails">
 					<Box>
 						<Typography sx={{color: '#fff !important'}}>Menu</Typography>
-						<Typography sx={{color: '#a39f9f !important'}}>Ala Cart</Typography>
+						<Typography sx={{color: '#a39f9f !important'}}>{defaultValues.menu_Name}</Typography>
 					</Box>
 				</Grid>
 				<Grid item md={4} className="paymentDetails">
 					<Box>
 						<Typography sx={{color: '#fff !important'}}>Total</Typography>
 						<Typography sx={{color: '#a39f9f !important'}}>
-							ajink3994@gmail.com
+							{defaultValues.quantity * 250}
 						</Typography>
 					</Box>
 				</Grid>

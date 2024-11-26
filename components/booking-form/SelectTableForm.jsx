@@ -7,7 +7,7 @@ import FormProvider from "@/components/common/FormProvider";
 import { dateSchema, tableSchema } from "@/schema/BookingSchema";
 import ControllerDateTimePicker from "../common/ControllerDateTimePicker";
 import ControllerDatePicker from "../common/ControllerDatePicker";
-import { convertTimeObjectToString, generateOptions } from "@/utils/utils";
+import { convertTimeObjectToString, formatDateForApi, generateOptions } from "@/utils/utils";
 import { API_ENDPOINT, NEXT_PUBLIC_API_URL, options2 } from "@/utils/constant";
 import ControllerSelect from "../common/ControllerSelect";
 import { useEffect, useState } from "react";
@@ -32,6 +32,7 @@ const TableListForm = ({
     handleSubmit,
     formState: { errors },
     watch,
+    setValue
   } = methods;
 
   const [roomList, setRoomList] = useState([]);
@@ -71,7 +72,7 @@ const TableListForm = ({
     if (defaultValues?.date && defaultValues?.time) {
       const time = convertTimeObjectToString(defaultValues.time);
       getUnBookList({
-        date: defaultValues.date,
+        date: formatDateForApi(defaultValues.date),
         time: time,
         roomID: watch("room")?.value,
       });
@@ -84,6 +85,7 @@ const TableListForm = ({
     });
     console.log("getFilteredData", getFilteredData[0]?.seatCount);
 
+    setValue('quantity',getFilteredData[0]?.seatCount)
     setDefaultValues({
       ...defaultValues,
       quantity: getFilteredData[0]?.seatCount,
@@ -98,10 +100,7 @@ const TableListForm = ({
 
   const PrevBtn = () => {
     setActiveTab(0);
-  };
-
-  console.log("room",watch("room")?.label);
-  
+  };  
 
   return (
     <div className="flex items-center justify-center">
@@ -119,9 +118,9 @@ const TableListForm = ({
               </div>
               <div className="max-w-[400px] w-full mx-auto">
                 <ControllerSelect
-                  // isDisabled={
-                  //   watch("room")?.label === "Colaba Room" ? false : true
-                  // }
+                  isDisabled={
+                    watch("room")?.label === "Colaba Room" ? false : true
+                  }
                   options={generateOptions(
                     unBookTableList,
                     "_id",
@@ -130,7 +129,7 @@ const TableListForm = ({
                   placeholder="Select table"
                   name="table_number"
                   label="Table"
-
+                  isInvalid={watch("room")?.label === "Colaba Room" ? true : false}
                 />
               </div>
             </div>

@@ -79,6 +79,7 @@ const Page = () => {
                 defaultValues={defaultValues}
                 setActiveTab={setActiveTab}
                 handleOnsubmit={handleSubmit}
+                setDefaultValues={setDefaultValues}
               />
             )}
             {activeTab === 1 && (

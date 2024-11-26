@@ -1,12 +1,13 @@
 "use client";
-import React, { lazy, useEffect, useState } from "react";
+import React, { lazy, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Image1 from "../assets/images/banner.png";
 import { Carousel } from "react-responsive-carousel";
 import { Box, Button } from "@mui/material";
 import axios from "axios";
 import Loadable from "@/components/common/loader/Loadable";
-import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
+import { API_ENDPOINT, items, NEXT_PUBLIC_API_URL } from "@/utils/constant";
+import PopupModal from "@/components/common/PopupModal";
+import UpcomingEventForm from "@/components/Upcoming-form/UpcomingForm";
 const Footer = Loadable(lazy(()=>import("@/components/footer/Footer2")))
 const Contact = Loadable(lazy(()=>import("@/components/contact/Contact")))
 const Testimonial = Loadable(lazy(()=>import("@/components/testimonial/Testimonial")))
@@ -18,6 +19,16 @@ const AboutUs = Loadable(lazy(()=>import("@/components/about/AboutUs")))
 const page = () => {
   const [upcomimgEvent, setUpcomimgEvent] = useState([])
   const [mergeEvent, setMergeEvent] = useState(items)
+  const [showModal, setShowModal] = useState(false)
+
+  const defaultValues= useRef({
+    id: null,
+    date: null,
+    time: null,
+    mobile:'',
+    email:'',
+    message:''
+  });
 
   const getUpcomingEvent = async() => {
     try {
@@ -42,10 +53,24 @@ const page = () => {
     mergeArrays()
   },[upcomimgEvent])
 
+  
+  const toggleUpcomingEventFormModal = () => {
+    defaultValues.current = {
+      id: null,
+      date: null,
+      time: null,
+      mobile:'',
+      email:'',
+      message:''
+    };
+    setShowModal((prev) => !prev);
+  };
 
+  const onSubmit = () => {}
 
   return (
-    <Box className="home-banner-section">
+    <>
+      <Box className="home-banner-section">
       <Carousel
         showArrows={false}
         autoPlay={true}
@@ -60,7 +85,7 @@ const page = () => {
                 <h2 className="carousel-title common-heading-h1">
                   <span style={{ fontWeight: "600" }}>{item.title1}</span>
                   <br /> {item.title2}<br/>
-                <Button variant="contained" className="btn-primary btn-sm">
+                <Button variant="contained" className="btn-primary btn-sm" onClick={toggleUpcomingEventFormModal}>
                   {item.viveBtn}
                 </Button>
                 </h2>
@@ -75,7 +100,22 @@ const page = () => {
       <Testimonial />
       <Contact />
       <Footer />
+     
     </Box>
+     <PopupModal
+        isOpen={showModal}
+        header={
+          'Enquiry'
+        }
+        onOpenChange={toggleUpcomingEventFormModal}>
+        <UpcomingEventForm
+          handleClose={toggleUpcomingEventFormModal}
+          handleUpcomingEventSubmit={onSubmit}
+          defaultValues={defaultValues.current}
+        />
+      </PopupModal>
+    </>
+  
   );
 };
 

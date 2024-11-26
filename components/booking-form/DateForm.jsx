@@ -7,8 +7,9 @@ import FormProvider from "@/components/common/FormProvider";
 import { dateSchema } from "@/schema/BookingSchema";
 import ControllerDateTimePicker from "../common/ControllerDateTimePicker";
 import ControllerDatePicker from "../common/ControllerDatePicker";
+import { useEffect } from "react";
 
-const DateForm = ({ setActiveTab, handleClose, defaultValues,handleOnsubmit }) => {
+const DateForm = ({ setActiveTab, handleClose, defaultValues,handleOnsubmit ,setDefaultValues}) => {
   const methods = useForm({
     resolver: yupResolver(dateSchema),
     defaultValues,
@@ -16,6 +17,15 @@ const DateForm = ({ setActiveTab, handleClose, defaultValues,handleOnsubmit }) =
   });
 
   const { handleSubmit } = methods;
+
+  useEffect(() => {
+    if (defaultValues.date && !(defaultValues.date instanceof Date)) {
+      setDefaultValues((prev) => ({
+        ...prev,
+        date: new Date(defaultValues.date),
+      }));
+    }
+  }, [defaultValues.date]);
 
   const onSubmit = async (data) => {
     const prevData = {...defaultValues,...data}

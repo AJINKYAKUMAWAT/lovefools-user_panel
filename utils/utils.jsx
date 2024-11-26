@@ -99,3 +99,20 @@ export function formatInput(input) {
     return `${hour}:${minute}:${second}`;
   }
   
+
+  export const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Months are 0-based
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+  
+  export const formatDateForApi = (date) => {
+    const localDate = new Date(date); // Ensure it's a Date object
+    const year = localDate.getFullYear();
+    const month = String(localDate.getMonth() + 1).padStart(2, "0");
+    const day = String(localDate.getDate()).padStart(2, "0");
+  
+    return `${year}-${month}-${day}`; // Format as YYYY-MM-DD
+  };

@@ -15,7 +15,12 @@ import { API_ENDPOINT, MenuType, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import axios from "axios";
 import Button from "../common/Button";
 
-const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOnsubmit }) => {
+const SelectMenuForm = ({
+  setActiveTab,
+  defaultValues,
+  setDefaultValues,
+  handleOnsubmit,
+}) => {
   const methods = useForm({
     resolver: yupResolver(menuSchema),
     defaultValues,
@@ -23,9 +28,9 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
   });
   const [menu, setMenu] = useState(true);
   const [menuList, setMenuList] = useState([]);
-  const [subMenu, setSubMenu] = useState('All')
-  const [menuType, setMenuType] = useState({})
-  const [selectIndex, setSelectIndex] = useState()
+  const [subMenu, setSubMenu] = useState("All");
+  const [menuType, setMenuType] = useState({});
+  const [selectIndex, setSelectIndex] = useState();
 
   const {
     formState: { errors },
@@ -38,7 +43,7 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
     try {
       const { data } = await axios.post(
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_MENU_LIST}`,
-        {...params}
+        { ...params }
       );
       return setMenuList(data.data);
     } catch (error) {
@@ -47,41 +52,39 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
   };
 
   const selectMenu = (data) => {
-    setValue('price',data.price)
-    setValue('menu_Name',data.menu_Name)
-    setValue('menuType',data.menuType)
-    setValue('subMenuType',data.subMenuType)
-    setSelectIndex(data.menu_Name)
+    setValue("price", data.price);
+    setValue("menu_Name", data.menu_Name);
+    setValue("menuType", data.menuType);
+    setValue("subMenuType", data.subMenuType);
+    setSelectIndex(data.menu_Name);
   };
 
   console.log("errors", errors);
 
-
   useEffect(() => {
-    getMenuList({...menuType});
+    getMenuList({ ...menuType });
   }, [menuType]);
 
   const selectSubMenu = (item) => {
-    setSubMenu(item)    
-    if(item === "All"){
-      getMenuList({})
-    }else if(item === 'Veg'){
-      setValue('subMenuType','1')
-      setMenuType({...menuType,Sub_Menu_Type:"1"})
-    }else if(item === 'NonVeg'){
-      setValue('subMenuType','2')
-      setMenuType({...menuType,Sub_Menu_Type:"2"})
-    }else if(item === 'Drink'){
-      setValue('subMenuType','3')
-      setMenuType({...menuType,Sub_Menu_Type:"3"})
+    setSubMenu(item);
+    if (item === "All") {
+      getMenuList({});
+    } else if (item === "Veg") {
+      setValue("subMenuType", "1");
+      setMenuType({ ...menuType, Sub_Menu_Type: "1" });
+    } else if (item === "NonVeg") {
+      setValue("subMenuType", "2");
+      setMenuType({ ...menuType, Sub_Menu_Type: "2" });
+    } else if (item === "Drink") {
+      setValue("subMenuType", "3");
+      setMenuType({ ...menuType, Sub_Menu_Type: "3" });
     }
-  }
-
+  };
 
   const onSubmit = async (data) => {
-    const prevData = {...defaultValues,...data}
-    handleOnsubmit(prevData)
-    setActiveTab(3)
+    const prevData = { ...defaultValues, ...data };
+    handleOnsubmit(prevData);
+    setActiveTab(3);
   };
 
   const PrevBtn = () => {
@@ -89,16 +92,20 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
   };
 
   return (
-    <FormProvider className="booking-form"  methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider
+      className="booking-form"
+      methods={methods}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <div
         className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-2 items-center justify-center"
         style={{ display: "flex" }}
       >
         <Box
           onClick={() => {
-            setMenu(true)
-            setMenuType({...menuType,Menu_Type:'1'})
-            setValue('menuType','1')
+            setMenu(true);
+            setMenuType({ ...menuType, Menu_Type: "1" });
+            setValue("menuType", "1");
           }}
           sx={{
             border: menu ? "5px solid red" : "2px solid #fff",
@@ -113,9 +120,9 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
         </Box>
         <Box
           onClick={() => {
-            setMenu(false)
-            setMenuType({...menuType,Menu_Type:'2'})
-            setValue('menuType','2')
+            setMenu(false);
+            setMenuType({ ...menuType, Menu_Type: "2" });
+            setValue("menuType", "2");
           }}
           sx={{
             border: menu === false ? "5px solid red" : "2px solid #fff",
@@ -135,7 +142,7 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
       >
         {MenuType.map((item) => {
           return (
-            <Box           
+            <Box
               sx={{
                 borderRadius: 2,
                 gap: 5,
@@ -149,9 +156,10 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
               }}
             >
               <Typography
-               onClick={()=>selectSubMenu(item)}
+                onClick={() => selectSubMenu(item)}
                 sx={{
-                  color:subMenu === item ? 'red !important' : '#fff !important',
+                  color:
+                    subMenu === item ? "red !important" : "#fff !important",
                   marginBottom: "0px !important",
                 }}
               >
@@ -165,7 +173,11 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
         {menuList?.map((item) => {
           return (
             <Box
-              className={`flex items-center justify-center menuStyleBg grid-menustyle ${(selectIndex ?? defaultValues.menu_Name ) === item.menu_Name ? 'menuStyle':''} cursor-pointer`}
+              className={`flex items-center justify-center menuStyleBg grid-menustyle ${
+                (selectIndex ?? defaultValues.menu_Name) === item.menu_Name
+                  ? "menuStyle"
+                  : ""
+              } cursor-pointer`}
               onClick={() => selectMenu(item)}
             >
               <Box className="menuBox">
@@ -227,18 +239,21 @@ const SelectMenuForm = ({setActiveTab, defaultValues, setDefaultValues,handleOns
             </Box>
           );
         })}
-       
       </div>
-      {errors?.menu_Name && <h4 style={{color:'red',textAlign:'center'}}>Please select the Menu</h4>}
+      {errors?.menu_Name && (
+        <h4 style={{ color: "red", textAlign: "center" }}>
+          Please select the Menu
+        </h4>
+      )}
       <br />
       <div className="flex justify-center space-x-4">
-              <Button type="button" variant="bordered" onClick={PrevBtn}>
-                Prev
-              </Button>
-              <Button type="submit">Next</Button>
-            </div>
-            <br />
-            <br />
+        <Button type="button" variant="bordered" onClick={PrevBtn}>
+          Prev
+        </Button>
+        <Button type="submit">Next</Button>
+      </div>
+      <br />
+      <br />
     </FormProvider>
   );
 };

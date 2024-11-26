@@ -2,6 +2,7 @@ import Image1 from "../assets/images/Post1.png";
 import Image2 from "../assets/images/Post2.png";
 import Image3 from "../assets/images/Post3.png";
 import Image4 from "../assets/images/Post4.png";
+import HomePageImg from "../assets/images/banner.png";
 
 // export const NEXT_PUBLIC_API_URL = "http://localhost:5000/api/user/";
 export const NEXT_PUBLIC_API_URL = "https://lovefools-backend-76pv.vercel.app/api/user/";
@@ -146,7 +147,7 @@ export const AboutUsSection =
     {
       title1: "Welcome",
       title2: "to Lovefools",
-      image: Image1,
+      image: HomePageImg,
       viveBtn:'View More'
     },
   ];
