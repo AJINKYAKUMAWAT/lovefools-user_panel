@@ -7,7 +7,11 @@ import FormProvider from "@/components/common/FormProvider";
 import { dateSchema, tableSchema } from "@/schema/BookingSchema";
 import ControllerDateTimePicker from "../common/ControllerDateTimePicker";
 import ControllerDatePicker from "../common/ControllerDatePicker";
-import { convertTimeObjectToString, formatDateForApi, generateOptions } from "@/utils/utils";
+import {
+  convertTimeObjectToString,
+  formatDateForApi,
+  generateOptions,
+} from "@/utils/utils";
 import { API_ENDPOINT, NEXT_PUBLIC_API_URL, options2 } from "@/utils/constant";
 import ControllerSelect from "../common/ControllerSelect";
 import { useEffect, useState } from "react";
@@ -32,7 +36,7 @@ const TableListForm = ({
     handleSubmit,
     formState: { errors },
     watch,
-    setValue
+    setValue,
   } = methods;
 
   const [roomList, setRoomList] = useState([]);
@@ -85,7 +89,7 @@ const TableListForm = ({
     });
     console.log("getFilteredData", getFilteredData[0]?.seatCount);
 
-    setValue('quantity',getFilteredData[0]?.seatCount)
+    setValue("quantity", getFilteredData[0]?.seatCount);
     setDefaultValues({
       ...defaultValues,
       quantity: getFilteredData[0]?.seatCount,
@@ -100,7 +104,12 @@ const TableListForm = ({
 
   const PrevBtn = () => {
     setActiveTab(0);
-  };  
+  };
+
+  const handleImageClick = (res) => {
+    setMenu(true);
+    setValue("table_number", { value: res._id, label: res.table_number });
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -119,7 +128,7 @@ const TableListForm = ({
               <div className="max-w-[400px] w-full mx-auto">
                 <ControllerSelect
                   isDisabled={
-                    watch("room")?.label === "Colaba Room" ? false : true
+                    watch("room")?.label === "Courtyard" ? false : true
                   }
                   options={generateOptions(
                     unBookTableList,
@@ -129,51 +138,45 @@ const TableListForm = ({
                   placeholder="Select table"
                   name="table_number"
                   label="Table"
-                  isInvalid={watch("room")?.label === "Colaba Room" ? true : false}
+                  isInvalid={
+                    watch("room")?.label === "Courtyard" ? true : false
+                  }
                 />
               </div>
             </div>
-            {watch("room") && watch("room")?.label !== "Colaba Room" && (
-              <div
-                className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-2 items-center justify-center"
-                style={{ display: "flex" }}
-              >
-                <Box
-                  onClick={() => {
-                    setMenu(true)
-                    setValue('table_number',{value:'',label:''})
-                  }}
-                  sx={{
-                    border: menu ? "5px solid red" : "2px solid #fff",
-                    padding: 1,
-                    borderRadius: 2,
-                    background: "#fff",
-                    width: 80,
-                    cursor: "pointer",
-                  }}
+            {watch("room") && watch("room")?.label !== "Courtyard" && (
+              <div>
+                <div
+                  className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-2 items-center justify-center"
+                  style={{ display: "flex" }}
                 >
-                  <Image src={crown2} width={60} />
-                </Box>
-                <Box
-                  // onClick={() => {
-                  //   setMenu(false)
-                  //   setMenuType({...menuType,Menu_Type:'2'})
-                  //   setValue('menuType','2')
-                  // }}
-                  sx={{
-                    // border: menu === false ? "5px solid red" : "2px solid #fff",
-                    padding: 1,
-                    borderRadius: 2,
-                    background: "#fff",
-                    width: 80,
-                    cursor: "pointer",
-                  }}
-                >
-                  <Image src={crown2} width={60} />
-                </Box>
+                  {unBookTableList.map((res) => {
+                    return (
+                      <Box
+                        onClick={() => handleImageClick(res)}
+                        sx={{
+                          border: menu ? "5px solid red" : "2px solid #fff",
+                          padding: 1,
+                          borderRadius: 2,
+                          background: "#fff",
+                          width: 80,
+                          cursor: "pointer",
+                        }}
+                      >
+                        <Image src={res.photo} width={60} height={30} />
+                      </Box>
+                    );
+                  })}
+                </div>
+                {watch("room") &&
+                  watch("room")?.label !== "Courtyard" &&
+                  errors?.table_number && (
+                    <h4 style={{ color: "red", textAlign: "center" }}>
+                      Please select the Table
+                    </h4>
+                  )}
               </div>
             )}
-            {watch("room") && watch("room")?.label !== "Colaba Room" &&errors?.table_number && <h4 style={{color:'red',textAlign:'center'}}>Please select the Table</h4>}
 
             <div className="flex justify-center space-x-4">
               <Button type="button" variant="bordered" onClick={PrevBtn}>
