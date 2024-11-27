@@ -83,13 +83,13 @@ const page = () => {
           return (
             <div key={index}>
                 <h2 className="carousel-title common-heading-h1">
-                  <span style={{ fontWeight: "600" }}>{item.title1}</span>
-                  <br /> {item.title2}<br/>
+                  <span style={{ fontWeight: "600" }}>{item.event_Name}</span>
+                  <br /> {item.description}<br/>
                 <Button variant="contained" className="btn-primary btn-sm" onClick={toggleUpcomingEventFormModal}>
                   {item.viveBtn}
                 </Button>
                 </h2>
-              <Image src={item.image} className="carousal-image" alt="Lovefools" />
+              <Image src={item.photo} className="carousal-image" alt="Lovefools" width={10} height={10}/>
             </div>
           );
         })}

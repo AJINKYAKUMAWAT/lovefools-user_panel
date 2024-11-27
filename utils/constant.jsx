@@ -145,9 +145,9 @@ export const AboutUsSection =
 
  export const items = [
     {
-      title1: "Welcome",
-      title2: "to Lovefools",
-      image: HomePageImg,
+      event_Name: "Welcome",
+      description: "to Lovefools",
+      photo: HomePageImg,
       viveBtn:'View More'
     },
   ];
