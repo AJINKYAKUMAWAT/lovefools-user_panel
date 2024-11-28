@@ -33,6 +33,10 @@ const DateForm = ({ setActiveTab, handleClose, defaultValues,handleOnsubmit ,set
     setActiveTab(1);
   };
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Reset time to 00:00:00
+  
+
   return (
     <div className="flex items-center justify-center">
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -44,6 +48,7 @@ const DateForm = ({ setActiveTab, handleClose, defaultValues,handleOnsubmit ,set
                   placeholder="Enter date"
                   name="date"
                   label="Date"
+                  minDate={today}
                 />
               </div>
               <div className="max-w-[250px] w-full mx-auto">

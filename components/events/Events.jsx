@@ -9,6 +9,9 @@ import axios from "axios";
 import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import { AuthContextProvider } from "@/authcontext/AuthContext";
 import CloseIcon from "@mui/icons-material/Close";
+import UpcomingEventForm from "../Upcoming-form/UpcomingForm";
+import PopupModal from "../common/PopupModal";
+import { toast } from "react-toastify";
 
 const Item = [
   {
@@ -129,6 +132,18 @@ const Events = () => {
   const { id } = React.useContext(AuthContextProvider);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [showModal, setShowModal] = React.useState(false);
+
+
+  const defaultValues = React.useRef({
+    id: null,
+    date: null,
+    time: null,
+    mobile: "",
+    email: "",
+    message: "",
+  });
+
 
   const handleView = () => {
     setView((view) => view + 3);
@@ -214,6 +229,42 @@ const Events = () => {
     return formattedDateTime;
   };
 
+  const toggleUpcomingEventFormModal = (value) => {
+    defaultValues.current = {
+      id: null,
+      date: null,
+      time: null,
+      mobile: "",
+      email: "",
+      message: "",
+    };
+      setShowModal((prev) => !prev);
+  };
+
+  const onSubmit = async (data) => {
+    const payload = {
+      event_Name: '',
+      description: data.message,
+      date: data.date,
+      time: data.time,
+      event_type: '1',
+    };
+
+    try {
+      await axios.post(
+        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_ENQUIRY}`,
+        payload
+      );
+
+      setShowModal(false)
+
+      toast.success("Update Event Enquiry sent Successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   return (
     <section className="events-section common-section" id="Event">
       <Container>
@@ -289,13 +340,13 @@ const Events = () => {
             >
               View More
             </Button>
-            {/* <Button
-              onClick={handleView}
+            <Button
+              onClick={toggleUpcomingEventFormModal}
               variant="contained"
-              className="btn-primary mt40"
+              className="btn-primary mt40 ml-4"
             >
               New Enquiry
-            </Button> */}
+            </Button>
           </Grid>
         </Grid>
       </Container>
@@ -338,6 +389,17 @@ const Events = () => {
           </Grid>
         </Box>
       </Modal>
+      <PopupModal
+        isOpen={showModal}
+        header={"Enquiry"}
+        onOpenChange={toggleUpcomingEventFormModal}
+      >
+        <UpcomingEventForm
+          handleClose={toggleUpcomingEventFormModal}
+          handleUpcomingEventSubmit={onSubmit}
+          defaultValues={defaultValues.current}
+        />
+      </PopupModal>
     </section>
   );
 };

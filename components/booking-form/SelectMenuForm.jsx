@@ -245,6 +245,9 @@ const SelectMenuForm = ({
           Please select the Menu
         </h4>
       )}
+      <div className="flex items-center justify-center">
+        <h5 className="note-text ">Note: Per Person 250 chargeble in advance</h5>
+      </div>
       <br />
       <div className="flex justify-center space-x-4">
         <Button type="button" variant="bordered" onClick={PrevBtn}>

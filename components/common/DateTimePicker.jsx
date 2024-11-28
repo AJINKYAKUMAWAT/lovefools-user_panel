@@ -8,10 +8,11 @@ const DateTimePicker = ({
   label = '',
   showTimePicker = false,
   value,
+  width = 'w-80',
   ...rest
 }) => {
   return (
-    <div className='flex w-80 flex-row gap-4 mb-3'  style={{borderRadius:'13px'}}>
+    <div className={`flex ${width} flex-row gap-4 mb-3`}  style={{borderRadius:'13px'}}>
       <TimeInput
       labelProps={{
         style:{color:'#fff !important'}

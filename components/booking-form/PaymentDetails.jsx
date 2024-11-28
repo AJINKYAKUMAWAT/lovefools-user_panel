@@ -4,8 +4,9 @@ import Button from '../common/Button';
 import {API_ENDPOINT, NEXT_PUBLIC_API_URL} from '@/utils/constant';
 import { convertTimeObjectToString, formatDate, formatDateForApi } from '@/utils/utils';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const PaymentDetails = ({setActiveTab, defaultValues}) => {
+const PaymentDetails = ({setActiveTab, defaultValues,setDefaultValues}) => {
 	const PrevBtn = () => {
 		setActiveTab(3);
 	};
@@ -40,7 +41,9 @@ const PaymentDetails = ({setActiveTab, defaultValues}) => {
 						`${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_RECEIPT}`,
 						payload
 					);
-					alert('Payment Successful!');
+					toast.success('Booking Confirmation Succesfully')
+					setDefaultValues({})
+					setActiveTab(0)
 				},
 				prefill: {
 					email: defaultValues.email,

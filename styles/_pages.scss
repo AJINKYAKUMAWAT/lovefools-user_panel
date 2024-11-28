@@ -645,3 +645,13 @@ label.text-small {
 .menuStyleBg:hover{
   background: #808080a3;
 }
+
+.carousal-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover; /* Ensures image covers the container */
+}
+
+.note-text {
+  color: #fff !important;
+}

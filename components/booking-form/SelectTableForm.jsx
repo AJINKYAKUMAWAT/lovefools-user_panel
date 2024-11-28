@@ -155,7 +155,7 @@ const TableListForm = ({
                       <Box
                         onClick={() => handleImageClick(res)}
                         sx={{
-                          border: menu ? "5px solid red" : "2px solid #fff",
+                          border: watch('table_number')?.value === res._id ? "5px solid red" : "2px solid #fff",
                           padding: 1,
                           borderRadius: 2,
                           background: "#fff",
@@ -177,7 +177,7 @@ const TableListForm = ({
                   )}
               </div>
             )}
-
+           
             <div className="flex justify-center space-x-4">
               <Button type="button" variant="bordered" onClick={PrevBtn}>
                 Prev

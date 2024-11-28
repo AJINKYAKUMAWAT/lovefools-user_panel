@@ -39,12 +39,15 @@ const UpcomingEventForm = ({
               type='text'
               name='date'
               label='Date'
+              color='#000 !important'
+              isDisabled={defaultValues.date}
             />
           </div>
-          <div className='grid gap-4'>
+          <div className='grid gap-4 w-full'>
             <ControllerDateTimePicker
               name='time'
               label='Time'
+              width='w-full'
             />
           </div>
           <div className='grid gap-4'>
@@ -69,6 +72,7 @@ const UpcomingEventForm = ({
               placeholder='Message'
               name='message'
               label='Message'
+              rows={4}
             />
           </div>
           <div className='flex justify-end space-x-4'>

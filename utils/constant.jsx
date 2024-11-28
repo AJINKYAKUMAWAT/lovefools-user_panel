@@ -19,7 +19,8 @@ export const API_ENDPOINT = {
   GET_ROOM_LIST:'getRoomList',
   GET_BOOK_LIST:'getBookList',
   ADD_RECEIPT: 'addReceipt',
-  GET_UPCOMING_EVENT: 'getUpComingEventList'
+  GET_UPCOMING_EVENT: 'getUpComingEventList',
+  ADD_ENQUIRY: 'addEnquiry',
 };
 
 export const ERROR_MESSAGES = "This field is required";
