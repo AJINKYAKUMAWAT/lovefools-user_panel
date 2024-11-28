@@ -10,7 +10,7 @@ import Slider from "react-slick";
 import quoteIcon from "../../assets/images/quotation.svg";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import axiosInstance from "@/utils/axios";
-import { API_ENDPOINT } from "@/utils/constant";
+import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import { AuthContextProvider } from "@/authcontext/AuthContext";
 import avatar from "../../assets/images/avatar.svg";
 import doubleQuate  from "../../assets/images/double-quate.svg";
@@ -46,7 +46,7 @@ const Testimonial = () => {
   const getTestimonials = async () => {
     try {
       const response = await axiosInstance.post(
-        API_ENDPOINT.GET_TESTIMONIAL_LIST
+        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_TESTIMONIAL_LIST}`
       );
       return setTestimonialList(response.data.data);
     } catch (error) {

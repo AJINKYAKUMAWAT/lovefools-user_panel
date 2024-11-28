@@ -33,32 +33,7 @@ const Page = () => {
   
   console.log("defaultValues", defaultValues);
 
-  const generateRandomNumber = () => {
-    return Math.floor(100000 + Math.random() * 900000); // Ensures a 6-digit number
-  };
-
-  const sendWhatsAppMessages = async () => {
-    const payload = {
-      phone: "+918830601265",
-      message: `Lovefools booking confirmation OTP ${generateRandomNumber}`,
-    };
-
-    try {
-      const data = await axios.post("https://api.wassenger.com/v1/messages", {
-        payload,
-        headers: {
-          "Content-Type": "application/json",
-          Token:
-            "53d9b10ad2585e1b35fc491ec47cee86c2e269734f998c2c81fd6495a77e49b5907dbb4ed261b163",
-        },
-      });
-
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+ 
   const handleSubmit = (data) => {
    setDefaultValues(data)
   }
