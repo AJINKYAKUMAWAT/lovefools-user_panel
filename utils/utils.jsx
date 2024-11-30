@@ -116,3 +116,8 @@ export function formatInput(input) {
   
     return `${year}-${month}-${day}`; // Format as YYYY-MM-DD
   };
+
+  
+export const findSingleSelectedValueLabelOption = (options, selectedValue) => {
+  return options.find((item) => item?.value === selectedValue) || null;
+};

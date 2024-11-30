@@ -4,21 +4,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ControllerTextField from "@/components/common/ControllerTextField";
 import Button from "@/components/common/Button";
 import FormProvider from "@/components/common/FormProvider";
-import { dateSchema, tableSchema } from "@/schema/BookingSchema";
-import ControllerDateTimePicker from "../common/ControllerDateTimePicker";
-import ControllerDatePicker from "../common/ControllerDatePicker";
+import ControllerSelect from "../common/ControllerSelect";
+import { Box, Skeleton } from "@mui/material";
+import Image from "next/image";
+import { useEffect, useState, useMemo } from "react";
 import {
   convertTimeObjectToString,
   formatDateForApi,
   generateOptions,
 } from "@/utils/utils";
-import { API_ENDPOINT, NEXT_PUBLIC_API_URL, options2 } from "@/utils/constant";
-import ControllerSelect from "../common/ControllerSelect";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import crown2 from "../../assets/images/crown_2.png";
-import { Box } from "@mui/material";
-import Image from "next/image";
+import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
+import { tableSchema } from "@/schema/BookingSchema";
 
 const TableListForm = ({
   setActiveTab,
@@ -41,60 +38,67 @@ const TableListForm = ({
 
   const [roomList, setRoomList] = useState([]);
   const [unBookTableList, setUnBookTableList] = useState([]);
-  const [menu, setMenu] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const getRoomList = async (params) => {
-    try {
-      const { data } = await axios.post(
-        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_ROOM_LIST}`
-      );
-      return setRoomList(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getUnBookList = async (params) => {
-    try {
-      const { data } = await axios.post(
-        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_BOOK_LIST}`,
-        { ...params }
-      );
-      console.log("book", data);
-
-      return setUnBookTableList(data.available);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  // Fetch room list only once
   useEffect(() => {
-    getRoomList();
+    const fetchRoomList = async () => {
+      try {
+        const { data } = await axios.post(
+          `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_ROOM_LIST}`
+        );
+        setRoomList(data.data);
+      } catch (error) {
+        console.error("Error fetching room list:", error);
+      }
+    };
+
+    fetchRoomList();
   }, []);
 
+  // Fetch unbooked tables when date, time, or room changes
+  const fetchUnBookList = async (params) => {
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_BOOK_LIST}`,
+        params
+      );
+      setUnBookTableList(data.available);
+    } catch (error) {
+      console.error("Error fetching unbooked tables:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    if (defaultValues?.date && defaultValues?.time) {
-      const time = convertTimeObjectToString(defaultValues.time);
-      getUnBookList({
+    const selectedRoom = watch("room")?.value;
+    if (defaultValues?.date && defaultValues?.time && selectedRoom) {
+      fetchUnBookList({
         date: formatDateForApi(defaultValues.date),
-        time: time,
-        roomID: watch("room")?.value,
+        time: convertTimeObjectToString(defaultValues.time),
+        roomID: selectedRoom,
       });
     }
-  }, [defaultValues, watch("room")]);
+  }, [defaultValues?.date, defaultValues?.time, watch("room")]);
 
+  // Update quantity based on table selection
   useEffect(() => {
-    const getFilteredData = unBookTableList.filter((res) => {
-      return res._id === watch("table_number").value;
-    });
-    console.log("getFilteredData", getFilteredData[0]?.seatCount);
-
-    setValue("quantity", getFilteredData[0]?.seatCount);
-    setDefaultValues({
-      ...defaultValues,
-      quantity: getFilteredData[0]?.seatCount,
-    });
-  }, [watch("table_number")]);
+    const selectedTable = watch("table_number")?.value;
+    if (selectedTable) {
+      const selectedTableData = unBookTableList.find(
+        (table) => table._id === selectedTable
+      );
+      if (selectedTableData) {
+        setValue("quantity", selectedTableData.seatCount);
+        setDefaultValues({
+          ...defaultValues,
+          quantity: selectedTableData.seatCount,
+        });
+      }
+    }
+  }, [watch("table_number"), unBookTableList]);
 
   const onSubmit = (data) => {
     const prevData = { ...defaultValues, ...data };
@@ -102,13 +106,12 @@ const TableListForm = ({
     setActiveTab(2);
   };
 
-  const PrevBtn = () => {
-    setActiveTab(0);
+  const handleImageClick = (table) => {
+    setValue("table_number", { value: table._id, label: table.table_number });
   };
 
-  const handleImageClick = (res) => {
-    setMenu(true);
-    setValue("table_number", { value: res._id, label: res.table_number });
+  const PrevBtn = () => {
+    setActiveTab(0);
   };
 
   return (
@@ -116,6 +119,7 @@ const TableListForm = ({
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <div className="container mx-auto">
           <div className="grid gap-4">
+            {/* Room Selector */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
               <div className="max-w-[400px] w-full mx-auto">
                 <ControllerSelect
@@ -125,11 +129,9 @@ const TableListForm = ({
                   label="Room"
                 />
               </div>
+              {/* Table Selector */}
               <div className="max-w-[400px] w-full mx-auto">
                 <ControllerSelect
-                  isDisabled={
-                    watch("room")?.label === "Courtyard" ? false : true
-                  }
                   options={generateOptions(
                     unBookTableList,
                     "_id",
@@ -138,54 +140,69 @@ const TableListForm = ({
                   placeholder="Select table"
                   name="table_number"
                   label="Table"
-                  isInvalid={
-                    watch("room")?.label === "Courtyard" ? true : false
+                  isInvalid={errors.table_number}
+                  isDisabled={
+                    watch("room")?.label === "Courtyard" ? false : true
                   }
                 />
               </div>
             </div>
+
+            {/* Table Grid */}
             {watch("room") && watch("room")?.label !== "Courtyard" && (
               <div>
-                <div
-                  className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-2 items-center justify-center"
-                  style={{ display: "flex" }}
-                >
-                  {unBookTableList.map((res) => {
-                    return (
-                      <Box
-                        onClick={() => handleImageClick(res)}
-                        sx={{
-                          border: watch('table_number')?.value === res._id ? "5px solid red" : "2px solid #fff",
-                          padding: 1,
-                          borderRadius: 2,
-                          background: "#fff",
-                          width: 80,
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Image src={res.photo} width={60} height={30} />
-                      </Box>
-                    );
-                  })}
+                <div className="grid grid-cols-2 gap-4 mb-2 items-center justify-center">
+                  {loading
+                    ? Array.from({ length: 4 }).map((_, index) => (
+                        <Box key={index}>
+                          <Skeleton
+                            variant="rounded"
+                            width={100}
+                            height={100}
+                            sx={{ background: "#fff" }}
+                          />
+                        </Box>
+                      ))
+                    : unBookTableList.map((table) => (
+                        <Box
+                          key={table._id}
+                          onClick={() => handleImageClick(table)}
+                          sx={{
+                            border:
+                              watch("table_number")?.value === table._id
+                                ? "3px solid red"
+                                : "1px solid #ccc",
+                            padding: 1,
+                            borderRadius: 2,
+                            background: "#fff",
+                            width: 80,
+                            cursor: "pointer",
+                          }}
+                        >
+                          <Image
+                            src={table.photo}
+                            width={60}
+                            height={30}
+                            alt=""
+                          />
+                        </Box>
+                      ))}
                 </div>
-                {watch("room") &&
-                  watch("room")?.label !== "Courtyard" &&
-                  errors?.table_number && (
-                    <h4 style={{ color: "red", textAlign: "center" }}>
-                      Please select the Table
-                    </h4>
-                  )}
+                {errors.table_number && (
+                  <h4 style={{ color: "red", textAlign: "center" }}>
+                    Please select a table
+                  </h4>
+                )}
               </div>
             )}
-           
+
+            {/* Navigation Buttons */}
             <div className="flex justify-center space-x-4">
               <Button type="button" variant="bordered" onClick={PrevBtn}>
                 Prev
               </Button>
               <Button type="submit">Next</Button>
             </div>
-            <br />
-            <br />
           </div>
         </div>
       </FormProvider>

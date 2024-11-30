@@ -3,7 +3,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { Button, Typography, Container } from "@mui/material";
+import { Button, Typography, Container, Skeleton } from "@mui/material";
 import Image from "next/image";
 import Image2 from "../../assets/images/aboutUs.png";
 import { AuthContextProvider } from "@/authcontext/AuthContext";
@@ -16,26 +16,29 @@ import {
 
 const AboutUs = () => {
   const { id } = React.useContext(AuthContextProvider);
-  const [aboutUs, setAboutUs] = React.useState([]);
+  const [aboutUs, setAboutUs] = React.useState(null);
   const [view, setView] = React.useState(232);
+  const [loading, setLoading] = React.useState(false);
 
   const getAboutUs = async () => {
     try {
+      setLoading(true);
       const data = await axios.post(
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_CMS}`
       );
-      console.log(data.data.data);
-      return setAboutUs(data.data.data);
+      setLoading(false);
+      return setAboutUs(data.data.data[0]);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
 
-  const nextLine = AboutUsSection.split("\n").join("\n");
+  const nextLine = aboutUs?.description?.split("\n").join("\n");
 
-  const slicedText = nextLine.slice(0, view);
+  const slicedText = nextLine?.slice(0, view);
 
-  const slicedLines = slicedText.split("\n");
+  const slicedLines = slicedText?.split("\n");
 
   const handleView = () => {
     setView((view) => view + 232);
@@ -52,25 +55,32 @@ const AboutUs = () => {
           {/* Text Section */}
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <div className="info-wrap">
-              <Typography variant="h2" className="common-heading-h2">
-                About Us
-              </Typography>
+              {loading ? (
+                <Skeleton variant="rectangular" width={450} height={450} />
+              ) : (
+                <>
+                  <Typography variant="h2" className="common-heading-h2">
+                    {aboutUs?.section_Name}
+                  </Typography>
 
-              {slicedLines.map((line, index) => (
-                <p key={index} className="p16">
-                  {line}
-                  {index === slicedLines.length - 1 && nextLine.length > view
-                    ? "..."
-                    : ""}
-                </p>
-              ))}
-              <Button
-                variant="contained"
-                className="btn-primary mt40"
-                onClick={handleView}
-              >
-                Read More
-              </Button>
+                  {slicedLines?.map((line, index) => (
+                    <p key={index} className="p16">
+                      {line}
+                      {index === slicedLines.length - 1 &&
+                      nextLine.length > view
+                        ? "..."
+                        : ""}
+                    </p>
+                  ))}
+                  <Button
+                    variant="contained"
+                    className="btn-primary mt40"
+                    onClick={handleView}
+                  >
+                    Read More
+                  </Button>
+                </>
+              )}
             </div>
           </Grid>
 

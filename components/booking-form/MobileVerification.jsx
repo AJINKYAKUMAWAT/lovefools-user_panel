@@ -27,9 +27,6 @@ const DateForm = ({
   const { handleSubmit, setError, watch } = methods;
 
 
-  console.log("genOtp",genOtp);
-  
-
   const sendWhatsAppMessages = async () => {
     if (watch("mobile").length === 10) {
       const otp = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit OTP

@@ -80,4 +80,4 @@ const Select = ({
   );
 };
 
-export default forwardRef(Select);
+export default Select;

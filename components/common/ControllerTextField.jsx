@@ -28,4 +28,4 @@ const ControllerTextField = ({ name, onChange, variantType, ...rest }) => {
   );
 };
 
-export default forwardRef(ControllerTextField);
+export default ControllerTextField;

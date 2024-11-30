@@ -9,7 +9,7 @@ import crown2 from "../../assets/images/crown_2.png";
 import food_and_restaurant from "../../assets/images/food-and-restaurant.png";
 import food_and_restaurant2 from "../../assets/images/food-and-restaurant_2.png";
 import Image from "next/image";
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { API_ENDPOINT, MenuType, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import axios from "axios";
@@ -31,6 +31,7 @@ const SelectMenuForm = ({
   const [subMenu, setSubMenu] = useState("All");
   const [menuType, setMenuType] = useState({});
   const [selectIndex, setSelectIndex] = useState();
+  const [loading, setLoading] = useState(false);
 
   const {
     formState: { errors },
@@ -41,25 +42,26 @@ const SelectMenuForm = ({
 
   const getMenuList = async (params) => {
     try {
+      setLoading(true);
       const { data } = await axios.post(
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_MENU_LIST}`,
         { ...params }
       );
+      setLoading(false);
       return setMenuList(data.data);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
 
   const selectMenu = (data) => {
     setValue("price", data.price);
-    setValue("menu_Name", data.menu_Name);
+    setValue("menu_Name", data._id);
     setValue("menuType", data.menuType);
     setValue("subMenuType", data.subMenuType);
     setSelectIndex(data.menu_Name);
   };
-
-  console.log("errors", errors);
 
   useEffect(() => {
     getMenuList({ ...menuType });
@@ -116,7 +118,7 @@ const SelectMenuForm = ({
             cursor: "pointer",
           }}
         >
-          <Image src={crown2} width={60} />
+          <Image src={crown2} width={60} height={""} alt="Lovefool Img" />
         </Box>
         <Box
           onClick={() => {
@@ -133,16 +135,17 @@ const SelectMenuForm = ({
             cursor: "pointer",
           }}
         >
-          <Image src={food_and_restaurant} width={60} />
+          <Image src={food_and_restaurant} width={60} height={""} alt="Lovefool Img"/>
         </Box>
       </div>
       <div
         className="grid grid-cols-4 gap-4 md:grid-cols-4 mb-2 items-center justify-center"
         style={{ display: "flex" }}
       >
-        {MenuType.map((item) => {
+        {MenuType.map((item,index) => {
           return (
             <Box
+            key={index}
               sx={{
                 borderRadius: 2,
                 gap: 5,
@@ -170,75 +173,81 @@ const SelectMenuForm = ({
         })}
       </div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-2">
-        {menuList?.map((item) => {
-          return (
-            <Box
-              className={`flex items-center justify-center menuStyleBg grid-menustyle ${
-                (selectIndex ?? defaultValues.menu_Name) === item.menu_Name
-                  ? "menuStyle"
-                  : ""
-              } cursor-pointer`}
-              onClick={() => selectMenu(item)}
-            >
-              <Box className="menuBox">
-                <Image src={crown} width={30} />
-              </Box>
-              <Box sx={{ width: "100%" }} mt={3}>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    position: "relative",
-                    width: "100%",
-                  }}
+        {loading ? (
+          <Skeleton variant="rounded" width={500} height={150} sx={{background:'#fff'}}/>
+        ) : (
+          <>
+            {menuList?.map((item,index) => {
+              return (
+                <Box key={index}
+                  className={`flex items-center justify-center menuStyleBg grid-menustyle ${
+                    (selectIndex ?? defaultValues.menu_Name) === item.menu_Name
+                      ? "menuStyle"
+                      : ""
+                  } cursor-pointer`}
+                  onClick={() => selectMenu(item)}
                 >
-                  <Box
-                    sx={{
-                      flex: 1,
-                      borderBottom: "1px dashed #000",
-                      position: "absolute",
-                      top: "50%",
-                      left: 0,
-                      right: 0,
-                      zIndex: 0,
-                      width: "100%",
-                    }}
-                  />
-                  <Typography
-                    sx={{
-                      backgroundColor: "#000",
-                      px: 1,
-                      zIndex: 1,
-                      color: "#fff !important",
-                      position: "absolute",
-                      left: 0,
-                      top: -10,
-                    }}
-                  >
-                    {item.menu_Name}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      backgroundColor: "#000",
-                      px: 1,
-                      zIndex: 1,
-                      color: "white !important",
-                      position: "absolute",
-                      right: 0,
-                      top: -10,
-                    }}
-                  >
-                    {item.price}
-                  </Typography>
+                  <Box className="menuBox bg-white">
+                    <Image src={item?.photo} width={30} height={30} alt="Lovefool Img" />
+                  </Box>
+                  <Box sx={{ width: "100%" }} mt={3}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        position: "relative",
+                        width: "100%",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          flex: 1,
+                          borderBottom: "1px dashed #000",
+                          position: "absolute",
+                          top: "50%",
+                          left: 0,
+                          right: 0,
+                          zIndex: 0,
+                          width: "100%",
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          backgroundColor: "#000",
+                          px: 1,
+                          zIndex: 1,
+                          color: "#fff !important",
+                          position: "absolute",
+                          left: 0,
+                          top: -10,
+                        }}
+                      >
+                        {item.menu_Name}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          backgroundColor: "#000",
+                          px: 1,
+                          zIndex: 1,
+                          color: "white !important",
+                          position: "absolute",
+                          right: 0,
+                          top: -10,
+                        }}
+                      >
+                        {item.price}
+                      </Typography>
+                    </Box>
+                    <Typography color="#fff !important" mt={2}>
+                      {item.description}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Typography color="#fff !important" mt={2}>
-                  {item.description}
-                </Typography>
-              </Box>
-            </Box>
-          );
-        })}
+              );
+            })}
+          </>
+        )}
       </div>
       {errors?.menu_Name && (
         <h4 style={{ color: "red", textAlign: "center" }}>
@@ -246,7 +255,9 @@ const SelectMenuForm = ({
         </h4>
       )}
       <div className="flex items-center justify-center">
-        <h5 className="note-text ">Note: Per Person 250 chargeble in advance</h5>
+        <h5 className="note-text ">
+          Note: Per Person 250 chargeble in advance
+        </h5>
       </div>
       <br />
       <div className="flex justify-center space-x-4">

@@ -293,7 +293,10 @@
       .common-heading-h3 {
         opacity: 1;
         font-weight: 600;
-      }
+      };
+      .common-heading-h5 {
+        opacity: 1;
+      };
     }
 
     .p14 {
@@ -654,4 +657,8 @@ label.text-small {
 
 .note-text {
   color: #fff !important;
+}
+
+.gallary-thumbnail{
+  height: 270px;
 }

@@ -2,7 +2,7 @@
 import React, { lazy, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Carousel } from "react-responsive-carousel";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Skeleton } from "@mui/material";
 import axios from "axios";
 import Loadable from "@/components/common/loader/Loadable";
 import { API_ENDPOINT, items, NEXT_PUBLIC_API_URL } from "@/utils/constant";
@@ -18,11 +18,12 @@ const Gallery = Loadable(lazy(() => import("@/components/gallery/Gallery")));
 const Events = Loadable(lazy(() => import("@/components/events/Events")));
 const AboutUs = Loadable(lazy(() => import("@/components/about/AboutUs")));
 
-const page = () => {
+const Page = () => {
   const [upcomimgEvent, setUpcomimgEvent] = useState([]);
   const [mergeEvent, setMergeEvent] = useState(items);
   const [showModal, setShowModal] = useState(false);
-  const [eventName,setEventName] = useState('')
+  const [eventName, setEventName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const defaultValues = useRef({
     id: null,
@@ -35,11 +36,14 @@ const page = () => {
 
   const getUpcomingEvent = async () => {
     try {
+      setLoading(true);
       const data = await axios.post(
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_UPCOMING_EVENT}`
       );
+      setLoading(false);
       setUpcomimgEvent(data.data.data);
     } catch (error) {
+      setLoading(false);
       console.log();
     }
   };
@@ -66,7 +70,7 @@ const page = () => {
       message: "",
     };
     if (!value.viveBtn) {
-      setEventName(value.event_Name)
+      setEventName(value.event_Name);
       setShowModal((prev) => !prev);
     }
   };
@@ -77,7 +81,7 @@ const page = () => {
       description: data.message,
       date: data.date,
       time: data.time,
-      event_type: '2',
+      event_type: "2",
     };
 
     try {
@@ -86,7 +90,7 @@ const page = () => {
         payload
       );
 
-      setShowModal(false)
+      setShowModal(false);
 
       toast.success("Update Event Enquiry sent Successfully");
     } catch (error) {
@@ -96,42 +100,47 @@ const page = () => {
 
   return (
     <>
-      <Box className="home-banner-section">
-        <Carousel
-          showArrows={false}
-          autoPlay={true}
-          infiniteLoop={true}
-          interval={5000}
-          showStatus={false}
-          showThumbs={false}
-        >
-          {mergeEvent.map((item, index) => {
-            return (
-              <div key={index}>
-                <h2 className="carousel-title common-heading-h1">
-                  <span style={{ fontWeight: "600" }}>{item.event_Name}</span>
-                  <br /> {item.description}
-                  <br />
-                  <Button
-                    variant="contained"
-                    className="btn-primary btn-sm"
-                    onClick={()=>toggleUpcomingEventFormModal(item)}
-                  >
-                    {item.viveBtn ? item.viveBtn : "Enquiry Now"}
-                  </Button>
-                </h2>
-                <Image
-                  src={item.photo}
-                  className="carousal-image"
-                  alt="Lovefools"
-                  layout="responsive"
-                  width={1920} // Set appropriate aspect ratio
-                  height={1080}
-                />
-              </div>
-            );
-          })}
-        </Carousel>
+      <Box className="home-banner-section bg-white">
+        {loading ? (
+          <Skeleton height='98vh' width='98vw' variant="rectangular" />
+        ) : (
+          <Carousel
+            showArrows={false}
+            autoPlay={true}
+            infiniteLoop={true}
+            interval={5000}
+            showStatus={false}
+            showThumbs={false}
+          >
+            {mergeEvent.map((item, index) => {
+              return (
+                <div key={index}>
+                  <h2 className="carousel-title common-heading-h1">
+                    <span style={{ fontWeight: "600" }}>{item.event_Name}</span>
+                    <br /> {item.description}
+                    <br />
+                    <Button
+                      variant="contained"
+                      className="btn-primary btn-sm"
+                      onClick={() => toggleUpcomingEventFormModal(item)}
+                    >
+                      {item.viveBtn ? item.viveBtn : "Enquiry Now"}
+                    </Button>
+                  </h2>
+                  <Image
+                    src={item.photo}
+                    className="carousal-image"
+                    alt="Lovefools"
+                    layout="responsive"
+                    width={1920} // Set appropriate aspect ratio
+                    height={1080}
+                  />
+                </div>
+              );
+            })}
+          </Carousel>
+        )}
+
         <AboutUs />
         <Events />
         <Gallery />
@@ -154,4 +163,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

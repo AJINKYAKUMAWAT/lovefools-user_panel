@@ -1,4 +1,3 @@
-"use client";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -9,7 +8,6 @@ import Header from "@/components/layout/index";
 import { Inter } from "next/font/google";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import { useEffect } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,10 +15,7 @@ const inter = Inter({
 });
 
 export default function RootLayout({ children }) {
-  useEffect(() => {
-    // Scroll to top when component mounts (refresh)
-    window.scrollTo(0, 0);
-  }, []);
+
   return (
     <html lang="en">
       <head>

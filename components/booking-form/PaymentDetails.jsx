@@ -1,5 +1,5 @@
 import {Box, Grid, Typography} from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../common/Button';
 import {API_ENDPOINT, NEXT_PUBLIC_API_URL} from '@/utils/constant';
 import { convertTimeObjectToString, formatDate, formatDateForApi } from '@/utils/utils';
@@ -7,9 +7,25 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const PaymentDetails = ({setActiveTab, defaultValues,setDefaultValues}) => {
+	const [menuList, setMenuList] = useState([])
 	const PrevBtn = () => {
 		setActiveTab(3);
 	};
+
+	const getMenuList = async (params) => {
+		try {
+		  setLoading(true);
+		  const { data } = await axios.post(
+			`${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_MENU_LIST}`,
+			{ ...params }
+		  );
+		  setLoading(false);
+		  return setMenuList(data.data);
+		} catch (error) {
+		  setLoading(false);
+		  console.log(error);
+		}
+	  };
 
 	console.log("defaultValues",defaultValues);
 	

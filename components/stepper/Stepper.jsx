@@ -1,3 +1,4 @@
+'use client'
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Stack from "@mui/material/Stack";
@@ -5,9 +6,13 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Check from "@mui/icons-material/Check";
-import SettingsIcon from "@mui/icons-material/Settings";
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import QueryBuilderIcon from '@mui/icons-material/QueryBuilder';
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import DinnerDiningIcon from '@mui/icons-material/DinnerDining';
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
+import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import StepConnector, {
   stepConnectorClasses,
 } from "@mui/material/StepConnector";
@@ -91,11 +96,11 @@ function ColorlibStepIcon(props) {
   const { active, completed, className } = props;
 
   const icons = {
-    1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
-    4: <GroupAddIcon />,
-    5: <VideoLabelIcon />,
+    1: <QueryBuilderIcon />,
+    2: <TableRowsIcon />,
+    3: <DinnerDiningIcon />,
+    4: <PermPhoneMsgIcon />,
+    5: <CurrencyRupeeIcon />,
   };
 
   return (
@@ -109,8 +114,6 @@ function ColorlibStepIcon(props) {
 }
 
 export default function CustomizedSteppers({activeTab}) {
-  console.log("activeTab",activeTab);
-  
   return (
     <Stack sx={{ width: "100%" }} spacing={4}>
       <Stepper

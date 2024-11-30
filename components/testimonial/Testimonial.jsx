@@ -3,7 +3,7 @@ import * as React from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import { Box, Button, Container, Grid, Modal } from "@mui/material";
+import { Box, Button, Container, Grid, Modal, Skeleton } from "@mui/material";
 import Image1 from "../../assets/images/testimonial.png";
 import Image from "next/image";
 import Slider from "react-slick";
@@ -13,7 +13,8 @@ import axiosInstance from "@/utils/axios";
 import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import { AuthContextProvider } from "@/authcontext/AuthContext";
 import avatar from "../../assets/images/avatar.svg";
-import doubleQuate  from "../../assets/images/double-quate.svg";
+import doubleQuate from "../../assets/images/double-quate.svg";
+import axios from "axios";
 const Item = [
   { image: Image1 },
   { image: Image1 },
@@ -39,195 +40,132 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
   },
 }));
 
+const getSliderSettings = (slidesToShow = 3, testimonialList) => ({
+  dots: testimonialList.length > 3 ? true : false, // Enable dots navigation
+  infinite: false,
+  arrows: false, // Hide arrows
+  speed: 500,
+  slidesToShow, // Default number of slides to show
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1024, // For medium devices like tablets
+      settings: {
+        slidesToShow: slidesToShow > 3 ? 3 : slidesToShow, // Show up to 3 slides
+      },
+    },
+    {
+      breakpoint: 768, // For smaller devices like smartphones
+      settings: {
+        slidesToShow: slidesToShow > 2 ? 2 : slidesToShow, // Show up to 2 slides
+      },
+    },
+    {
+      breakpoint: 480, // For very small devices
+      settings: {
+        slidesToShow: 1, // Show 1 slide
+      },
+    },
+  ],
+});
+
 const Testimonial = () => {
   const [testimonialList, setTestimonialList] = React.useState([]);
-  const { id } = React.useContext(AuthContextProvider);
+  const [testimonialObj, setTestimonialObj] = React.useState(null);
+  const [loading1, setLoading1] = React.useState(false);
+  const [loading2, setLoading2] = React.useState(false);
 
   const getTestimonials = async () => {
     try {
+      setLoading1(true)
       const response = await axiosInstance.post(
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_TESTIMONIAL_LIST}`
       );
-      return setTestimonialList(response.data.data);
+      setLoading1(false)
+      setTestimonialList(response.data.data);
     } catch (error) {
+      setLoading1(false)
+      console.error(error);
+    }
+  };
+
+  const getTestimonialsSection = async () => {
+    try {
+      setLoading2(true)
+      const data = await axios.post(
+        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_CMS}`
+      );
+      setLoading2(false)
+      return setTestimonialObj(data.data.data[3]);
+    } catch (error) {
+      setLoading2(false)
       console.log(error);
     }
   };
 
   React.useEffect(() => {
     getTestimonials();
+    getTestimonialsSection();
   }, []);
-  var settings = {
-    dots: testimonialList.length > 3 ? true : true,
-    infinite: true,
-    arrows:false,
-    speed: 500,
-    slidesToShow: 3, // Show 3 slides by default
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024, // For medium devices like tablets
-        settings: {
-          slidesToShow: 3, // Show 3 slides
-        },
-      },
-      {
-        breakpoint: 768, // For smaller devices like smartphones
-        settings: {
-          slidesToShow: 2, // Show 2 slides
-        },
-      },
-      {
-        breakpoint: 480, // For very small devices
-        settings: {
-          slidesToShow: 1, // Show 1 slide
-        },
-      },
-    ],
-  };
-  var settings2 = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2, // Show 3 slides by default
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024, // For medium devices like tablets
-        settings: {
-          slidesToShow: 3, // Show 3 slides
-        },
-      },
-      {
-        breakpoint: 768, // For smaller devices like smartphones
-        settings: {
-          slidesToShow: 2, // Show 2 slides
-        },
-      },
-      {
-        breakpoint: 480, // For very small devices
-        settings: {
-          slidesToShow: 1, // Show 1 slide
-        },
-      },
-    ],
-  };
 
   return (
     <section className="testimonial-section common-section" id="Testimonial">
       <Container>
         <Grid container>
-          <Grid item xs={12} sm={12} md={12} lg={12}>
+          <Grid item xs={12}>
             <div className="info-wrap text-center">
               <Typography
                 variant="h2"
-                className="common-heading-h2 center-line"
+                className={`common-heading-h2 ${loading2 ? "" : "center-line"}`}
               >
-                <span> Testimonial</span>
+                {loading2 ? (
+                  <Skeleton
+                    variant="text"
+                    sx={{ fontSize: "3rem", background: "#0000001c" }}
+                  />
+                ) : (
+                  <span>{testimonialObj?.section_Name}</span>
+                )}
               </Typography>
+              {loading2 ? (
+                <Skeleton variant="text" sx={{ fontSize: "2rem" }} />
+              ) : (
               <Typography variant="h3" className="common-heading-h3">
-                What they are saying about us
+                {testimonialObj?.description}
               </Typography>
+              )}
             </div>
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12}>
-          <StyledSlider {...settings}>
-          {
-            Array.from({length:3}).map((i,index) =>{
-              return(
+          {loading1 ? (
+              <>
+                {Array.from({ length: 3 }).map((_, index) => {
+                  return (
+                    <Grid key={index} item xs={12} sm={12} md={4} lg={4}>
+                        <Skeleton variant="rounded" width={340} height={220} />
+                    </Grid>
+                  );
+                })}
+              </>
+            ) : (
+          <Grid item xs={12}>
+        
+            <StyledSlider {...getSliderSettings(3, testimonialList)}>
+              {testimonialList.map((item, index) => (
                 <div className="testimonial-card" key={index}>
-                <div className="testimonial-img">
-                <Image
-                            src={avatar} alt="avatar" />
+                  <div className="testimonial-img">
+                    <Image src={avatar} alt="avatar" />
                   </div>
                   <div className="testimonial-body">
-                  <Image
-                            src={doubleQuate} alt="double-quate" />
-                    <p className="p16">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, eum fugit consequuntur accusamus doloribus praesentium.
-                    </p>
+                    <Image src={doubleQuate} alt="double-quate" />
+                    <p className="p16">{item.description}</p>
                   </div>
                 </div>
-              )
-            })
-          }
-</StyledSlider>
-        
-        
+              ))}
+            </StyledSlider>
           </Grid>
+            )}
         </Grid>
       </Container>
-     
-     
-      {/* <Box
-        className="common-section" 
-      >
-        <Container className="about-container info-wrap content-center">
-          <Box 
-          >
-            <Box 
-            >
-              <Box 
-              />
-              <Typography
-                variant="h4"
-                className="common-heading-h2" >
-                Testimonial
-              </Typography>
-
-              <Box 
-              />
-            </Box>{" "}
-            <Typography>What they&apos;re saying about us</Typography>
-          </Box>
-
-          <Box 
-          >
-            <StyledSlider {...settings}>
-              {testimonialList.map((i, index) => (
-                <Box key={index}  >
-                  {" "}
-                  <PermIdentityIcon 
-                  />
-                  <Card 
-                  >
-                    <Box 
-                    >
-                      <Image src={quoteIcon} alt={`Testimonial ${index + 1}`} />
-                      <Typography>
-                        {i.description.slice(0, 55)}
-                        {i.description.length > 55 ? "..." : ""}
-                      </Typography>
-                    </Box>
-                  </Card>
-                </Box>
-              ))}
-            </StyledSlider>
-          </Box>
-          <Box 
-          >
-            <StyledSlider {...settings2}>
-              {testimonialList.map((i, index) => (
-                <Box key={index}  >
-                  {" "}
-                  <PermIdentityIcon 
-                  />
-                  <Card 
-                  >
-                    <Box 
-                    >
-                      <Image src={quoteIcon} alt={`Testimonial ${index + 1}`} />
-                      <Typography>
-                        {i.description.slice(0, 55)}
-                        {i.description.length > 55 ? "..." : ""}
-                      </Typography>
-                    </Box>
-                  </Card>
-                </Box>
-              ))}
-            </StyledSlider>
-          </Box>
-        </Container>
-      </Box> */}
     </section>
   );
 };
