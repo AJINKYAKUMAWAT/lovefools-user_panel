@@ -43,7 +43,7 @@ const Page = () => {
       style={{ background: "#000000e5", height: "100vh", overflow: "auto" }}
     >
       <Box className="booking-banner-section flex justify-center overflow-auto mb-30">
-        <Box sx={{ width: "90%", border: "1px solid #fff" }} className="mt-36">
+        <Box sx={{ width: "90%", border: "1px solid #fff",borderRadius:'8px' }} className="mt-36">
           <br />
           <br />
           <CustomizedSteppers icons={BookingsIcons} activeTab={activeTab} />

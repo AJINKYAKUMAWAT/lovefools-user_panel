@@ -4,10 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import ControllerTextField from "@/components/common/ControllerTextField";
 import FormProvider from "@/components/common/FormProvider";
 import { bookingSchema, menuSchema } from "@/schema/BookingSchema";
-import crown from "../../assets/images/crown.png";
-import crown2 from "../../assets/images/crown_2.png";
-import food_and_restaurant from "../../assets/images/food-and-restaurant.png";
-import food_and_restaurant2 from "../../assets/images/food-and-restaurant_2.png";
+import Menu1 from "../../assets/images/menu1.png";
+import Menu2 from "../../assets/images/menu2.png";
 import Image from "next/image";
 import { Box, Skeleton, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -118,7 +116,7 @@ const SelectMenuForm = ({
             cursor: "pointer",
           }}
         >
-          <Image src={crown2} width={60} height={""} alt="Lovefool Img" />
+          <Image src={Menu1} width={60} height={""} alt="Lovefool Img" />
         </Box>
         <Box
           onClick={() => {
@@ -135,11 +133,11 @@ const SelectMenuForm = ({
             cursor: "pointer",
           }}
         >
-          <Image src={food_and_restaurant} width={60} height={""} alt="Lovefool Img"/>
+          <Image src={Menu2} width={60} height={""} alt="Lovefool Img"/>
         </Box>
       </div>
       <div
-        className="grid grid-cols-4 gap-4 md:grid-cols-4 mb-2 items-center justify-center"
+        className="grid grid-cols-4 gap-4 md:grid-cols-4 mb-2 items-center justify-center grid-menu-list"
         style={{ display: "flex" }}
       >
         {MenuType.map((item,index) => {

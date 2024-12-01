@@ -14,118 +14,16 @@ import PopupModal from "../common/PopupModal";
 import { toast } from "react-toastify";
 import { convertTimeObjectToString, formatDate } from "@/utils/utils";
 
-const Item = [
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-  {
-    name: "Big and Juicy Wagyu Beef Cheese Burger",
-    image: Image7,
-    date: "15 Dec 2024",
-    time: "9AM to 11AM",
-  },
-];
-
 const Events = () => {
+  const {
+    id,
+    setId,
+    setEnquiryName,
+    eventName,
+    setEventName,
+    setEventType,
+    setEventDate,
+  } = React.useContext(AuthContextProvider);
   const [view, setView] = React.useState(6);
   const [eventList, setEventList] = React.useState([]);
   const [open, setOpen] = React.useState(false);
@@ -185,7 +83,11 @@ const Events = () => {
       email: "",
       message: "",
     };
-    setShowModal((prev) => !prev);
+    setEventDate(null)
+    setEnquiryName("New Enquiry");
+    setEventType("1");
+    setId("Contact us");
+    // setShowModal((prev) => !prev);
   };
 
   const onSubmit = async (data) => {
@@ -349,7 +251,9 @@ const Events = () => {
               className="btn-secondary mt40 ml-4"
               style={{ background: "#fff" }}
             >
-              New Enquiry
+              <a href={`#Contact us`} style={{color:'#ed1c24'}}>
+                New Enquiry
+              </a>
             </Button>
           </Grid>
         </Grid>

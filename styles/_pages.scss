@@ -133,8 +133,6 @@
       top: -10px;
     }
 
-   
-
     .about-img-base {
       position: relative;
       z-index: 5;
@@ -293,10 +291,10 @@
       .common-heading-h3 {
         opacity: 1;
         font-weight: 600;
-      };
+      }
       .common-heading-h5 {
         opacity: 1;
-      };
+      }
     }
 
     .p14 {
@@ -586,66 +584,67 @@
 }
 
 .relative.w-full.inline-flex.tap-highlight-transparent.flex-row.items-center.shadow-sm.px-3.gap-3.border-medium.border-default-200.data-\[hover\=true\]\:border-default-400.group-data-\[focus\=true\]\:border-default-foreground.h-10.min-h-10.rounded-small.transition-background.\!duration-150.transition-colors.motion-reduce\:transition-none {
-height: 45px !important;
-background-color: $white !important;
+  height: 45px !important;
+  background-color: $white !important;
 }
 
 .absolute.z-50.block.pt-2.top-10.bg-white-800 {
   background: $white !important;
 }
 
-.text-danger{
+.text-danger {
   color: red !important;
   background: #000;
   border-radius: 10px;
   padding: 5px;
 }
 
-.booking-form{
+.booking-form {
   @include md {
     margin-top: 10px;
   }
 }
 
-.menuBox{
+.menuBox {
   margin-top: -7px;
-    margin-right: 10px;
-    padding: 7px;
-    border-radius: 50%;
-    box-shadow: 0 0 5px 5px grey;
+  margin-right: 10px;
+  padding: 7px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px 5px grey;
 }
 
-.paymentDetails{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
+.paymentDetails {
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // flex-direction: column;
+  margin-bottom: 30px;
 }
 
-.group[data-filled-within="true"] .group-data-\[filled-within\=true\]\:text-foreground {
+.group[data-filled-within="true"]
+  .group-data-\[filled-within\=true\]\:text-foreground {
   --tw-text-opacity: 1;
   color: #fff !important;
 }
 
 label.text-small {
   color: #fff !important;
-
 }
 
-.menuStyle{
-  background: #808080a3 !important;   
+.menuStyle {
+  background: #808080a3 !important;
 }
 
-.menuStyleBg{
-  background: #efe8e81f;   
+.menuStyleBg {
+  background: #efe8e81f;
 }
 
-.grid-menustyle{
+.grid-menustyle {
   padding: 5px;
   border-radius: 5px;
 }
 
-.menuStyleBg:hover{
+.menuStyleBg:hover {
   background: #808080a3;
 }
 
@@ -659,6 +658,99 @@ label.text-small {
   color: #fff !important;
 }
 
-.gallary-thumbnail{
+.gallary-thumbnail {
   height: 270px;
+}
+
+// ----------------------------------
+
+.lovefools-body {
+  .home-banner-section {
+    .slider .slide > {
+      div,
+      div img.carousal-image {
+        height: 100% !important;
+        overflow: inherit;
+      }
+    }
+  }
+
+  .about-section .info-wrap {
+    padding-top: 80px;
+    padding-right: 70px;
+    @include xs {
+      padding-right: 0;
+    }
+  }
+
+  .event-card .event-img {
+    height: 224px;
+    object-fit: cover;
+  }
+
+  .testimonial-card .testimonial-img img {
+    margin: auto;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    width: 100px;
+    height: 100px;
+    background: #fff;
+  }
+
+  .gallary-card-w img {
+    width: 100%;
+    width: 270px;
+    height: 270px;
+    object-fit: cover;
+  }
+
+  @include xs {
+    .about-img-wrap {
+      scale: 1;
+      transform-origin: 0 center;
+      width: 100%;
+      position: relative;
+      height: inherit;
+      top: 0;
+      margin-top: 50px;
+
+      .about-img-base {
+        top: 0;
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+    .gallary-card-w img {
+      width: 100%;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+    }
+  }
+  .booking-banner-section {
+    .MuiContainer-root {
+      padding-bottom: 50px;
+      min-height: 40vh;
+      .container {
+        .flex.justify-center.space-x-4 {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+  .table-graphic{
+    margin-bottom: 10px;
+    .table-img{
+      height: 100px;
+    }
+  }
+  .grid-menu-list{
+    margin-top: 15px;
+    >.MuiBox-root {
+      min-width: 80px;
+  }
+  }
 }

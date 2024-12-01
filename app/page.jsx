@@ -9,22 +9,30 @@ import { API_ENDPOINT, items, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import PopupModal from "@/components/common/PopupModal";
 import UpcomingEventForm from "@/components/Upcoming-form/UpcomingForm";
 import { toast } from "react-toastify";
-const Footer = Loadable(lazy(() => import("@/components/footer/Footer2")));
-const Contact = Loadable(lazy(() => import("@/components/contact/Contact")));
-const Testimonial = Loadable(
-  lazy(() => import("@/components/testimonial/Testimonial"))
-);
-const Gallery = Loadable(lazy(() => import("@/components/gallery/Gallery")));
-const Events = Loadable(lazy(() => import("@/components/events/Events")));
-const AboutUs = Loadable(lazy(() => import("@/components/about/AboutUs")));
+import AboutUs from "@/components/about/AboutUs";
+import Events from "@/components/events/Events";
+import Gallery from "@/components/gallery/Gallery";
+import Testimonial from "@/components/testimonial/Testimonial";
+import Contact from "@/components/contact/Contact";
+import Footer2 from "@/components/footer/Footer2";
+import { AuthContextProvider } from "@/authcontext/AuthContext";
+// const Footer = Loadable(lazy(() => import("@/components/footer/Footer2")));
+// const Contact = Loadable(lazy(() => import("@/components/contact/Contact")));
+// const Testimonial = Loadable(
+//   lazy(() => import("@/components/testimonial/Testimonial"))
+// );
+// const Gallery = Loadable(lazy(() => import("@/components/gallery/Gallery")));
+// const Events = Loadable(lazy(() => import("@/components/events/Events")));
+// const AboutUs = Loadable(lazy(() => import("@/components/about/AboutUs")));
 
 const Page = () => {
   const [upcomimgEvent, setUpcomimgEvent] = useState([]);
   const [mergeEvent, setMergeEvent] = useState(items);
   const [showModal, setShowModal] = useState(false);
-  const [eventName, setEventName] = useState("");
+  // const [eventName, setEventName] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const { id, setId,setEnquiryName,eventName, setEventName, setEventType, setEventDate } = React.useContext(AuthContextProvider);
+  
   const defaultValues = useRef({
     id: null,
     date: null,
@@ -70,8 +78,12 @@ const Page = () => {
       message: "",
     };
     if (!value.viveBtn) {
+      setEventType('2')
+      setEnquiryName('Update Event Enquiry')
+      setEventDate(value.date)
+      setId('Contact us')
       setEventName(value.event_Name);
-      setShowModal((prev) => !prev);
+      // setShowModal((prev) => !prev);
     }
   };
 
@@ -124,7 +136,7 @@ const Page = () => {
                       className="btn-primary btn-sm"
                       onClick={() => toggleUpcomingEventFormModal(item)}
                     >
-                      {item.viveBtn ? item.viveBtn : "Enquiry Now"}
+                      {item.viveBtn ? item.viveBtn : <a href={`#Contact us`} style={{color:'#fff'}}>Enquiry Now</a>}
                     </Button>
                   </h2>
                   <Image
@@ -145,7 +157,7 @@ const Page = () => {
         <Gallery />
         <Testimonial />
         <Contact />
-        <Footer />
+        <Footer2 />
       </Box>
       <PopupModal
         isOpen={showModal}

@@ -35,7 +35,7 @@ const navItems = [
 
 export default function Header(props) {
   const [scrolling, setScrolling] = React.useState(false);
-  const { id, setId } = React.useContext(AuthContextProvider);
+  const { id, setId ,setEnquiryName} = React.useContext(AuthContextProvider);
   const [bgColor, setBgColor] = React.useState('transparent')
   const router = useRouter();
 
@@ -147,6 +147,9 @@ export default function Header(props) {
                         
                         return router.push("/");
                       } else {
+                        if(item === 'Contact us'){
+                          setEnquiryName('')
+                        }
                         return setId(item);
                       }
                     }}

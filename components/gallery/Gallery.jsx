@@ -8,7 +8,6 @@ import ReactPlayer from "react-player";
 import Image from "next/image";
 import {
   API_ENDPOINT,
-  GalleryImage,
   NEXT_PUBLIC_API_URL,
 } from "@/utils/constant";
 import axios from "axios";

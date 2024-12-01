@@ -15,6 +15,7 @@ const DatePicker = ({
   onChange,
   onBlur,
   label = '',
+  className='',
   ...rest
 }) => {
   const [show, setShow] = useState(false);
@@ -29,7 +30,7 @@ const DatePicker = ({
 
   return (
     <div
-      className={`${isDisabled && 'opacity-disabled'}`}
+      className={`${isDisabled && 'opacity-disabled'} ${className}`}
       onBlur={handleOnBlur}>
       {label && <label className='text-small' style={{color:'#fff !important'}}>{label}</label>}
       <div

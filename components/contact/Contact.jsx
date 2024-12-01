@@ -16,18 +16,32 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify";
 import { AuthContextProvider } from "@/authcontext/AuthContext";
+import DatePicker from "../common/DatePicker";
+import DateTimePicker from "../common/DateTimePicker";
+import { convertTimeObjectToString } from "@/utils/utils";
+import { useRouter } from "next/navigation";
 
 const Contact = () => {
+  const { id, enquiryName, eventName, eventType, eventDate, setEnquiryName } =
+    React.useContext(AuthContextProvider);
   const [contact, setContact] = React.useState({
     name: "",
     mobile_no: "",
     email_id: "",
     message: "",
+    date: null,
+    time: null,
   });
   const [errorMessage, setErrorMessage] = React.useState(false);
-  const { id } = React.useContext(AuthContextProvider);
-  const [loading, setLoading] = React.useState(false)
-
+  const [loading, setLoading] = React.useState(false);
+  const router = useRouter();
+  React.useEffect(() => {
+    setContact((prev) => ({
+      ...prev,
+      date: eventDate ? new Date(eventDate) : null,
+    }));
+  }, [eventDate]);
+  console.log("enquiryName", eventDate);
   const handleSubmit = async () => {
     const payload = {
       mobile_number: contact.mobile_no,
@@ -36,7 +50,49 @@ const Contact = () => {
       message: contact.message,
     };
 
-    if (
+    const payload2 = {
+      event_Name: eventName,
+      description: contact.message,
+      date: contact.date,
+      time: convertTimeObjectToString(contact.time),
+      event_type: eventType,
+    };
+
+    if (enquiryName) {
+      if (
+        contact.date === "" ||
+        contact.time === "" ||
+        contact.mobile_no === "" ||
+        contact.email_id === "" ||
+        contact.message === ""
+      ) {
+        setErrorMessage(true);
+      } else {
+        try {
+          setLoading(true);
+          const data = await axios.post(
+            `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_ENQUIRY}`,
+            payload2
+          );
+          if (data) {
+            setLoading(false);
+            setEnquiryName("");
+            toast.success(`${enquiryName} sent Successfully`);
+            setContact({
+              date: null,
+              time: null,
+              mobile_no: "",
+              email_id: "",
+              message: "",
+            });
+            router.push("/");
+          }
+        } catch (error) {
+          setLoading(false);
+          console.log(error);
+        }
+      }
+    } else if (
       contact.name === "" ||
       contact.mobile_no === "" ||
       contact.email_id === "" ||
@@ -44,19 +100,22 @@ const Contact = () => {
     ) {
       setErrorMessage(true);
     } else {
-      setLoading(true)
+      setLoading(true);
       await axios.post(
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_CONTACT}`,
         payload
       );
-      setLoading(false)
+      setLoading(false);
       setContact({ name: "", mobile_no: "", email_id: "", message: "" });
       setErrorMessage(false);
       toast.success("Contact form submitted successfully");
     }
   };
+
+  console.log("name",contact.name)
+
   return (
-    <section className="contact-us-section common-section" id="Contactus">
+    <section className="contact-us-section common-section" id="Contact us">
       <Container>
         <Grid container className="contact-us-container">
           <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -82,25 +141,48 @@ const Contact = () => {
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <Box className="contact-form">
               <Typography variant="h3" className="common-heading-h3">
-                Contact Us
+                {enquiryName ? enquiryName : "Contact Us"}
               </Typography>
+              {enquiryName ? (
+                <>
+                  <DatePicker
+                    className="form-groups"
+                    value={contact.date} // Will be null if eventDate is not set
+                    isDisabled={!!eventDate} // Disable if eventDate exists
+                    onChange={(date) =>
+                      setContact((prev) => ({ ...prev, date }))
+                    }
+                  />
+                   {errorMessage && contact.date === null && (
+                <div>
+                  <Typography className="error">{ERROR_MESSAGES}</Typography>
+                </div>
+              )}
+                  <DateTimePicker
+                    className="form-groups"
+                    width="w-full"
+                    onChange={(time) => setContact({ ...contact, time: time })}
+                  />
+                </>
+              ) : (
+                <OutlinedInput
+                  className="form-groups"
+                  value={contact.name}
+                  onChange={(e) =>
+                    setContact({ ...contact, name: e.target.value })
+                  }
+                  placeholder="Name"
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <IconButton aria-label="person icon" edge="start">
+                        <Person />
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+              )}
 
-              <OutlinedInput
-                className="form-groups"
-                value={contact.name}
-                onChange={(e) =>
-                  setContact({ ...contact, name: e.target.value })
-                }
-                placeholder="Name"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <IconButton aria-label="person icon" edge="start">
-                      <Person />
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-              {errorMessage && contact.name === "" && (
+              {errorMessage && (contact.name === "" || contact.time === null)  && (
                 <div>
                   <Typography className="error">{ERROR_MESSAGES}</Typography>
                 </div>
@@ -163,7 +245,7 @@ const Contact = () => {
                 </div>
               )}
               <LoadingButton
-              onClick={handleSubmit}
+                onClick={handleSubmit}
                 className="btn-primary"
                 loading={loading}
                 loadingPosition="start"
@@ -171,9 +253,6 @@ const Contact = () => {
               >
                 Submit
               </LoadingButton>
-              {/* <Button className="btn-primary" onClick={handleSubmit} variant="contained">
-                Submit
-              </Button> */}
             </Box>
           </Grid>
         </Grid>

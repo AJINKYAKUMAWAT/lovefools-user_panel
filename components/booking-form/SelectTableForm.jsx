@@ -117,11 +117,10 @@ const TableListForm = ({
   return (
     <div className="flex items-center justify-center">
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <div className="container mx-auto">
+      <div className="container mx-auto w-[524px]">
           <div className="grid gap-4">
-            {/* Room Selector */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-              <div className="max-w-[400px] w-full mx-auto">
+             <div className="max-w-[250px] w-full mx-auto">
                 <ControllerSelect
                   options={generateOptions(roomList, "_id", "room_name")}
                   placeholder="Select room"
@@ -130,7 +129,7 @@ const TableListForm = ({
                 />
               </div>
               {/* Table Selector */}
-              <div className="max-w-[400px] w-full mx-auto">
+             <div className="max-w-[250px] w-full mx-auto">
                 <ControllerSelect
                   options={generateOptions(
                     unBookTableList,
@@ -151,20 +150,20 @@ const TableListForm = ({
             {/* Table Grid */}
             {watch("room") && watch("room")?.label !== "Courtyard" && (
               <div>
-                <div className="grid grid-cols-2 gap-4 mb-2 items-center justify-center">
+                <div className="grid grid-cols-4 gap-1 mb-2 items-center justify-center text-center lg:grid-cols-4 md:grid-cols-4 sm:grid-cols-2 xs:grid-cols-2">
                   {loading
-                    ? Array.from({ length: 4 }).map((_, index) => (
-                        <Box key={index}>
+                    ? Array.from({ length: 2 }).map((_, index) => (
+                        <Box key={index} className="m-auto">
                           <Skeleton
                             variant="rounded"
-                            width={100}
-                            height={100}
+                            width={120}
+                            height={120}
                             sx={{ background: "#fff" }}
                           />
                         </Box>
                       ))
                     : unBookTableList.map((table) => (
-                        <Box
+                        <Box className="m-auto table-graphic"
                           key={table._id}
                           onClick={() => handleImageClick(table)}
                           sx={{
@@ -175,15 +174,17 @@ const TableListForm = ({
                             padding: 1,
                             borderRadius: 2,
                             background: "#fff",
-                            width: 80,
+                            width: 120,
                             cursor: "pointer",
+                            tooltip:watch("table_number")?.value
                           }}
                         >
                           <Image
                             src={table.photo}
-                            width={60}
-                            height={30}
-                            alt=""
+                            width={100}
+                            height={100}
+                            alt="Table"
+                            className="table-img"
                           />
                         </Box>
                       ))}

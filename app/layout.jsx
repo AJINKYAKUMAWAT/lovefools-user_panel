@@ -15,7 +15,6 @@ const inter = Inter({
 });
 
 export default function RootLayout({ children }) {
-
   return (
     <html lang="en">
       <head>
@@ -32,7 +31,10 @@ export default function RootLayout({ children }) {
           property="og:description"
           content="Menu - Check out the Menu of The LoveFools"
         />
-        <meta property="og:url" content="https://lovefools-user-panel.vercel.app/" />
+        <meta
+          property="og:url"
+          content="https://lovefools-user-panel.vercel.app/"
+        />
         <meta
           property="og:image"
           content={`https://lovefools-user-panel.vercel.app/assets/images/og-tag.jpg`}
@@ -61,9 +63,9 @@ export default function RootLayout({ children }) {
       <body className="lovefools-body">
         <AuthContext>
           <Header />
+          {children}
+          <ToastContainer />
         </AuthContext>
-        <ToastContainer />
-        {children}
       </body>
     </html>
   );

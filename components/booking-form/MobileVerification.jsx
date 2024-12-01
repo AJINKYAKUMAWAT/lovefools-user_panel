@@ -16,7 +16,7 @@ const DateForm = ({
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [buttonText, setButtonText] = useState("Send");
   const [timer, setTimer] = useState(0);
-  const [genOtp, setGenOtp] = useState('')
+  const [genOtp, setGenOtp] = useState("");
 
   const methods = useForm({
     resolver: yupResolver(verificationSchema),
@@ -26,17 +26,16 @@ const DateForm = ({
 
   const { handleSubmit, setError, watch } = methods;
 
-
   const sendWhatsAppMessages = async () => {
     if (watch("mobile").length === 10) {
       const otp = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit OTP
-    setGenOtp(otp); // Store OTP in state
+      setGenOtp(otp); // Store OTP in state
 
       const payload = {
-        phone: `+91${watch('mobile')}`,
+        phone: `+91${watch("mobile")}`,
         message: `Lovefools booking confirmation OTP ${otp}`,
       };
-  
+
       try {
         const data = await axios.post(
           "https://api.wassenger.com/v1/messages",
@@ -84,11 +83,11 @@ const DateForm = ({
       handleOnsubmit(prevData);
       setActiveTab(4);
     }
-  }
+  };
 
   const prevBtn = () => {
-    setActiveTab(2)
-  }
+    setActiveTab(2);
+  };
 
   return (
     <div className="flex items-center justify-center">
@@ -102,13 +101,6 @@ const DateForm = ({
                   name="mobile"
                   label="Mobile no"
                 />
-                <Button
-                  onClick={sendWhatsAppMessages}
-                  disabled={isButtonDisabled}
-                >
-                  {buttonText}
-                  {isButtonDisabled && timer > 0 && ` (${timer}s)`}
-                </Button>
               </div>
               <div className="max-w-[250px] w-full mx-auto">
                 <ControllerTextField
@@ -118,16 +110,29 @@ const DateForm = ({
                 />
               </div>
             </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-1 md:gap-6">
-              <div className="max-w-[250px] w-full mx-auto">
-                <ControllerTextField
-                  type="text"
-                  placeholder="Enter otp"
-                  name="otp"
-                  label="OTP"
-                />
+            <div className="grid gap-4">
+              <div className="max-w-[250px] w-full mx-auto text-center">
+                <Button
+                  onClick={sendWhatsAppMessages}
+                  disabled={isButtonDisabled}
+                >
+                  {buttonText}
+                  {isButtonDisabled && timer > 0 && ` (${timer}s)`}
+                </Button>
               </div>
             </div>
+            {genOtp && (
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-1 md:gap-6">
+                <div className="max-w-[250px] w-full mx-auto">
+                  <ControllerTextField
+                    type="text"
+                    placeholder="Enter otp"
+                    name="otp"
+                    label="OTP"
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="flex justify-center space-x-4">
               <Button type="button" variant="bordered" onClick={prevBtn}>
