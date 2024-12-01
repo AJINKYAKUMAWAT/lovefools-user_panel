@@ -36,8 +36,8 @@ const Footer2 = () => {
             <div className="footer-menu">
               {navItems.map((i, index) => {
                 return (
-                  <div onClick={() => setId(i)}>
-                    <a href={`#${id}`} key={index}>
+                  <div key={index} onClick={() => setId(i)}>
+                    <a href={`#${id}`} >
                       {i}
                     </a>
                   </div>
