@@ -29,7 +29,7 @@ const SelectMenuForm = ({
   const [menu, setMenu] = useState(true);
   const [menuList, setMenuList] = useState([]);
   const [subMenu, setSubMenu] = useState("All");
-  const [menuType, setMenuType] = useState({});
+  const [menuType, setMenuType] = useState({Menu_Type:"1" });
   const [selectIndex, setSelectIndex] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -64,7 +64,7 @@ const SelectMenuForm = ({
   };
 
   useEffect(() => {
-    getMenuList({ ...menuType });
+    getMenuList({ ...menuType});
   }, [menuType]);
 
   const selectSubMenu = (item) => {

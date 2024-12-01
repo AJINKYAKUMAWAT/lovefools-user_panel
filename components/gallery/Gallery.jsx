@@ -222,13 +222,25 @@ const Gallery = () => {
             md={12}
             lg={12}
           >
-            <Button
-              onClick={handleView}
-              variant="contained"
-              className="btn-primary mt40"
-            >
-              View More
-            </Button>
+            {photo && imageList.length > 12 && 
+             <Button
+             onClick={handleView}
+             variant="contained"
+             className="btn-primary mt40"
+           >
+             View More
+           </Button>
+            }
+             {video && videoList.length > 12 && 
+             <Button
+             onClick={handleView}
+             variant="contained"
+             className="btn-primary mt40"
+           >
+             View More
+           </Button>
+            }
+           
           </Grid>
           <Modal
             open={open}

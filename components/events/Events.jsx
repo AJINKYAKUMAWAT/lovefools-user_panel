@@ -270,7 +270,7 @@ const Events = () => {
                 {Array.from({ length: 3 }).map((_, index) => {
                   return (
                     <Grid key={index} item xs={12} sm={12} md={4} lg={4}>
-                      <div  className="event-card hover-img">
+                      <div className="event-card hover-img">
                         <Skeleton variant="rounded" width={340} height={220} />
                       </div>
                     </Grid>
@@ -333,17 +333,21 @@ const Events = () => {
             md={12}
             lg={12}
           >
-            <Button
-              onClick={handleView}
-              variant="contained"
-              className="btn-primary mt40"
-            >
-              View More
-            </Button>
+            {eventList.length > 6 && (
+              <Button
+                onClick={handleView}
+                variant="contained"
+                className="btn-primary mt40"
+              >
+                View More
+              </Button>
+            )}
+
             <Button
               onClick={toggleUpcomingEventFormModal}
               variant="contained"
-              className="btn-primary mt40 ml-4"
+              className="btn-secondary mt40 ml-4"
+              style={{ background: "#fff" }}
             >
               New Enquiry
             </Button>
@@ -381,6 +385,8 @@ const Events = () => {
                   <Typography className="common-heading-h5">
                     {eventObj.description}
                   </Typography>
+                  <br />
+                  <br />
                   <div className="d-flex-time">
                     <Typography className="p14">
                       {formatDate(eventObj.date)}-

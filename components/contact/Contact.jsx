@@ -56,7 +56,7 @@ const Contact = () => {
     }
   };
   return (
-    <section className="contact-us-section common-section" id="ContactUs">
+    <section className="contact-us-section common-section" id="Contactus">
       <Container>
         <Grid container className="contact-us-container">
           <Grid item xs={12} sm={12} md={12} lg={12}>

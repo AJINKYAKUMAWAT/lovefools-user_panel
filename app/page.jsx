@@ -140,7 +140,6 @@ const Page = () => {
             })}
           </Carousel>
         )}
-
         <AboutUs />
         <Events />
         <Gallery />

@@ -17,7 +17,7 @@ import {
 const AboutUs = () => {
   const { id } = React.useContext(AuthContextProvider);
   const [aboutUs, setAboutUs] = React.useState(null);
-  const [view, setView] = React.useState(232);
+  const [expanded, setExpanded] = React.useState(false); // For toggling read more/less
   const [loading, setLoading] = React.useState(false);
 
   const getAboutUs = async () => {
@@ -27,26 +27,25 @@ const AboutUs = () => {
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_CMS}`
       );
       setLoading(false);
-      return setAboutUs(data.data.data[0]);
+      setAboutUs(data.data.data[0]);
     } catch (error) {
       setLoading(false);
       console.log(error);
     }
   };
 
-  const nextLine = aboutUs?.description?.split("\n").join("\n");
-
-  const slicedText = nextLine?.slice(0, view);
-
-  const slicedLines = slicedText?.split("\n");
-
-  const handleView = () => {
-    setView((view) => view + 232);
-  };
-
   React.useEffect(() => {
     getAboutUs();
   }, []);
+
+  const nextLine = aboutUs?.description?.split("\n").join("\n");
+
+  const contentLimit = nextLine?.length / 2 || 232; // Set a default limit or calculate 50%
+  const slicedText = expanded ? nextLine : nextLine?.slice(0, contentLimit);
+
+  const handleToggle = () => {
+    setExpanded((prev) => !prev);
+  };
 
   return (
     <section className="about-section common-section" id="About%20us">
@@ -63,22 +62,21 @@ const AboutUs = () => {
                     {aboutUs?.section_Name}
                   </Typography>
 
-                  {slicedLines?.map((line, index) => (
+                  {slicedText?.split("\n").map((line, index) => (
                     <p key={index} className="p16">
                       {line}
-                      {index === slicedLines.length - 1 &&
-                      nextLine.length > view
-                        ? "..."
-                        : ""}
                     </p>
                   ))}
-                  <Button
-                    variant="contained"
-                    className="btn-primary mt40"
-                    onClick={handleView}
-                  >
-                    Read More
-                  </Button>
+
+                  {nextLine?.length > contentLimit && (
+                    <Button
+                      variant="contained"
+                      className="btn-primary mt40"
+                      onClick={handleToggle}
+                    >
+                      {expanded ? "Read Less" : "Read More"}
+                    </Button>
+                  )}
                 </>
               )}
             </div>
