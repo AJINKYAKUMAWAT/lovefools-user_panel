@@ -15,15 +15,6 @@ import { toast } from "react-toastify";
 import { convertTimeObjectToString, formatDate } from "@/utils/utils";
 
 const Events = () => {
-  const {
-    id,
-    setId,
-    setEnquiryName,
-    eventName,
-    setEventName,
-    setEventType,
-    setEventDate,
-  } = React.useContext(AuthContextProvider);
   const [view, setView] = React.useState(6);
   const [eventList, setEventList] = React.useState([]);
   const [open, setOpen] = React.useState(false);
@@ -83,11 +74,8 @@ const Events = () => {
       email: "",
       message: "",
     };
-    setEventDate(null)
-    setEnquiryName("New Enquiry");
-    setEventType("1");
-    setId("Contact us");
-    // setShowModal((prev) => !prev);
+ 
+    setShowModal((prev) => !prev);
   };
 
   const onSubmit = async (data) => {
@@ -193,7 +181,7 @@ const Events = () => {
                           height={500}
                         />
 
-                        <Image
+                        <img
                           alt="Lovefools"
                           src={gallayIcon}
                           className="gallay-icon-img"
@@ -251,9 +239,8 @@ const Events = () => {
               className="btn-secondary mt40 ml-4"
               style={{ background: "#fff" }}
             >
-              <a href={`#Contact us`} style={{color:'#ed1c24'}}>
+              
                 New Enquiry
-              </a>
             </Button>
           </Grid>
         </Grid>
@@ -272,7 +259,7 @@ const Events = () => {
             </Grid>
             <Grid item xs={12} md={5}>
               <Box className="event-img-box" onClick={handleClose}>
-                <Image
+                <img
                   alt="Lovefools"
                   src={eventObj.photo}
                   width={500}
