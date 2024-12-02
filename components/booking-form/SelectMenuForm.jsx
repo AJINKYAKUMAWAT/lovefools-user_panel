@@ -68,7 +68,7 @@ const SelectMenuForm = ({
   const selectSubMenu = (item) => {
     setSubMenu(item);
     if (item === "All") {
-      getMenuList({});
+      getMenuList({...menuType});
     } else if (item === "Veg") {
       setValue("subMenuType", "1");
       setMenuType({ ...menuType, Sub_Menu_Type: "1" });
