@@ -2,15 +2,11 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { Box, Button, Grid, Container, Modal, Skeleton } from "@mui/material";
-import Image7 from "../../assets/images/burger.jpg";
 import gallayIcon from "../../assets/images/gallay-icon.svg";
 import Image from "next/image";
 import axios from "axios";
 import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
-import { AuthContextProvider } from "@/authcontext/AuthContext";
 import CloseIcon from "@mui/icons-material/Close";
-import UpcomingEventForm from "../Upcoming-form/UpcomingForm";
-import PopupModal from "../common/PopupModal";
 import { toast } from "react-toastify";
 import { convertTimeObjectToString, formatDate } from "@/utils/utils";
 
@@ -21,7 +17,6 @@ const Events = () => {
   const [error, setError] = React.useState(null);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [showModal, setShowModal] = React.useState(false);
   const [eventObj, setEventObj] = React.useState({});
   const [oldEventObj, setOldEventObj] = React.useState(null);
   const [loading1, setLoading1] = React.useState(false);
@@ -65,41 +60,6 @@ const Events = () => {
     getEvents();
   }, []);
 
-  const toggleUpcomingEventFormModal = (value) => {
-    defaultValues.current = {
-      id: null,
-      date: null,
-      time: null,
-      mobile: "",
-      email: "",
-      message: "",
-    };
-
-    setShowModal((prev) => !prev);
-  };
-
-  const onSubmit = async (data) => {
-    const payload = {
-      event_Name: "",
-      description: data.message,
-      date: data.date,
-      time: data.time,
-      event_type: "1",
-    };
-
-    try {
-      await axios.post(
-        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_ENQUIRY}`,
-        payload
-      );
-
-      setShowModal(false);
-
-      toast.success("Update Event Enquiry sent Successfully");
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const getOldEvents = async () => {
     try {
@@ -233,14 +193,7 @@ const Events = () => {
               </Button>
             )}
 
-            <Button
-              onClick={toggleUpcomingEventFormModal}
-              variant="contained"
-              className="btn-secondary mt40 ml-4"
-              style={{ background: "#fff" }}
-            >
-                New Enquiry
-            </Button>
+           
           </Grid>
         </Grid>
       </Container>
@@ -296,17 +249,7 @@ const Events = () => {
           </Grid>
         </Box>
       </Modal>
-      <PopupModal
-        isOpen={showModal}
-        header={"Enquiry"}
-        onOpenChange={toggleUpcomingEventFormModal}
-      >
-        <UpcomingEventForm
-          handleClose={toggleUpcomingEventFormModal}
-          handleUpcomingEventSubmit={onSubmit}
-          defaultValues={defaultValues.current}
-        />
-      </PopupModal>
+   
     </section>
   );
 };

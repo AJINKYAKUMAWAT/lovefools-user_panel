@@ -123,7 +123,7 @@ const Page = () => {
                       {item.viveBtn ? item.viveBtn : 'Enquiry Now'}
                     </Button>
                   </h2>
-                  <img
+                  <Image
                     src={item.photo}
                     className="carousal-image"
                     alt="Lovefools"

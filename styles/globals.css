@@ -944,4 +944,7 @@ label.text-small {
 }
 .lovefools-body .grid-menu-list > .MuiBox-root {
   min-width: 80px;
+}
+.lovefools-body .bg-color {
+  background-color: #D4BA97 !important;
 }/*# sourceMappingURL=globals.css.map */
