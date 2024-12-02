@@ -22,6 +22,8 @@ import { convertTimeObjectToString } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 
 const Contact = () => {
+  const { id, enquiryName, eventName, eventType, eventDate, setEnquiryName } =
+    React.useContext(AuthContextProvider);
   const [contact, setContact] = React.useState({
     name: "",
     mobile_no: "",
@@ -32,7 +34,14 @@ const Contact = () => {
   });
   const [errorMessage, setErrorMessage] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
- 
+  const router = useRouter();
+  React.useEffect(() => {
+    setContact((prev) => ({
+      ...prev,
+      date: eventDate ? new Date(eventDate) : null,
+    }));
+  }, [eventDate]);
+  console.log("enquiryName", eventDate);
   const handleSubmit = async () => {
     const payload = {
       mobile_number: contact.mobile_no,
@@ -41,7 +50,49 @@ const Contact = () => {
       message: contact.message,
     };
 
-  if (
+    const payload2 = {
+      event_Name: eventName,
+      description: contact.message,
+      date: contact.date,
+      time: convertTimeObjectToString(contact.time),
+      event_type: eventType,
+    };
+
+    if (enquiryName) {
+      if (
+        contact.date === "" ||
+        contact.time === "" ||
+        contact.mobile_no === "" ||
+        contact.email_id === "" ||
+        contact.message === ""
+      ) {
+        setErrorMessage(true);
+      } else {
+        try {
+          setLoading(true);
+          const data = await axios.post(
+            `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_ENQUIRY}`,
+            payload2
+          );
+          if (data) {
+            setLoading(false);
+            setEnquiryName("");
+            toast.success(`${enquiryName} sent Successfully`);
+            setContact({
+              date: null,
+              time: null,
+              mobile_no: "",
+              email_id: "",
+              message: "",
+            });
+            router.push("/");
+          }
+        } catch (error) {
+          setLoading(false);
+          console.log(error);
+        }
+      }
+    } else if (
       contact.name === "" ||
       contact.mobile_no === "" ||
       contact.email_id === "" ||
@@ -60,6 +111,8 @@ const Contact = () => {
       toast.success("Contact form submitted successfully");
     }
   };
+
+  console.log("name",contact.name)
 
   return (
     <section className="contact-us-section common-section" id="Contact us">
@@ -88,9 +141,31 @@ const Contact = () => {
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <Box className="contact-form">
               <Typography variant="h3" className="common-heading-h3">
-                Contact Us
+                {enquiryName ? enquiryName : "Contact Us"}
               </Typography>
-              <OutlinedInput
+              {enquiryName ? (
+                <>
+                  <DatePicker
+                    className="form-groups"
+                    value={contact.date} // Will be null if eventDate is not set
+                    isDisabled={!!eventDate} // Disable if eventDate exists
+                    onChange={(date) =>
+                      setContact((prev) => ({ ...prev, date }))
+                    }
+                  />
+                   {errorMessage && contact.date === null && (
+                <div>
+                  <Typography className="error">{ERROR_MESSAGES}</Typography>
+                </div>
+              )}
+                  <DateTimePicker
+                    className="form-groups"
+                    width="w-full"
+                    onChange={(time) => setContact({ ...contact, time: time })}
+                  />
+                </>
+              ) : (
+                <OutlinedInput
                   className="form-groups"
                   value={contact.name}
                   onChange={(e) =>
@@ -105,8 +180,9 @@ const Contact = () => {
                     </InputAdornment>
                   }
                 />
+              )}
 
-              {errorMessage && contact.name === "" && (
+              {errorMessage && (contact.name === "" || contact.time === null)  && (
                 <div>
                   <Typography className="error">{ERROR_MESSAGES}</Typography>
                 </div>

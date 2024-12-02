@@ -224,8 +224,7 @@
     @media (max-width: 600px) {
       width: 87%; // Adjust for smaller screens
       padding: 8px; // Optional: allow height to adjust on small screens
-      height: 90vh;
-      overflow: auto;
+      height: 40%;
     }
 
     .close-icon {
@@ -364,7 +363,7 @@
     @media (max-width: 600px) {
       width: 87%; // Adjust for smaller screens
       padding: 8px; // Optional: allow height to adjust on small screens
-      min-height: 50%;
+      height: 40%;
     }
   }
 
@@ -742,20 +741,16 @@ label.text-small {
       }
     }
   }
-  .table-graphic {
+  .table-graphic{
     margin-bottom: 10px;
-    .table-img {
+    .table-img{
       height: 100px;
     }
   }
-  .grid-menu-list {
+  .grid-menu-list{
     margin-top: 15px;
-    > .MuiBox-root {
+    >.MuiBox-root {
       min-width: 80px;
-    }
   }
-  .backdrop-modal > div.MuiModal-backdrop {
-    background-color: rgba(255, 255, 255, 0.9) !important;
   }
-  
 }

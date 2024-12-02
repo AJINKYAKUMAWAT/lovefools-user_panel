@@ -467,8 +467,7 @@ html {
   .lovefools-body .event-modal {
     width: 87%;
     padding: 8px;
-    height: 90vh;
-    overflow: auto;
+    height: 40%;
   }
 }
 .lovefools-body .event-modal .close-icon {
@@ -591,7 +590,7 @@ html {
   .lovefools-body .gallery-img {
     width: 87%;
     padding: 8px;
-    min-height: 50%;
+    height: 40%;
   }
 }
 .lovefools-body .gallery-section {
@@ -945,7 +944,4 @@ label.text-small {
 }
 .lovefools-body .grid-menu-list > .MuiBox-root {
   min-width: 80px;
-}
-.lovefools-body .backdrop-modal > div.MuiModal-backdrop {
-  background-color: rgba(255, 255, 255, 0.9) !important;
 }/*# sourceMappingURL=globals.css.map */
