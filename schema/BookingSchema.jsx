@@ -27,6 +27,7 @@ export const menuSchema = Yup.object().shape({
     .required("Price is required")
     .positive("Price must be a positive number"),
   menu_Name: Yup.string().required("Receipt name is required"),
+  id: Yup.string().required("Id is required"),
   menuType: Yup.string().required("Menu type is required"),
   subMenuType: Yup.string().required("Sub Menu Type is required"),
 });

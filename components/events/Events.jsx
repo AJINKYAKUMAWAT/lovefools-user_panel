@@ -250,6 +250,7 @@ const Events = () => {
         BackdropProps={{ style: { pointerEvents: "none" } }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+         className="backdrop-modal"
       >
         <Box className="event-modal">
           <Grid container>

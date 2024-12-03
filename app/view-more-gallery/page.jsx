@@ -81,7 +81,6 @@ const Gallery = () => {
   }
   return (
     <>
-      {!loading1 && (
     <section className="common-section hover-img" id="Gallery">
         <Container>
           <Grid container>
@@ -280,7 +279,6 @@ const Gallery = () => {
           </Grid>
         </Container>
         </section>
-    )}
     </>
   );
 };

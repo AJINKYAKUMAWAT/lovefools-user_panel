@@ -55,4 +55,13 @@ export const AboutUsSection =
     },
   ];
 
-  
+  export const menuType = [
+    {
+      id: '1',
+      type: 'Ala Carte',
+    },
+    {
+      id: '2',
+      type: 'Set Menu',
+    },
+  ];

@@ -15,6 +15,7 @@ import Gallery from "@/components/gallery/Gallery";
 import Testimonial from "@/components/testimonial/Testimonial";
 import Contact from "@/components/contact/Contact";
 import Footer2 from "@/components/footer/Footer2";
+import zIndex from "@mui/material/styles/zIndex";
 
 const Page = () => {
   const [upcomimgEvent, setUpcomimgEvent] = useState([]);

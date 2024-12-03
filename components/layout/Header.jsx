@@ -105,6 +105,16 @@ export default function Header(props) {
             </ListItemButton>
           </ListItem>
         ))}
+         <ListItem disablePadding>
+            <ListItemButton
+              onClick={() => {
+                router.push("/booking");
+              }}
+            >
+            
+                <ListItemText primary="Booking" />
+            </ListItemButton>
+          </ListItem>
       </List>
     </Box>
   );

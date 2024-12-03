@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { API_ENDPOINT, MenuType, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import axios from "axios";
 import Button from "../common/Button";
+import Loader from "../common/loader/Loader";
 
 const SelectMenuForm = ({
   setActiveTab,
@@ -27,7 +28,7 @@ const SelectMenuForm = ({
   const [menu, setMenu] = useState(true);
   const [menuList, setMenuList] = useState([]);
   const [subMenu, setSubMenu] = useState("All");
-  const [menuType, setMenuType] = useState({Menu_Type:"1" });
+  const [menuType, setMenuType] = useState({ Menu_Type: "1" });
   const [selectIndex, setSelectIndex] = useState();
   const [loading, setLoading] = useState(false);
 
@@ -55,20 +56,21 @@ const SelectMenuForm = ({
 
   const selectMenu = (data) => {
     setValue("price", data.price);
-    setValue("menu_Name", data._id);
+    setValue("id", data._id);
+    setValue("menu_Name", data.menu_Name);
     setValue("menuType", data.menuType);
     setValue("subMenuType", data.subMenuType);
     setSelectIndex(data.menu_Name);
   };
 
   useEffect(() => {
-    getMenuList({ ...menuType});
+    getMenuList({ ...menuType });
   }, [menuType]);
 
   const selectSubMenu = (item) => {
     setSubMenu(item);
     if (item === "All") {
-      getMenuList({...menuType});
+      getMenuList({ ...menuType });
     } else if (item === "Veg") {
       setValue("subMenuType", "1");
       setMenuType({ ...menuType, Sub_Menu_Type: "1" });
@@ -133,17 +135,44 @@ const SelectMenuForm = ({
             cursor: "pointer",
           }}
         >
-          <Image src={Menu2} width={60} height={""} alt="Lovefool Img"/>
+          <Image src={Menu2} width={60} height={""} alt="Lovefool Img" />
+        </Box>
+      </div>
+      <div
+        className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-2 items-center justify-center"
+        style={{ display: "flex" }}
+      >
+        <Box>
+          <Typography
+            variant="h6"
+            sx={{
+              color: menu ? "red !important" : "#fff !important",
+              fontSize: "1rem",
+            }}
+          >
+            Ala Cart
+          </Typography>
+        </Box>
+        <Box>
+          <Typography
+            variant="h6"
+            sx={{
+              color: menu === false ? "red !important" : "#fff !important",
+              fontSize: "1rem",
+            }}
+          >
+            Set Menu
+          </Typography>
         </Box>
       </div>
       <div
         className="grid grid-cols-4 gap-4 md:grid-cols-4 mb-2 items-center justify-center grid-menu-list"
         style={{ display: "flex" }}
       >
-        {MenuType.map((item,index) => {
+        {MenuType.map((item, index) => {
           return (
             <Box
-            key={index}
+              key={index}
               sx={{
                 borderRadius: 2,
                 gap: 5,
@@ -170,14 +199,29 @@ const SelectMenuForm = ({
           );
         })}
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-2">
-        {loading ? (
-          <Skeleton variant="rounded" width={500} height={150} sx={{background:'#fff'}}/>
-        ) : (
-          <>
-            {menuList?.map((item,index) => {
+      {loading ? (
+        <Loader marginTop="2rem" background="transparent" marginBottom="3rem" />
+      ) : (
+        <>
+          <div className="flex items-center justify-center">
+            {menuList.length === 0 && (
+              <Typography
+                sx={{
+                  color: "#fff !important",
+                  border: "1px solid #fff",
+                  padding: "10px",
+                  borderRadius: "8px",
+                }}
+              >
+                No data found
+              </Typography>
+            )}
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-2">
+            {menuList?.map((item, index) => {
               return (
-                <Box key={index}
+                <Box
+                  key={index}
                   className={`flex items-center justify-center menuStyleBg grid-menustyle ${
                     (selectIndex ?? defaultValues.menu_Name) === item.menu_Name
                       ? "menuStyle"
@@ -186,7 +230,12 @@ const SelectMenuForm = ({
                   onClick={() => selectMenu(item)}
                 >
                   <Box className="menuBox bg-white">
-                    <Image src={item?.photo} width={30} height={30} alt="Lovefool Img" />
+                    <Image
+                      src={item?.photo}
+                      width={30}
+                      height={30}
+                      alt="Lovefool Img"
+                    />
                   </Box>
                   <Box sx={{ width: "100%" }} mt={3}>
                     <Box
@@ -244,9 +293,9 @@ const SelectMenuForm = ({
                 </Box>
               );
             })}
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
       {errors?.menu_Name && (
         <h4 style={{ color: "red", textAlign: "center" }}>
           Please select the Menu

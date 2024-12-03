@@ -1,40 +1,30 @@
 import {Box, Grid, Typography} from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../common/Button';
-import {API_ENDPOINT, NEXT_PUBLIC_API_URL} from '@/utils/constant';
-import { convertTimeObjectToString, formatDate, formatDateForApi } from '@/utils/utils';
+import {API_ENDPOINT, menuType, NEXT_PUBLIC_API_URL} from '@/utils/constant';
+import { convertTimeObjectToString, findSingleSelectedValueLabelOption, formatDate, formatDateForApi, generateOptions } from '@/utils/utils';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const PaymentDetails = ({setActiveTab, defaultValues,setDefaultValues}) => {
-	const [menuList, setMenuList] = useState([])
 	const PrevBtn = () => {
 		setActiveTab(3);
 	};
 
-	const getMenuList = async (params) => {
-		try {
-		  setLoading(true);
-		  const { data } = await axios.post(
-			`${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_MENU_LIST}`,
-			{ ...params }
-		  );
-		  setLoading(false);
-		  return setMenuList(data.data);
-		} catch (error) {
-		  setLoading(false);
-		  console.log(error);
-		}
+	const filterMenu = (type, list) => {
+		const getMenu = findSingleSelectedValueLabelOption(
+		  generateOptions(list, 'id', 'type'),
+		  type,
+		);
+		return getMenu.label;
 	  };
-
-	console.log("defaultValues",defaultValues);
 	
 
 	const BookingConfirm = async () => {
 		const payload = {
 			emailId: defaultValues.email,
 			mobileNo: defaultValues.mobile,
-			receiptName: defaultValues.menu_Name,
+			receiptName: defaultValues.id,
 			price: Number(defaultValues.quantity) * 250,
 			date: formatDateForApi(defaultValues.date),
 			time: convertTimeObjectToString(defaultValues.time),
@@ -109,6 +99,12 @@ const PaymentDetails = ({setActiveTab, defaultValues,setDefaultValues}) => {
 						<Typography sx={{color: '#a39f9f !important'}}>
 							{defaultValues.table_number.label}
 						</Typography>
+					</Box>
+				</Grid>
+				<Grid item md={4} className="paymentDetails">
+					<Box>
+						<Typography sx={{color: '#fff !important'}}>Menu Type</Typography>
+						<Typography sx={{color: '#a39f9f !important'}}>{filterMenu(defaultValues.menuType, menuType)}</Typography>
 					</Box>
 				</Grid>
 				<Grid item md={4} className="paymentDetails">

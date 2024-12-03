@@ -8,6 +8,7 @@ import ControllerTextArea from '../common/ControllerTextArea';
 import ControllerDatePicker from '../common/ControllerDatePicker';
 import ControllerDateTimePicker from '../common/ControllerDateTimePicker';
 import { upcomingEventSchema } from '@/schema/UpcomingEventSchema';
+import { Divider } from '@mui/material';
 
 const UpcomingEventForm = ({
   handleUpcomingEventSubmit,
@@ -33,8 +34,8 @@ const UpcomingEventForm = ({
       methods={methods}
       onSubmit={handleSubmit(onSubmit)}>
       <div >
-        <div className='grid gap-4'>
-          <div className='grid gap-4'>
+        <div className='grid'>
+          <div className='grid'>
             <ControllerDatePicker
               type='text'
               name='date'
@@ -43,14 +44,14 @@ const UpcomingEventForm = ({
               isDisabled={defaultValues.date}
             />
           </div>
-          <div className='grid gap-4 w-full'>
+          <div className='grid w-full'>
             <ControllerDateTimePicker
               name='time'
               label='Time'
               width='w-full'
             />
           </div>
-          <div className='grid gap-4'>
+          <div className='grid'>
             <ControllerTextField
               type='text'
               placeholder='Enter Mobile No.'
@@ -58,7 +59,7 @@ const UpcomingEventForm = ({
               label='Mobile No.'
             />
           </div>
-          <div className='grid gap-4'>
+          <div className='grid'>
             <ControllerTextField
               type='text'
               placeholder='Enter Email'
@@ -66,7 +67,7 @@ const UpcomingEventForm = ({
               label='Email'
             />
           </div>
-          <div className='grid gap-4'>
+          <div className='grid'>
             <ControllerTextArea
               type='text'
               placeholder='Message'
@@ -75,6 +76,10 @@ const UpcomingEventForm = ({
               rows={4}
             />
           </div>
+          <br />
+          <Divider/>
+          <br />
+
           <div className='flex justify-end space-x-4'>
             <Button
               type='button'

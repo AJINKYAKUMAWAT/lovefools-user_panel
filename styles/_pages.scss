@@ -224,7 +224,8 @@
     @media (max-width: 600px) {
       width: 87%; // Adjust for smaller screens
       padding: 8px; // Optional: allow height to adjust on small screens
-      height: 40%;
+      height: 90vh;
+      overflow: auto;
     }
 
     .close-icon {
@@ -363,7 +364,7 @@
     @media (max-width: 600px) {
       width: 87%; // Adjust for smaller screens
       padding: 8px; // Optional: allow height to adjust on small screens
-      height: 40%;
+      min-height:50%;
     }
   }
 
@@ -755,6 +756,13 @@ label.text-small {
 }
 .bg-color{
   background-color: $bg-page !important;
+}
+.backdrop-modal > div.MuiModal-backdrop {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.flex.w-screen.fixed.inset-0.z-50.overflow-x-auto.justify-center.h-\[--visual-viewport-height\].items-end.sm\:items-center.\[--scale-enter\:100\%\].\[--scale-exit\:100\%\].\[--slide-enter\:0px\].\[--slide-exit\:80px\].sm\:\[--scale-enter\:100\%\].sm\:\[--scale-exit\:103\%\].sm\:\[--slide-enter\:0px\].sm\:\[--slide-exit\:0px\] {
+  z-index: 9999 !important;
 }
 }
 
