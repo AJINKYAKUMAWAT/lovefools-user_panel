@@ -2,7 +2,6 @@
 import React, { useRef, useState } from "react";
 import { Box, Container, Grid } from "@mui/material";
 import CustomizedSteppers from "@/components/stepper/Stepper";
-import { BookingsIcons } from "@/utils/constant";
 import DateForm from "@/components/booking-form/DateForm";
 import TableForm from "@/components/booking-form/SelectTableForm";
 import SelectMenuForm from "@/components/booking-form/SelectMenuForm";
@@ -47,7 +46,7 @@ const Page = () => {
         <Box sx={{ width: "90%", border: "1px solid #fff",borderRadius:'8px' }} className="mt-36">
           <br />
           <br />
-          <CustomizedSteppers icons={BookingsIcons} activeTab={activeTab} />
+          <CustomizedSteppers activeTab={activeTab} />
           <Container sx={{ width: "80%" }} className="mt-10">
             {activeTab === 0 && (
               <DateForm

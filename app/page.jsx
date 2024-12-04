@@ -125,7 +125,7 @@ const Page = () => {
                     </Button>
                   </h2>
                   <Image
-                   src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${row.photo}`}
+                   src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${item.photo}`}
                     className="carousal-image"
                     alt="Lovefools"
                     layout="responsive"
