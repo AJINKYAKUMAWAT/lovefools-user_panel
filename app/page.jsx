@@ -50,7 +50,7 @@ const Page = () => {
   }, []);
 
   const mergeArrays = () => {
-    setMergeEvent((prevItems1) => [...prevItems1, ...upcomimgEvent]);
+    setMergeEvent((prevItems1) => [...upcomimgEvent]);
   };
 
   useEffect(() => {
@@ -104,59 +104,55 @@ const Page = () => {
 
   return (
     <>
-     <Box className="home-banner-section bg-white">
-  {loading ? (
-    <Skeleton height="98vh" width="98vw" variant="rectangular" />
-  ) : (
-    <Carousel
-      showArrows={false}
-      autoPlay={true}
-      infiniteLoop={true}
-      interval={5000}
-      showStatus={false}
-      showThumbs={false}
-    >
-      {mergeEvent.map((item, index) => {
-        // Dynamically determine the correct image URL
-        const imageUrl =
-          index === 0
-            ? item.photo // Directly use the photo field for the first item
-            : `${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${item.photo}`; // Construct URL for others
+      <Box className="home-banner-section bg-white">
+        {loading ? (
+          <Skeleton height="98vh" width="98vw" variant="rectangular" />
+        ) : (
+          <Carousel
+            showArrows={false}
+            autoPlay={true}
+            infiniteLoop={true}
+            interval={5000}
+            showStatus={false}
+            showThumbs={false}
+          >
+            {mergeEvent.map((item, index) => {
+              // Dynamically determine the correct image URL
+              const imageUrl = `${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${item.photo}`; // Construct URL for others
 
-        return (
-          <div key={index}>
-            <h2 className="carousel-title common-heading-h1">
-              <span style={{ fontWeight: "600" }}>{item.event_Name}</span>
-              <br /> {item.description}
-              <br />
-              <Button
-                variant="contained"
-                className="btn-primary btn-sm"
-                onClick={() => toggleUpcomingEventFormModal(item)}
-              >
-                {item.viveBtn ? item.viveBtn : "Enquiry Now"}
-              </Button>
-            </h2>
-            <Image
-              src={imageUrl}
-              className="carousal-image"
-              alt={item.event_Name || "Carousel Image"}
-              layout="responsive"
-              width={1920} // Maintain aspect ratio
-              height={1080}
-            />
-          </div>
-        );
-      })}
-    </Carousel>
-  )}
-  <AboutUs />
-  <Events />
-  <Gallery />
-  <Testimonial />
-  <Contact />
-  <Footer2 />
-</Box>
+              return (
+                <div key={index}>
+                  <h2 className="carousel-title common-heading-h1">
+                    <span style={{ fontWeight: "600" }}>{item.event_Name}</span>
+                    <br /> {item.description}
+                    <br />
+                    <Button
+                      variant="contained"
+                      className="btn-primary btn-sm"
+                      onClick={() => toggleUpcomingEventFormModal(item)}
+                    >
+                      {item.viveBtn ? item.viveBtn : "Enquiry Now"}
+                    </Button>
+                  </h2>
+                  <Image
+                          alt="Lovefools"
+                          src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${item.photo}`}
+                          className="event-img"
+                          width={500}
+                          height={500}
+                        />
+                </div>
+              );
+            })}
+          </Carousel>
+        )}
+        <AboutUs />
+        <Events />
+        <Gallery />
+        <Testimonial />
+        <Contact />
+        <Footer2 />
+      </Box>
 
       <PopupModal
         isOpen={showModal}
