@@ -30,9 +30,6 @@ const Page = () => {
   });
 
   
-  console.log("defaultValues", defaultValues);
-
- 
   const handleSubmit = (data) => {
    setDefaultValues(data)
   }

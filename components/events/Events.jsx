@@ -13,6 +13,7 @@ import UpcomingEventForm from "../Upcoming-form/UpcomingForm";
 import PopupModal from "../common/PopupModal";
 import { toast } from "react-toastify";
 import { convertTimeObjectToString, formatDate } from "@/utils/utils";
+import { useRouter } from "next/navigation";
 
 const Events = () => {
   const [view, setView] = React.useState(6);
@@ -26,6 +27,7 @@ const Events = () => {
   const [oldEventObj, setOldEventObj] = React.useState(null);
   const [loading1, setLoading1] = React.useState(false);
   const [loading2, setLoading2] = React.useState(false);
+  const router = useRouter()
 
   const defaultValues = React.useRef({
     id: null,
@@ -42,7 +44,7 @@ const Events = () => {
   };
 
   const handleView = () => {
-    setView((view) => view + 3);
+    router.push('/view-more-events')
   };
   const getEvents = async () => {
     try {

@@ -41,7 +41,6 @@ const Contact = () => {
       date: eventDate ? new Date(eventDate) : null,
     }));
   }, [eventDate]);
-  console.log("enquiryName", eventDate);
   const handleSubmit = async () => {
     const payload = {
       mobile_number: contact.mobile_no,
@@ -111,8 +110,6 @@ const Contact = () => {
       toast.success("Contact form submitted successfully");
     }
   };
-
-  console.log("name",contact.name)
 
   return (
     <section className="contact-us-section common-section" id="Contact us">

@@ -10,6 +10,7 @@ import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
+import { useRouter } from "next/navigation";
 
 const Gallery = () => {
   const [video, setVideo] = React.useState(false);
@@ -25,9 +26,10 @@ const Gallery = () => {
   const [galleryObj, setGalleryObj] = React.useState(null);
   const [loading1, setLoading1] = React.useState(false);
   const [loading2, setLoading2] = React.useState(false);
+  const router = useRouter()
 
   const handleView = () => {
-    setView((view) => view + 4);
+   router.push('/view-more-gallery')
   };
 
   const Styles = video ? "gallery-video" : "gallery-img";
@@ -36,7 +38,7 @@ const Gallery = () => {
     try {
       setLoading1(true);
       const data = await axios.post(
-        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_GALLERY}`
+        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.GET_GALLERY_LIST_BY_USER}`
       );
       const response = data.data.data;
       const getPhoto = response.filter((res) => res.photo && !res.video);
@@ -148,7 +150,7 @@ const Gallery = () => {
               <>
                 {photo &&
                   imageList.length > 0 &&
-                  imageList?.slice(0, view).map((i, index) => {
+                  imageList?.slice(0, 8).map((i, index) => {
                     return (
                       <Grid key={index} item xs={6} sm={6} md={3} lg={3}>
                         <Card className="gallary-card-w">
@@ -183,7 +185,7 @@ const Gallery = () => {
               <>
                 {video &&
                   videoList.length > 0 &&
-                  videoList?.slice(0, view).map((i, index) => {
+                  videoList?.slice(0, 8).map((i, index) => {
                     return (
                       <Grid key={index} item xs={6} sm={6} md={3} lg={3}>
                         <Card className="gallary-card-w">
@@ -219,7 +221,7 @@ const Gallery = () => {
             md={12}
             lg={12}
           >
-            {photo && imageList.length > 12 && (
+            {photo && imageList.length > 8 && (
               <Button
                 onClick={handleView}
                 variant="contained"
@@ -228,7 +230,7 @@ const Gallery = () => {
                 View More
               </Button>
             )}
-            {video && videoList.length > 12 && (
+            {video && videoList.length > 8 && (
               <Button
                 onClick={handleView}
                 variant="contained"

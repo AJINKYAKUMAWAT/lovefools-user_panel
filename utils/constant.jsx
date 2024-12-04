@@ -10,6 +10,7 @@ export const API_ENDPOINT = {
   GET_EVENTS: "getEventList",
   GET_CMS: "getCMSList",
   GET_GALLERY: "getGalleryList",
+  GET_GALLERY_LIST_BY_USER: "getGalleryListByUser",
   GET_FILE: (id) => `${NEXT_PUBLIC_API_URL}file/${id}`,
   GET_MENU_LIST:'getMenuList',
   GET_ROOM_LIST:'getRoomList',

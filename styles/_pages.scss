@@ -764,5 +764,11 @@ label.text-small {
 .flex.w-screen.fixed.inset-0.z-50.overflow-x-auto.justify-center.h-\[--visual-viewport-height\].items-end.sm\:items-center.\[--scale-enter\:100\%\].\[--scale-exit\:100\%\].\[--slide-enter\:0px\].\[--slide-exit\:80px\].sm\:\[--scale-enter\:100\%\].sm\:\[--scale-exit\:103\%\].sm\:\[--slide-enter\:0px\].sm\:\[--slide-exit\:0px\] {
   z-index: 9999 !important;
 }
+
+.gallery-thumbnail{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* Ensure image fits within the box */
+}
 }
 
