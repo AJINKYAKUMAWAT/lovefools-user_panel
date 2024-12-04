@@ -215,7 +215,6 @@ const Events = () => {
             sm={12}
             md={12}
             lg={12}
-            gap={4}
           >
             {eventList.length > 6 && (
               <Button
@@ -230,8 +229,8 @@ const Events = () => {
             <Button
               onClick={toggleUpcomingEventFormModal}
               variant="contained"
-              className="btn-secondary mt40 ml-4"
-              style={{ background: "#fff" }}
+              className="btn-secondary mt40"
+              style={{ background: "#fff", marginLeft:'15px' }}
             >
                 New Enquiry
             </Button>
