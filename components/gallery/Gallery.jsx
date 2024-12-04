@@ -6,12 +6,10 @@ import { Box, Button, Container, Grid, Modal, Skeleton } from "@mui/material";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import ReactPlayer from "react-player";
 import Image from "next/image";
-import {
-  API_ENDPOINT,
-  NEXT_PUBLIC_API_URL,
-} from "@/utils/constant";
+import { API_ENDPOINT, NEXT_PUBLIC_API_URL } from "@/utils/constant";
 import axios from "axios";
-import { AuthContextProvider } from "@/authcontext/AuthContext";
+import CloseIcon from "@mui/icons-material/Close";
+import IconButton from "@mui/material/IconButton";
 
 const Gallery = () => {
   const [video, setVideo] = React.useState(false);
@@ -139,7 +137,7 @@ const Gallery = () => {
                 {Array.from({ length: 4 }).map((_, index) => {
                   return (
                     <Grid key={index} item xs={6} sm={6} md={3} lg={3}>
-                      <div >
+                      <div>
                         <Skeleton variant="rounded" width={250} height={220} />
                       </div>
                     </Grid>
@@ -175,8 +173,8 @@ const Gallery = () => {
               <>
                 {Array.from({ length: 4 }).map((_, index) => {
                   return (
-                    <Grid  key={index} item xs={6} sm={6} md={3} lg={3}>
-                        <Skeleton variant="rounded" width={250} height={220} />
+                    <Grid key={index} item xs={6} sm={6} md={3} lg={3}>
+                      <Skeleton variant="rounded" width={250} height={220} />
                     </Grid>
                   );
                 })}
@@ -221,25 +219,24 @@ const Gallery = () => {
             md={12}
             lg={12}
           >
-            {photo && imageList.length > 12 && 
-             <Button
-             onClick={handleView}
-             variant="contained"
-             className="btn-primary mt40"
-           >
-             View More
-           </Button>
-            }
-             {video && videoList.length > 12 && 
-             <Button
-             onClick={handleView}
-             variant="contained"
-             className="btn-primary mt40"
-           >
-             View More
-           </Button>
-            }
-           
+            {photo && imageList.length > 12 && (
+              <Button
+                onClick={handleView}
+                variant="contained"
+                className="btn-primary mt40"
+              >
+                View More
+              </Button>
+            )}
+            {video && videoList.length > 12 && (
+              <Button
+                onClick={handleView}
+                variant="contained"
+                className="btn-primary mt40"
+              >
+                View More
+              </Button>
+            )}
           </Grid>
           <Modal
             open={open}
@@ -249,6 +246,19 @@ const Gallery = () => {
             className="backdrop-modal"
           >
             <Box className={Styles}>
+              <IconButton
+                onClick={handleClose}
+                style={{
+                  position: "absolute",
+                  top: 10,
+                  right: 10,
+                  zIndex: 10,
+                  backgroundColor: "#fff",
+                  color: "white",
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
               {video ? (
                 <ReactPlayer
                   style={{ borderRadius: "8px", position: "relative" }}
