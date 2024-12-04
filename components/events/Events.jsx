@@ -180,15 +180,6 @@ const Events = () => {
                           width={500}
                           height={500}
                         />
-
-                        <Image
-                          alt="Lovefools"
-                          src={gallayIcon}
-                          className="gallay-icon-img"
-                          width={""}
-                          height={""}
-                        />
-
                         <div className="event-body">
                           <Typography
                             variant="h3"
