@@ -119,7 +119,7 @@ const Gallery = () => {
   }
 
   return (
-    <section className="common-section hover-img" id="Gallery">
+    <section className="common-section hover-img bg-color" id="Gallery">
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>

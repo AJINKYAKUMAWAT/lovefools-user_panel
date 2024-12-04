@@ -215,6 +215,7 @@ const Events = () => {
             sm={12}
             md={12}
             lg={12}
+            gap={4}
           >
             {eventList.length > 6 && (
               <Button

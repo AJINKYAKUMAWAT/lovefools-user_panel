@@ -136,7 +136,7 @@ export default function Header(props) {
       <header className="common-header" >
         <Box className="header-container">
           <CssBaseline />
-          <AppBar component="nav" className="common-nav shadow-none" style={{background:bgColor}}>
+          <AppBar component="nav" className="common-nav shadow-none" style={{background:bgColor, boxShadow:'none'}}>
             <Toolbar>
               <Typography>
                 <Image
