@@ -135,7 +135,7 @@ const Events = () => {
                       <Box className="event-card hover-img">
                         <Image
                           alt="Lovefools"
-                          src={i.photo}
+                          src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${row.photo}`}
                           className="event-img"
                           width={500}
                           height={500}
@@ -213,7 +213,7 @@ const Events = () => {
               <Box className="event-img-box" onClick={handleClose}>
                 <Image
                   alt="Lovefools"
-                  src={eventObj.photo}
+                  src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${eventObj.photo}`}
                   width={500}
                   height={500}
                 />

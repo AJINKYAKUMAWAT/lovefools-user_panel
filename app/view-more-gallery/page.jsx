@@ -165,7 +165,7 @@ const Gallery = () => {
                           <Card className="gallary-card-w">
                             <Image
                               alt="Lovefools"
-                              src={i.photo}
+                              src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${i.photo}`}
                               width={500}
                               height={500}
                               className="gallary-thumbnail"
@@ -209,7 +209,7 @@ const Gallery = () => {
                               </Button>
                               <Image
                                 alt="Lovefools"
-                                src={i.photo}
+                                src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${i.photo}`}
                                 width={500}
                                 height={500}
                                 className="gallary-thumbnail"
@@ -259,7 +259,7 @@ const Gallery = () => {
                 {video ? (
                   <ReactPlayer
                     style={{ borderRadius: "8px", position: "relative" }}
-                    url={videObj.video}
+                    src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${videObj.video}`}
                     // playing
                     controls={true}
                     width="100%"

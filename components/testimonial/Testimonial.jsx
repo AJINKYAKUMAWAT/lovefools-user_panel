@@ -153,7 +153,7 @@ const Testimonial = () => {
               {testimonialList.map((item, index) => (
                 <div className="testimonial-card" key={index}>
                   <div className="testimonial-img">
-                    <Image src={item.photo} alt="avatar" width={100} height={100} />
+                    <Image src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${item.photo}`} alt="avatar" width={100} height={100} />
                   </div>
                   <div className="testimonial-body">
                     <Image src={doubleQuate} alt="double-quate" />

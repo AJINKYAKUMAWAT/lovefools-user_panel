@@ -231,7 +231,7 @@ const SelectMenuForm = ({
                 >
                   <Box className="menuBox bg-white">
                     <Image
-                      src={item?.photo}
+                      src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${item?.photo}`}
                       width={30}
                       height={30}
                       alt="Lovefool Img"

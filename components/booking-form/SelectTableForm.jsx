@@ -180,7 +180,7 @@ const TableListForm = ({
                           }}
                         >
                           <Image
-                            src={table.photo}
+                            src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${table.photo}`}
                             width={100}
                             height={100}
                             alt="Table"

@@ -154,7 +154,7 @@ const Gallery = () => {
                         <Card className="gallary-card-w">
                           <Image
                             alt="Lovefools"
-                            src={i.photo}
+                            src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${i.photo}`}
                             width={500}
                             height={500}
                             className="gallary-thumbnail"
@@ -198,7 +198,7 @@ const Gallery = () => {
                             </Button>
                             <Image
                               alt="Lovefools"
-                              src={i.photo}
+                              src={`${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${i.photo}`}
                               width={500}
                               height={500}
                               className="gallary-thumbnail"
