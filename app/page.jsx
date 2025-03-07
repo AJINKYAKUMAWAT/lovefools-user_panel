@@ -94,14 +94,6 @@ const Page = () => {
     }
   };
 
-  const getImage = (imgPath) => {
-    const getUrl =
-      typeof imgPath === "string"
-        ? process.env.NEXT_PUBLIC_CLOUD_FRONT_URL + imgPath
-        : imgPath;
-    return getUrl;
-  };
-
   return (
     <>
       <Box className="home-banner-section bg-white">
@@ -117,9 +109,6 @@ const Page = () => {
             showThumbs={false}
           >
             {mergeEvent.map((item, index) => {
-              // Dynamically determine the correct image URL
-              const imageUrl = `${process.env.NEXT_PUBLIC_CLOUD_FRONT_URL}${item.photo}`; // Construct URL for others
-
               return (
                 <div key={index}>
                   <h2 className="carousel-title common-heading-h1">

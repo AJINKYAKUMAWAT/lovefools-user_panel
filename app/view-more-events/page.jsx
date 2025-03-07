@@ -79,6 +79,8 @@ const Events = () => {
     getOldEvents();
   }, []);
 
+  console.log("eventObj",eventObj.photo)
+
   return (
     <section className="events-section common-section" id="Event">
       <Container>
