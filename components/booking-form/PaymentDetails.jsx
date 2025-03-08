@@ -77,7 +77,7 @@ const PaymentDetails = ({ setActiveTab, defaultValues, setDefaultValues }) => {
         `${NEXT_PUBLIC_API_URL}/payment-page/order/ordeh_e8de090420e748b3ac62db969eadd72c`
       );
       const response = await axios.post(
-        `http://localhost:5000/api/user/${API_ENDPOINT.PAYMENT_AUTH}`,
+        `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.PAYMENT_AUTH}`,
         data,
         {
           headers: {
