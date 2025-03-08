@@ -18,6 +18,7 @@ export const API_ENDPOINT = {
   ADD_RECEIPT: 'addReceipt',
   GET_UPCOMING_EVENT: 'getUpComingEventList',
   ADD_ENQUIRY: 'addEnquiry',
+  PAYMENT_AUTH: 'initiatePayment',
 };
 
 export const ERROR_MESSAGES = "This field is required";

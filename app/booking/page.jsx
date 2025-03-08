@@ -37,7 +37,7 @@ const Page = () => {
   return (
     <section
       className="about-section common-section overflow-auto"
-      style={{ background: "#000000e5", height: "100vh", overflow: "auto" }}
+      style={{ background: "#000000", height: "100vh", overflow: "auto" }}
     >
       <Box className="booking-banner-section flex justify-center overflow-auto mb-30">
         <Box sx={{ width: "90%", border: "1px solid #fff",borderRadius:'8px' }} className="mt-36">
