@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import "../../styles/order-success.css";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const OrderSuccess = () => {
   const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
@@ -34,4 +34,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default OrderSuccess;
