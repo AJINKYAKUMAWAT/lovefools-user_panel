@@ -4,9 +4,8 @@
     padding: 40px 0;
     background: #EBF0F5;
     height: 100vh;
-  }
-  .common-header{
-    display: none !important;
+    position: relative;
+    z-index: 9999999;
   }
   .success-body .success-h1 {
       color: #88B04B;
