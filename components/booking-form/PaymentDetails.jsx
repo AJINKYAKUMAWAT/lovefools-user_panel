@@ -26,47 +26,8 @@ const PaymentDetails = ({ setActiveTab, defaultValues, setDefaultValues }) => {
   };
 
   const BookingConfirm = async () => {
-    const payload = {
-      emailId: defaultValues.email,
-      mobileNo: defaultValues.mobile,
-      receiptName: defaultValues.id,
-      price: Number(defaultValues.quantity) * 250,
-      date: formatDateForApi(defaultValues.date),
-      time: convertTimeObjectToString(defaultValues.time),
-      type: defaultValues.menuType,
-      sub_type: defaultValues.subMenuType,
-      room: defaultValues.room.value,
-      table_number: defaultValues.table_number.value,
-    };
-
+    
     try {
-      // const options = {
-      // 	key: 'rzp_test_BGKRq8Cw1V2ph4',
-      // 	amount: (defaultValues.quantity * 100 ) * 250, // Amount in paise
-      // 	currency: 'INR',
-      // 	name: 'Lovefools',
-      // 	description: 'Test Transaction',
-      // 	// order_id: "order_9A33XWu170gUtm", // Generate order_id on server
-      // 	handler: async (response) => {
-      // 		await axios.post(
-      // 			`${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_RECEIPT}`,
-      // 			payload
-      // 		);
-      // 		toast.success('Booking Confirmation Succesfully')
-      // 		setDefaultValues({})
-      // 		setActiveTab(0)
-      // 	},
-      // 	prefill: {
-      // 		email: defaultValues.email,
-      // 		contact: defaultValues.mobile,
-      // 	},
-      // 	theme: {
-      // 		color: '#F37254',
-      // 	},
-      // };
-
-      // const razorpayInstance = new Razorpay(options);
-      // razorpayInstance.open();
       const data = new FormData();
       data.append("order_id", "ord_17402892217778888");
       data.append("amount", "100.00");
@@ -74,7 +35,7 @@ const PaymentDetails = ({ setActiveTab, defaultValues, setDefaultValues }) => {
       data.append("currency", "INR");
       data.append(
         "redirect_url",
-        `${NEXT_PUBLIC_API_URL}/payment-page/order/ordeh_e8de090420e748b3ac62db969eadd72c`
+        `https://smartgatewayuat.hdfcbank.com/payment-page/order/ordeh_e8de090420e748b3ac62db969eadd72c`
       );
       const response = await axios.post(
         `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.PAYMENT_AUTH}`,
@@ -85,15 +46,75 @@ const PaymentDetails = ({ setActiveTab, defaultValues, setDefaultValues }) => {
           },
         }
       );
-	  if (response.data?.redict_url) {
-      toast.success('Booking Confirmation Succesfully')
-		window.location.href = response.data.redict_url; // Redirect the user
-	  } 
-      console.log("data", response.data);
+
+      const payload = {
+        orderId:response.data.orderId,
+        emailId: defaultValues.email,
+        mobileNo: defaultValues.mobile,
+        receiptName: defaultValues.id,
+        price: Number(defaultValues.quantity) * 250,
+        date: formatDateForApi(defaultValues.date),
+        time: convertTimeObjectToString(defaultValues.time),
+        type: defaultValues.menuType,
+        sub_type: defaultValues.subMenuType,
+        room: defaultValues.room.value,
+        table_number: defaultValues.table_number.value,
+      };
+  
+      if (response.data) {
+       const  res = await axios.post(
+          `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_RECEIPT}`,
+          payload
+        );
+        console.log("data",response.data)
+        console.log("data",res.data)
+        // toast.success('Booking Confirmation Succesfully')
+        window.location.href = response.data.redict_url; // Redirect the user
+      }
     } catch (error) {
       console.log(error);
     }
   };
+  // const BookingConfirm = async () => {
+  //   try {
+  //     const data = new FormData();
+  //     data.append("order_id", `order_${Date.now()}`);
+  //     data.append("amount", defaultValues.quantity * 250);
+  //     data.append("payment_page_client_id", "hdfcmaster");
+  //     data.append("currency", "INR");
+  //     data.append("emailId", defaultValues.email);
+  //     data.append("mobileNo", defaultValues.mobile);
+  //     data.append("receiptName", defaultValues.id);
+
+  //     data.append("date", formatDateForApi(defaultValues.date));
+  //     data.append("time", convertTimeObjectToString(defaultValues.time));
+  //     data.append("type", defaultValues.menuType);
+  //     data.append("sub_type", defaultValues.subMenuType);
+  //     data.append("room", defaultValues.room.value);
+  //     data.append("table_number", defaultValues.table_number.value);
+  //     data.append(
+  //       "redirect_url",
+  //       `http://localhost:5000/api/user/${API_ENDPOINT.HANDLE_PAYMENT_RESPONSE}`
+  //     );
+
+  //     const response = await axios.post(
+  //       `http://localhost:5000/api/user/${API_ENDPOINT.PAYMENT_AUTH}`,
+  //       data,
+  //       {
+  //         headers: { "Content-Type": "multipart/form-data" },
+  //       }
+  //     );
+
+  //     if (response.data?.redict_url) {
+  //       // Redirect the user to complete the payment
+  //       window.location.href = response.data.redict_url;
+  //     }
+  //   } catch (error) {
+  //     console.log("Payment Initiation Error:", error);
+  //     toast.error("Payment initiation failed!");
+  //   }
+  // };
+
   return (
     <div>
       <Grid container>
