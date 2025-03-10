@@ -9,10 +9,10 @@ const page = () => {
     setTimeout(() => {
       router.push("/");
     }, 5000);
-  }, []);
+  }, [router]);
   return (
     <div className="success-body">
-      <div class="card">
+      <div className="card">
         <div
           style={{
             borderRadius: "200px",
@@ -22,7 +22,7 @@ const page = () => {
             margin: "0 auto",
           }}
         >
-          <i class="checkmark">✓</i>
+          <i className="checkmark">✓</i>
         </div>
         <h1 className="success-h1">Success</h1>
         <p>
