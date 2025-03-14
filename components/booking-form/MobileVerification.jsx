@@ -129,6 +129,7 @@ const DateForm = ({
                     placeholder="Enter otp"
                     name="otp"
                     label="OTP"
+                    maxLength="6"
                   />
                 </div>
               </div>

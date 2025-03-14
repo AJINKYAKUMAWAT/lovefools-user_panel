@@ -224,7 +224,7 @@ const SelectMenuForm = ({
                   key={index}
                   className={`flex items-center justify-center menuStyleBg grid-menustyle ${
                     (selectIndex ?? defaultValues.menu_Name) === item.menu_Name
-                      ? "menuStyle"
+                      ? "menuStyle activeBorder4"
                       : ""
                   } cursor-pointer`}
                   onClick={() => selectMenu(item)}

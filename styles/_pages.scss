@@ -2,6 +2,7 @@
   .common-divider {
     margin: 16px auto;
   }
+
   .footer-menu {
     display: flex;
     flex-direction: row;
@@ -34,7 +35,9 @@
       }
     }
   }
-
+  .activeBorder4{
+    border: 2px solid $red !important;
+  }
   .color-red {
     color: $red !important;
   }
@@ -42,6 +45,7 @@
   .common-header {
     .common-nav {
       background: rgba(1, 1, 1, 0.43);
+
       .logo-img {
         @include xs {
           position: relative;
@@ -82,6 +86,7 @@
 
         color: $white;
         margin-left: 10px;
+
         p,
         a {
           color: $white;
@@ -94,9 +99,11 @@
 
     .mobile-menu-btn {
       color: $white;
+
       svg {
         fill: $white;
       }
+
       @include lg() {
         display: none;
       }
@@ -109,6 +116,7 @@
       width: 90%;
       margin-left: auto;
       margin-right: auto;
+
       img {
         max-width: 250px;
         padding-right: 30px;
@@ -137,6 +145,7 @@
       position: relative;
       z-index: 5;
       top: 5px;
+
       @include xs {
         top: 55px;
       }
@@ -289,10 +298,12 @@
 
     .event-body {
       padding: 24px 5px 0;
+
       .common-heading-h3 {
         opacity: 1;
         font-weight: 600;
       }
+
       .common-heading-h5 {
         opacity: 1;
       }
@@ -400,11 +411,13 @@
 
   .testimonial-section {
     background: #d4ba97;
+
     @include xs {
       .info-wrap {
-        margin: 0 auto 20px;
+        margin: 0 auto 20px;
       }
     }
+
     .center-line span {
       background-color: $bg-page;
     }
@@ -455,7 +468,7 @@
 
     .carousel.carousel-slider,
     .slide,
-    .slide > div {
+    .slide>div {
       @include xs {
         height: 80vh;
       }
@@ -474,6 +487,7 @@
       width: 100%;
       margin-top: -50px;
       color: $white;
+
       span {
         color: $white;
       }
@@ -509,6 +523,7 @@
         min-height: 583px;
         border: 3px solid $bg-page;
         border-radius: 25px;
+
         @include xs {
           min-height: 350px;
         }
@@ -622,8 +637,7 @@
   margin-bottom: 30px;
 }
 
-.group[data-filled-within="true"]
-  .group-data-\[filled-within\=true\]\:text-foreground {
+.group[data-filled-within="true"] .group-data-\[filled-within\=true\]\:text-foreground {
   --tw-text-opacity: 1;
   color: #fff !important;
 }
@@ -638,6 +652,7 @@ label.text-small {
 
 .menuStyleBg {
   background: #efe8e81f;
+  border: 2px solid transparent;
 }
 
 .grid-menustyle {
@@ -652,7 +667,8 @@ label.text-small {
 .carousal-image {
   width: 100%;
   height: auto;
-  object-fit: cover; /* Ensures image covers the container */
+  object-fit: cover;
+  /* Ensures image covers the container */
 }
 
 .note-text {
@@ -667,7 +683,8 @@ label.text-small {
 
 .lovefools-body {
   .home-banner-section {
-    .slider .slide > {
+    .slider .slide> {
+
       div,
       div img.carousal-image {
         height: 100% !important;
@@ -679,6 +696,7 @@ label.text-small {
   .about-section .info-wrap {
     padding-top: 80px;
     padding-right: 70px;
+
     @include xs {
       padding-right: 0;
     }
@@ -724,6 +742,7 @@ label.text-small {
         height: 100% !important;
       }
     }
+
     .gallary-card-w img {
       width: 100%;
       width: 160px;
@@ -731,10 +750,12 @@ label.text-small {
       object-fit: cover;
     }
   }
+
   .booking-banner-section {
     .MuiContainer-root {
       padding-bottom: 50px;
       min-height: 40vh;
+
       .container {
         .flex.justify-center.space-x-4 {
           margin-top: 20px;
@@ -742,37 +763,80 @@ label.text-small {
       }
     }
   }
-  .table-graphic{
+
+  .table-graphic {
     margin-bottom: 10px;
-    .table-img{
+
+    .table-img {
       height: 100px;
     }
   }
-  .grid-menu-list{
+
+  .grid-menu-list {
     margin-top: 15px;
+
     >.MuiBox-root {
       min-width: 80px;
+    }
   }
-}
-.bg-color{
-  background-color: $bg-page !important;
-}
-.backdrop-modal > div.MuiModal-backdrop {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-}
 
-.flex.w-screen.fixed.inset-0.z-50.overflow-x-auto.justify-center.h-\[--visual-viewport-height\].items-end.sm\:items-center.\[--scale-enter\:100\%\].\[--scale-exit\:100\%\].\[--slide-enter\:0px\].\[--slide-exit\:80px\].sm\:\[--scale-enter\:100\%\].sm\:\[--scale-exit\:103\%\].sm\:\[--slide-enter\:0px\].sm\:\[--slide-exit\:0px\] {
-  z-index: 9999 !important;
-}
+  .bg-color {
+    background-color: $bg-page !important;
+  }
 
-.gallery-thumbnail{
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* Ensure image fits within the box */
-}
+  .backdrop-modal>div.MuiModal-backdrop {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
 
-.bg-color{
-  background-color: $bg-page;
-}
-}
+  .flex.w-screen.fixed.inset-0.z-50.overflow-x-auto.justify-center.h-\[--visual-viewport-height\].items-end.sm\:items-center.\[--scale-enter\:100\%\].\[--scale-exit\:100\%\].\[--slide-enter\:0px\].\[--slide-exit\:80px\].sm\:\[--scale-enter\:100\%\].sm\:\[--scale-exit\:103\%\].sm\:\[--slide-enter\:0px\].sm\:\[--slide-exit\:0px\] {
+    z-index: 9999 !important;
+  }
 
+  .gallery-thumbnail {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* Ensure image fits within the box */
+  }
+
+  .bg-color {
+    background-color: $bg-page;
+  }
+
+  .home-banner-section .carousel-root {
+    position: relative;
+    background: #000;
+
+    .banner-overlay {
+      background: #000;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    h2 {
+      z-index: 6;
+    }
+
+    .carousel .slide {
+      max-height: 90vh;
+      position: relative;
+      background: #000;
+
+      img {
+        width: 100%;
+        vertical-align: top;
+        border: 0;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+
+}

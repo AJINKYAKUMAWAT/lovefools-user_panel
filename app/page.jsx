@@ -16,6 +16,7 @@ import Testimonial from "@/components/testimonial/Testimonial";
 import Contact from "@/components/contact/Contact";
 import Footer2 from "@/components/footer/Footer2";
 import zIndex from "@mui/material/styles/zIndex";
+import Loader from "@/components/common/loader/Loader";
 
 const Page = () => {
   const [upcomimgEvent, setUpcomimgEvent] = useState([]);
@@ -98,7 +99,7 @@ const Page = () => {
     <>
       <Box className="home-banner-section bg-white">
         {loading ? (
-          <Skeleton height="98vh" width="98vw" variant="rectangular" />
+          <Loader marginTop="0" paddingTop="40vh" paddingBottom="40vh" background="#000" variant="rectangular" />
         ) : (
           <Carousel
             showArrows={false}
@@ -130,6 +131,7 @@ const Page = () => {
                           width={500}
                           height={500}
                         />
+                        <div className="banner-overlay"></div>
                 </div>
               );
             })}
