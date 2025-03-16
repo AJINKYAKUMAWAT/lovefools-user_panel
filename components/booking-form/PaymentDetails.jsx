@@ -59,6 +59,7 @@ const PaymentDetails = ({ setActiveTab, defaultValues, setDefaultValues }) => {
         sub_type: defaultValues.subMenuType,
         room: defaultValues.room.value,
         table_number: defaultValues.table_number.value,
+        paymentSuccess:false
       };
   
       if (response.data) {
@@ -66,55 +67,13 @@ const PaymentDetails = ({ setActiveTab, defaultValues, setDefaultValues }) => {
           `${NEXT_PUBLIC_API_URL}${API_ENDPOINT.ADD_RECEIPT}`,
           payload
         );
-        console.log("data",response.data)
-        console.log("data",res.data)
-        // toast.success('Booking Confirmation Succesfully')
         window.location.href = response.data.redict_url; // Redirect the user
       }
     } catch (error) {
       console.log(error);
     }
   };
-  // const BookingConfirm = async () => {
-  //   try {
-  //     const data = new FormData();
-  //     data.append("order_id", `order_${Date.now()}`);
-  //     data.append("amount", defaultValues.quantity * 250);
-  //     data.append("payment_page_client_id", "hdfcmaster");
-  //     data.append("currency", "INR");
-  //     data.append("emailId", defaultValues.email);
-  //     data.append("mobileNo", defaultValues.mobile);
-  //     data.append("receiptName", defaultValues.id);
-
-  //     data.append("date", formatDateForApi(defaultValues.date));
-  //     data.append("time", convertTimeObjectToString(defaultValues.time));
-  //     data.append("type", defaultValues.menuType);
-  //     data.append("sub_type", defaultValues.subMenuType);
-  //     data.append("room", defaultValues.room.value);
-  //     data.append("table_number", defaultValues.table_number.value);
-  //     data.append(
-  //       "redirect_url",
-  //       `http://localhost:5000/api/user/${API_ENDPOINT.HANDLE_PAYMENT_RESPONSE}`
-  //     );
-
-  //     const response = await axios.post(
-  //       `http://localhost:5000/api/user/${API_ENDPOINT.PAYMENT_AUTH}`,
-  //       data,
-  //       {
-  //         headers: { "Content-Type": "multipart/form-data" },
-  //       }
-  //     );
-
-  //     if (response.data?.redict_url) {
-  //       // Redirect the user to complete the payment
-  //       window.location.href = response.data.redict_url;
-  //     }
-  //   } catch (error) {
-  //     console.log("Payment Initiation Error:", error);
-  //     toast.error("Payment initiation failed!");
-  //   }
-  // };
-
+ 
   return (
     <div>
       <Grid container>
