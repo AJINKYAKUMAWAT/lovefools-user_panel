@@ -30,7 +30,7 @@ const PaymentDetails = ({ setActiveTab, defaultValues, setDefaultValues }) => {
     try {
       const data = new FormData();
       data.append("order_id", "ord_17402892217778888");
-      data.append("amount", "100.00");
+      data.append("amount", Number(defaultValues.quantity) * 250);
       data.append("payment_page_client_id", "hdfcmaster");
       data.append("currency", "INR");
       data.append(
